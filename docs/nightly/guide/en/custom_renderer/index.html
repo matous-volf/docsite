@@ -249,8 +249,8 @@
 <p>For more detailed docs about the struture of templates see the <a href="https://docs.rs/dioxus-core/latest/dioxus_core/prelude/struct.Template.html">Template api docs</a></p>
 </blockquote>
 <p>This template will be sent to the renderer in the <a href="https://docs.rs/dioxus-core/latest/dioxus_core/struct.Mutations.html#structfield.templates">list of templates</a> supplied with the mutations the first time it is used. Any time the renderer encounters a <a href="https://docs.rs/dioxus-core/latest/dioxus_core/enum.Mutation.html#variant.LoadTemplate">LoadTemplate</a> mutation after this, it should clone the template and store it in the given id.</p>
-<p>For dynamic nodes and dynamic text nodes, a placeholder node should be created and inserted into the UI so that the node can be navigated to later.</p>
-<p>In HTML renderers, this template could look like:</p>
+<p>For dynamic nodes and dynamic text nodes, a placeholder node should be created and inserted into the UI so that the node can be modified later.</p>
+<p>In HTML renderers, this template could look like this:</p>
 <pre><code class="language-html">&lt;h1&gt;&quot;&quot;&lt;/h1&gt;
 </code></pre>
 <h4 id="applying-mutations"><a class="header" href="#applying-mutations">Applying Mutations</a></h4>
@@ -363,14 +363,11 @@ nodes: [
 </span></code></pre></pre>
 <p>Conveniently, this approach completely separates the Virtual DOM and the Real DOM. Additionally, these edits are serializable, meaning we can even manage UIs across a network connection. This little stack machine and serialized edits make Dioxus independent of platform specifics.</p>
 <p>Dioxus is also really fast. Because Dioxus splits the diff and patch phase, it's able to make all the edits to the RealDOM in a very short amount of time (less than a single frame) making rendering very snappy. It also allows Dioxus to cancel large diffing operations if higher priority work comes in while it's diffing.</p>
-<p>This little demo serves to show exactly how a Renderer would need to process an edit stream to build UIs.</p>
+<p>This little demo serves to show exactly how a Renderer would need to process a mutation stream to build UIs.</p>
 <h2 id="event-loop"><a class="header" href="#event-loop">Event loop</a></h2>
-<p>Like most GUIs, Dioxus relies on an event loop to progress the VirtualDOM. The VirtualDOM itself can produce events as well, so it's important that your custom renderer can handle those too.</p>
+<p>Like most GUIs, Dioxus relies on an event loop to progress the VirtualDOM. The VirtualDOM itself can produce events as well, so it's important for your custom renderer can handle those too.</p>
 <p>The code for the WebSys implementation is straightforward, so we'll add it here to demonstrate how simple an event loop is:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>pub async fn run(&amp;mut self) -&gt; dioxus_core::error::Result&lt;()&gt; {
+<pre><code class="language-rust  ignore">pub async fn run(&amp;mut self) -&gt; dioxus_core::error::Result&lt;()&gt; {
     // Push the body element onto the WebsysDom's stack machine
     let mut websys_dom = crate::new::WebsysDom::new(prepare_websys_dom());
     websys_dom.stack.push(root_node);
@@ -395,13 +392,9 @@ nodes: [
         // render
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
-<p>It's important that you decode the real events from your event system into Dioxus' synthetic event system (synthetic meaning abstracted). This simply means matching your event type and creating a Dioxus <code>UserEvent</code> type. Right now, the VirtualEvent system is modeled almost entirely around the HTML spec, but we are interested in slimming it down.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>fn virtual_event_from_websys_event(event: &amp;web_sys::Event) -&gt; VirtualEvent {
+</code></pre>
+<p>It's important to decode what the real events are for your event system into Dioxus' synthetic event system (synthetic meaning abstracted). This simply means matching your event type and creating a Dioxus <code>UserEvent</code> type. Right now, the virtual event system is modeled almost entirely around the HTML spec, but we are interested in slimming it down.</p>
+<pre><code class="language-rust  ignore">fn virtual_event_from_websys_event(event: &amp;web_sys::Event) -&gt; VirtualEvent {
     match event.type_().as_str() {
         &quot;keydown&quot; =&gt; {
             let event: web_sys::KeyboardEvent = event.clone().dyn_into().unwrap();
@@ -428,15 +421,14 @@ nodes: [
         _ =&gt; todo!()
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <h2 id="custom-raw-elements"><a class="header" href="#custom-raw-elements">Custom raw elements</a></h2>
 <p>If you need to go as far as relying on custom elements/attributes for your renderer – you totally can. This still enables you to use Dioxus' reactive nature, component system, shared state, and other features, but will ultimately generate different nodes. All attributes and listeners for the HTML and SVG namespace are shuttled through helper structs that essentially compile away. You can drop in your elements any time you want, with little hassle. However, you must be sure your renderer can handle the new namespace.</p>
 <p>For more examples and information on how to create custom namespaces, see the <a href="https://github.com/DioxusLabs/dioxus/blob/master/packages/html/README.md#how-to-extend-it"><code>dioxus_html</code> crate</a>.</p>
 <h1 id="native-core"><a class="header" href="#native-core">Native Core</a></h1>
-<p>If you are creating a renderer in rust, the <a href="https://github.com/DioxusLabs/dioxus/tree/master/packages/native-core">native-core</a> crate provides some utilities to implement a renderer. It provides an abstraction over Mutations and Templates and contains helpers that can handle the layout, and text editing for you.</p>
+<p>If you are creating a renderer in rust, the <a href="https://github.com/DioxusLabs/dioxus/tree/master/packages/native-core">native-core</a> crate provides some utilities to implement a renderer. It provides an abstraction over Mutations and Templates and contains helpers that can handle the layout and text editing for you.</p>
 <h2 id="the-realdom"><a class="header" href="#the-realdom">The RealDom</a></h2>
-<p>The <code>RealDom</code> is a higher-level abstraction over updating the Dom. It updates with <code>Mutations</code> and provides a way to incrementally update the state of nodes based on attributes or other states that change.</p>
+<p>The <code>RealDom</code> is a higher-level abstraction over updating the Dom. It uses an entity component system to manage the state of nodes. This system allows you to modify insert and modify arbitrary components on nodes. On top of this, the RealDom provides a way to manage a tree of nodes, and the State trait provides a way to automatically add and update these components when the tree is modified. It also provides a way to apply <code>Mutations</code> to the RealDom.</p>
 <h3 id="example"><a class="header" href="#example">Example</a></h3>
 <p>Let's build a toy renderer with borders, size, and text color.
 Before we start let's take a look at an example element we can render:</p>
@@ -457,59 +449,107 @@ Before we start let's take a look at an example element we can render:</p>
 <p>In this tree, the color depends on the parent's color. The layout depends on the children's layout, the current text, and the text size. The border depends on only the current node.</p>
 <p>In the following diagram arrows represent dataflow:</p>
 <p><a href="https://mermaid.live/edit#pako:eNqllV1vgjAUhv8K6W4wkQVa2QdLdrHsdlfukmSptEhjoaSWqTH-9xVwONAKst70g5739JzzlO5BJAgFAYi52EQJlsr6fAszS7d1sVhKnCdWJDJFt6peLVs5-9owohK7HFrVcFJ_pxnpmK8VVvRkTJikkWIiaxy1dhP23bUwW1WW5WbPrrqJ4ziR4EJ6dtVN2ls5y1ZztePUcrWZFCvqVEcPPDffvlyS1XoLIQnVgnVvVPR6FU9Zc-6dV453ojjOPbuetRJ57gIeXQR3cez7rjtteZyZQ2j5MqmjqwE0ZW0VKx9RKtgpFewp1aw3sXXFy6TWgiYlv8mfq1scD8ofbBCAfQg8_AMBOAyBxzEIwA4CxgQ99QbQkjnD2KT7_CfxGF8_9WXQEsq5sDZCcjICOXRCri4h6r3NA38Q6Jdi1EOx5w3DGDYYI6MUvJFjM3VoGHUeGoMd6mBnDmh2E3fo7O4Yhf0x4OkBmIKUyhQzol_GfbkcApXQlIYg0EOC5SoEYXbQ-3ChxHyXRSBQsqBTUOREx_7OsAY3BUGM-VqvUsKUkB_1U6vf05gtweEHTk4_HQ"><img src="https://mermaid.ink/img/pako:eNqllV1vgjAUhv8K6W4wkQVa2QdLdrHsdlfukmSptEhjoaSWqTH-9xVwONAKst70g5739JzzlO5BJAgFAYi52EQJlsr6fAszS7d1sVhKnCdWJDJFt6peLVs5-9owohK7HFrVcFJ_pxnpmK8VVvRkTJikkWIiaxy1dhP23bUwW1WW5WbPrrqJ4ziR4EJ6dtVN2ls5y1ZztePUcrWZFCvqVEcPPDffvlyS1XoLIQnVgnVvVPR6FU9Zc-6dV453ojjOPbuetRJ57gIeXQR3cez7rjtteZyZQ2j5MqmjqwE0ZW0VKx9RKtgpFewp1aw3sXXFy6TWgiYlv8mfq1scD8ofbBCAfQg8_AMBOAyBxzEIwA4CxgQ99QbQkjnD2KT7_CfxGF8_9WXQEsq5sDZCcjICOXRCri4h6r3NA38Q6Jdi1EOx5w3DGDYYI6MUvJFjM3VoGHUeGoMd6mBnDmh2E3fo7O4Yhf0x4OkBmIKUyhQzol_GfbkcApXQlIYg0EOC5SoEYXbQ-3ChxHyXRSBQsqBTUOREx_7OsAY3BUGM-VqvUsKUkB_1U6vf05gtweEHTk4_HQ?type=png" alt="" /></a></p>
-<p>To help in building a Dom, native-core provides four traits: State, ChildDepState, ParentDepState, NodeDepState, and a RealDom struct. The ChildDepState, ParentDepState, and NodeDepState provide a way to describe how some information in a node relates to that of its relatives. By providing how to build a single node from its relations, native-core will derive a way to update the state of all nodes for you with <code>#[derive(State)]</code>. Once you have a state you can provide it as a generic to RealDom. RealDom provides all of the methods to interact and update your new dom.</p>
+<p>To help in building a Dom, native-core provides the State trait and a RealDom struct. The State trait provides a way to describe how states in a node depend on other states in its relatives. By describing how to update a single node from its relations, native-core will derive a way to update the states of all nodes for you. Once you have a state you can provide it as a generic to RealDom. RealDom provides all of the methods to interact and update your new dom.</p>
+<p>Native Core cannot create all of the required methods for the State trait, but it can derive some of them. To implement the State trait, you must implement the following methods and let the <code>#[partial_derive_state]</code> macro handle the rest:</p>
+<pre><code class="language-rust  ignore">// All states must derive Component (https://docs.rs/shipyard/latest/shipyard/derive.Component.html)
+// They also must implement Default or provide a custom implementation of create in the State trait
+#[derive(Default, Component)]
+struct MyState;
+
+/// Derive some of the boilerplate for the State implementation
+#[partial_derive_state]
+impl State for MyState {
+    // The states of the parent nodes this state depends on
+    type ParentDependencies = ();
+
+    // The states of the child nodes this state depends on
+    type ChildDependencies = (Self,);
+
+    // The states of the current node this state depends on
+    type NodeDependencies = ();
+
+    // The parts of the current text, element, or placeholder node in the tree that this state depends on
+    const NODE_MASK: NodeMaskBuilder&lt;'static&gt; = NodeMaskBuilder::new();
+
+    // How to update the state of the current node based on the state of the parent nodes, child nodes, and the current node
+    // Returns true if the node was updated and false if the node was not updated
+    fn update&lt;'a&gt;(
+        &amp;mut self,
+        // The view of the current node limited to the parts this state depends on
+        _node_view: NodeView&lt;()&gt;,
+        // The state of the current node that this state depends on
+        _node: &lt;Self::NodeDependencies as Dependancy&gt;::ElementBorrowed&lt;'a&gt;,
+        // The state of the parent nodes that this state depends on
+        _parent: Option&lt;&lt;Self::ParentDependencies as Dependancy&gt;::ElementBorrowed&lt;'a&gt;&gt;,
+        // The state of the child nodes that this state depends on
+        _children: Vec&lt;&lt;Self::ChildDependencies as Dependancy&gt;::ElementBorrowed&lt;'a&gt;&gt;,
+        // The context of the current node used to pass global state into the tree
+        _context: &amp;SendAnyMap,
+    ) -&gt; bool {
+        todo!()
+    }
+
+    // partial_derive_state will generate a default implementation of all the other methods
+}
+</code></pre>
+<p>Lets take a look at how to implement the State trait for a simple renderer.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">
 <span class="boring">#![allow(unused)]
-</span>
-<span class="boring">fn main() {
-</span>use dioxus_native_core::node_ref::*;
-use dioxus_native_core::state::{ChildDepState, NodeDepState, ParentDepState, State};
-use dioxus_native_core_macro::{sorted_str_slice, State};
+</span><span class="boring">fn main() {
+</span>struct FontSize(f64);
 
-#[derive(Default, Copy, Clone)]
+// All states need to derive Component
+#[derive(Default, Debug, Copy, Clone, Component)]
 struct Size(f64, f64);
-// Size only depends on the current node and its children, so it implements ChildDepState
-impl ChildDepState for Size {
-    // Size accepts a font size context
-    type Ctx = f64;
-    // Size depends on the Size part of each child
-    type DepState = (Self,);
+
+/// Derive some of the boilerplate for the State implementation
+#[partial_derive_state]
+impl State for Size {
+    type ParentDependencies = ();
+
+    // The size of the current node depends on the size of its children
+    type ChildDependencies = (Self,);
+
+    type NodeDependencies = ();
+
     // Size only cares about the width, height, and text parts of the current node
-    const NODE_MASK: NodeMask =
-        NodeMask::new_with_attrs(AttributeMask::Static(&amp;sorted_str_slice!([
-            &quot;width&quot;, &quot;height&quot;
-        ])))
+    const NODE_MASK: NodeMaskBuilder&lt;'static&gt; = NodeMaskBuilder::new()
+        // Get access to the width and height attributes
+        .with_attrs(AttributeMaskBuilder::Some(&amp;[&quot;width&quot;, &quot;height&quot;]))
+        // Get access to the text of the node
         .with_text();
-    fn reduce&lt;'a&gt;(
+
+    fn update&lt;'a&gt;(
         &amp;mut self,
-        node: NodeView,
-        children: impl Iterator&lt;Item = (&amp;'a Self,)&gt;,
-        ctx: &amp;Self::Ctx,
-    ) -&gt; bool
-    where
-        Self::DepState: 'a,
-    {
+        node_view: NodeView&lt;()&gt;,
+        _node: &lt;Self::NodeDependencies as Dependancy&gt;::ElementBorrowed&lt;'a&gt;,
+        _parent: Option&lt;&lt;Self::ParentDependencies as Dependancy&gt;::ElementBorrowed&lt;'a&gt;&gt;,
+        children: Vec&lt;&lt;Self::ChildDependencies as Dependancy&gt;::ElementBorrowed&lt;'a&gt;&gt;,
+        context: &amp;SendAnyMap,
+    ) -&gt; bool {
+        let font_size = context.get::&lt;FontSize&gt;().unwrap().0;
         let mut width;
         let mut height;
-        if let Some(text) = node.text() {
+        if let Some(text) = node_view.text() {
             // if the node has text, use the text to size our object
-            width = text.len() as f64 * ctx;
-            height = *ctx;
+            width = text.len() as f64 * font_size;
+            height = font_size;
         } else {
             // otherwise, the size is the maximum size of the children
             width = children
-                .by_ref()
+                .iter()
                 .map(|(item,)| item.0)
                 .reduce(|accum, item| if accum &gt;= item { accum } else { item })
                 .unwrap_or(0.0);
 
             height = children
+                .iter()
                 .map(|(item,)| item.1)
                 .reduce(|accum, item| if accum &gt;= item { accum } else { item })
                 .unwrap_or(0.0);
         }
         // if the node contains a width or height attribute it overrides the other size
-        for a in node.attributes().into_iter().flatten() {
+        for a in node_view.attributes().into_iter().flatten() {
             match &amp;*a.attribute.name {
                 &quot;width&quot; =&gt; width = a.value.as_float().unwrap(),
                 &quot;height&quot; =&gt; height = a.value.as_float().unwrap(),
@@ -524,31 +564,46 @@ impl ChildDepState for Size {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default, Component)]
 struct TextColor {
     r: u8,
     g: u8,
     b: u8,
 }
-// TextColor only depends on the current node and its parent, so it implements ParentDepState
-impl ParentDepState for TextColor {
-    type Ctx = ();
+
+#[partial_derive_state]
+impl State for TextColor {
     // TextColor depends on the TextColor part of the parent
-    type DepState = (Self,);
+    type ParentDependencies = (Self,);
+
+    type ChildDependencies = ();
+
+    type NodeDependencies = ();
+
     // TextColor only cares about the color attribute of the current node
-    const NODE_MASK: NodeMask = NodeMask::new_with_attrs(AttributeMask::Static(&amp;[&quot;color&quot;]));
-    fn reduce(&amp;mut self, node: NodeView, parent: Option&lt;(&amp;Self,)&gt;, _ctx: &amp;Self::Ctx) -&gt; bool {
+    const NODE_MASK: NodeMaskBuilder&lt;'static&gt; =
+        // Get access to the color attribute
+        NodeMaskBuilder::new().with_attrs(AttributeMaskBuilder::Some(&amp;[&quot;color&quot;]));
+
+    fn update&lt;'a&gt;(
+        &amp;mut self,
+        node_view: NodeView&lt;()&gt;,
+        _node: &lt;Self::NodeDependencies as Dependancy&gt;::ElementBorrowed&lt;'a&gt;,
+        parent: Option&lt;&lt;Self::ParentDependencies as Dependancy&gt;::ElementBorrowed&lt;'a&gt;&gt;,
+        _children: Vec&lt;&lt;Self::ChildDependencies as Dependancy&gt;::ElementBorrowed&lt;'a&gt;&gt;,
+        _context: &amp;SendAnyMap,
+    ) -&gt; bool {
         // TextColor only depends on the color tag, so getting the first tag is equivilent to looking through all tags
-        let new = match node
+        let new = match node_view
             .attributes()
-            .and_then(|attrs| attrs.next())
-            .map(|attr| attr.attribute.name.as_str())
+            .and_then(|mut attrs| attrs.next())
+            .and_then(|attr| attr.value.as_text())
         {
             // if there is a color tag, translate it
             Some(&quot;red&quot;) =&gt; TextColor { r: 255, g: 0, b: 0 },
             Some(&quot;green&quot;) =&gt; TextColor { r: 0, g: 255, b: 0 },
             Some(&quot;blue&quot;) =&gt; TextColor { r: 0, g: 0, b: 255 },
-            Some(_) =&gt; panic!(&quot;unknown color&quot;),
+            Some(color) =&gt; panic!(&quot;unknown color {color}&quot;),
             // otherwise check if the node has a parent and inherit that color
             None =&gt; match parent {
                 Some((parent,)) =&gt; *parent,
@@ -562,20 +617,36 @@ impl ParentDepState for TextColor {
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default, Component)]
 struct Border(bool);
-// TextColor only depends on the current node, so it implements NodeDepState
-impl NodeDepState for Border {
-    type Ctx = ();
-    type DepState = ();
+
+#[partial_derive_state]
+impl State for Border {
+    // TextColor depends on the TextColor part of the parent
+    type ParentDependencies = (Self,);
+
+    type ChildDependencies = ();
+
+    type NodeDependencies = ();
 
     // Border does not depended on any other member in the current node
-    const NODE_MASK: NodeMask = NodeMask::new_with_attrs(AttributeMask::Static(&amp;[&quot;border&quot;]));
-    fn reduce(&amp;mut self, node: NodeView, _sibling: (), _ctx: &amp;Self::Ctx) -&gt; bool {
+    const NODE_MASK: NodeMaskBuilder&lt;'static&gt; =
+        // Get access to the border attribute
+        NodeMaskBuilder::new().with_attrs(AttributeMaskBuilder::Some(&amp;[&quot;border&quot;]));
+
+    fn update&lt;'a&gt;(
+        &amp;mut self,
+        node_view: NodeView&lt;()&gt;,
+        _node: &lt;Self::NodeDependencies as Dependancy&gt;::ElementBorrowed&lt;'a&gt;,
+        _parent: Option&lt;&lt;Self::ParentDependencies as Dependancy&gt;::ElementBorrowed&lt;'a&gt;&gt;,
+        _children: Vec&lt;&lt;Self::ChildDependencies as Dependancy&gt;::ElementBorrowed&lt;'a&gt;&gt;,
+        _context: &amp;SendAnyMap,
+    ) -&gt; bool {
         // check if the node contians a border attribute
         let new = Self(
-            node.attributes()
-                .and_then(|attrs| attrs.next().map(|a| a.attribute.name == &quot;border&quot;))
+            node_view
+                .attributes()
+                .and_then(|mut attrs| attrs.next().map(|a| a.attribute.name == &quot;border&quot;))
                 .is_some(),
         );
         // check if the member has changed
@@ -584,58 +655,78 @@ impl NodeDepState for Border {
         changed
     }
 }
-
-// State provides a derive macro, but anotations on the members are needed in the form #[dep_type(dep_member, CtxType)]
-#[derive(State, Default, Clone)]
-struct ToyState {
-    // the color member of it's parent and no context
-    #[parent_dep_state(color)]
-    color: TextColor,
-    // depends on the node, and no context
-    #[node_dep_state()]
-    border: Border,
-    // depends on the layout_width member of children and f32 context (for text size)
-    #[child_dep_state(size, f32)]
-    size: Size,
-}
 <span class="boring">}
 </span></code></pre></pre>
-<p>Now that we have our state, we can put it to use in our dom. We can update the dom with update_state to update the structure of the dom (adding, removing, and changing properties of nodes) and then apply_mutations to update the ToyState for each of the nodes that changed.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">fn main(){
+<p>Now that we have our state, we can put it to use in our RealDom. We can update the RealDom with apply_mutations to update the structure of the dom (adding, removing, and changing properties of nodes) and then update_state to update the States for each of the nodes that changed.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     fn app(cx: Scope) -&gt; Element {
-        cx.render(rsx!{
+        let count = use_state(cx, || 0);
+
+        use_future(cx, (count,), |(count,)| async move {
+            loop {
+                tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+                count.set(*count + 1);
+            }
+        });
+
+        cx.render(rsx! {
             div{
                 color: &quot;red&quot;,
-                &quot;hello world&quot;
+                &quot;{count}&quot;
             }
         })
     }
-    let vdom = VirtualDom::new(app);
-    let rdom: RealDom&lt;ToyState&gt; = RealDom::new();
 
-    let mutations = dom.rebuild();
+    // create the vdom, the real_dom, and the binding layer between them
+    let mut vdom = VirtualDom::new(app);
+    let mut rdom: RealDom = RealDom::new([
+        Border::to_type_erased(),
+        TextColor::to_type_erased(),
+        Size::to_type_erased(),
+    ]);
+    let mut dioxus_intigration_state = DioxusState::create(&amp;mut rdom);
+
+    let mutations = vdom.rebuild();
     // update the structure of the real_dom tree
-    let to_update = rdom.apply_mutations(vec![mutations]);
-    let mut ctx = AnyMap::new();
+    dioxus_intigration_state.apply_mutations(&amp;mut rdom, mutations);
+    let mut ctx = SendAnyMap::new();
     // set the font size to 3.3
-    ctx.insert(3.3f64);
-    // update the ToyState for nodes in the real_dom tree
-    let _to_rerender = rdom.update_state(&amp;dom, to_update, ctx).unwrap();
+    ctx.insert(FontSize(3.3));
+    // update the State for nodes in the real_dom tree
+    let _to_rerender = rdom.update_state(ctx);
 
     // we need to run the vdom in a async runtime
     tokio::runtime::Builder::new_current_thread()
         .enable_all()
         .build()?
         .block_on(async {
-            loop{
-                let wait = vdom.wait_for_work();
-                let mutations = vdom.work_with_deadline(|| false);
-                let to_update = rdom.apply_mutations(mutations);
-                let mut ctx = AnyMap::new();
-                ctx.insert(3.3f64);
-                let _to_rerender = rdom.update_state(vdom, to_update, ctx).unwrap();
+            loop {
+                // wait for the vdom to update
+                vdom.wait_for_work().await;
+
+                // get the mutations from the vdom
+                let mutations = vdom.render_immediate();
+
+                // update the structure of the real_dom tree
+                dioxus_intigration_state.apply_mutations(&amp;mut rdom, mutations);
+
+                // update the state of the real_dom tree
+                let mut ctx = SendAnyMap::new();
+                // set the font size to 3.3
+                ctx.insert(FontSize(3.3));
+                let _to_rerender = rdom.update_state(ctx);
 
                 // render...
+                rdom.traverse_depth_first(|node| {
+                    let indent = &quot; &quot;.repeat(node.height() as usize);
+                    let color = *node.get::&lt;TextColor&gt;().unwrap();
+                    let size = *node.get::&lt;Size&gt;().unwrap();
+                    let border = *node.get::&lt;Border&gt;().unwrap();
+                    let id = node.id();
+                    let node = node.node_type();
+                    let node_type = &amp;*node;
+                    println!(&quot;{indent}{id:?} {color:?} {size:?} {border:?} {node_type:?}&quot;);
+                });
             }
         })
 }
@@ -647,25 +738,26 @@ struct ToyState {
 <pre><pre class="playground"><code class="language-rust edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let mut cursor = Cursor::default();
-let mut text = String::new();
+</span>fn text_editing() {
+    let mut cursor = Cursor::default();
+    let mut text = String::new();
 
-let keyboard_data = dioxus_html::KeyboardData::new(
-    dioxus_html::input_data::keyboard_types::Key::ArrowRight,
-    dioxus_html::input_data::keyboard_types::Code::ArrowRight,
-    dioxus_html::input_data::keyboard_types::Location::Standard,
-    false,
-    Modifiers::empty(),
-);
-// handle keyboard input with a max text length of 10
-cursor.handle_input(&amp;keyboard_data, &amp;mut text, 10);
+    // handle keyboard input with a max text length of 10
+    cursor.handle_input(
+        &amp;Code::ArrowRight,
+        &amp;Key::ArrowRight,
+        &amp;Modifiers::empty(),
+        &amp;mut text,
+        10,
+    );
 
-// mannually select text between characters 0-5 on the first line (this could be from dragging with a mouse)
-cursor.start = Pos::new(0, 0);
-cursor.end = Some(Pos::new(5, 0));
+    // mannually select text between characters 0-5 on the first line (this could be from dragging with a mouse)
+    cursor.start = Pos::new(0, 0);
+    cursor.end = Some(Pos::new(5, 0));
 
-// delete the selected text and move the cursor to the start of the selection
-cursor.delete_selection(&amp;mut text);
+    // delete the selected text and move the cursor to the start of the selection
+    cursor.delete_selection(&amp;mut text);
+}
 <span class="boring">}
 </span></code></pre></pre>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
