@@ -201,8 +201,7 @@ Clicked! Event: UiEvent { data: MouseData { coordinates: Coordinates { screen: (
 </span><span class="boring">fn main() {
 </span>cx.render(rsx! {
     input {
-        prevent_default: &quot;oninput&quot;,
-        prevent_default: &quot;onclick&quot;,
+        prevent_default: &quot;oninput onclick&quot;,
     }
 })
 <span class="boring">}
