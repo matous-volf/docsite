@@ -526,7 +526,7 @@ async fn main() {
 <ul>
 <li>It uses flexbox for the layout</li>
 <li>It only supports a subset of the attributes and elements</li>
-<li>Regular widgets will not work in the tui render, but the tui renderer has its own widget components that start with a capital letter. See the <a href="https://github.com/DioxusLabs/dioxus/blob/master/packages/tui/examples/widgets.rs">widgets example</a></li>
+<li>Regular widgets will not work in the tui render, but the tui renderer has its own widget components that start with a capital letter. See the <a href="https://github.com/DioxusLabs/dioxus/blob/master/packages/dioxus-tui/examples/widgets.rs">widgets example</a></li>
 <li>1px is one character line height. Your regular CSS px does not translate</li>
 <li>If your app panics, your terminal is wrecked. This will be fixed eventually</li>
 </ul>
@@ -2731,7 +2731,7 @@ This app makes it quick and easy to browse photos of dogs from over 200 bree
 </ol>
 <p>Essentially, your renderer needs to process edits and generate events to update the VirtualDOM. From there, you'll have everything needed to render the VirtualDOM to the screen.</p>
 <p>Internally, Dioxus handles the tree relationship, diffing, memory management, and the event system, leaving as little as possible required for renderers to implement themselves.</p>
-<p>For reference, check out the <a href="https://github.com/DioxusLabs/dioxus/tree/master/packages/interpreter">javascript interpreter</a> or <a href="https://github.com/DioxusLabs/dioxus/tree/master/packages/tui">tui renderer</a> as a starting point for your custom renderer.</p>
+<p>For reference, check out the <a href="https://github.com/DioxusLabs/dioxus/tree/master/packages/interpreter">javascript interpreter</a> or <a href="https://github.com/DioxusLabs/dioxus/tree/master/packages/dioxus-tui">tui renderer</a> as a starting point for your custom renderer.</p>
 <h2 id="templates"><a class="header" href="#templates">Templates</a></h2>
 <p>Dioxus is built around the concept of <a href="https://docs.rs/dioxus-core/latest/dioxus_core/prelude/struct.Template.html">Templates</a>. Templates describe a UI tree known at compile time with dynamic parts filled at runtime. This is useful internally to make skip diffing static nodes, but it is also useful for the renderer to reuse parts of the UI tree. This can be useful for things like a list of items. Each item could contain some static parts and some dynamic parts. The renderer can use the template to create a static part of the UI once, clone it for each element in the list, and then fill in the dynamic parts.</p>
 <h2 id="mutations"><a class="header" href="#mutations">Mutations</a></h2>
