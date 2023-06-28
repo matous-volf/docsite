@@ -162,7 +162,7 @@
 <h2 id="unnecessarily-nested-fragments"><a class="header" href="#unnecessarily-nested-fragments">Unnecessarily Nested Fragments</a></h2>
 <p>Fragments don't mount a physical element to the DOM immediately, so Dioxus must recurse into its children to find a physical DOM node. This process is called &quot;normalization&quot;. This means that deeply nested fragments make Dioxus perform unnecessary work. Prefer one or two levels of fragments / nested components until presenting a true DOM element.</p>
 <p>Only Component and Fragment nodes are susceptible to this issue. Dioxus mitigates this with components by providing an API for registering shared state without the Context Provider pattern.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    // ❌ Don't unnecessarily nest fragments
@@ -188,7 +188,7 @@
 </span></code></pre></pre>
 <h2 id="incorrect-iterator-keys"><a class="header" href="#incorrect-iterator-keys">Incorrect Iterator Keys</a></h2>
 <p>As described in the <a href="../interactivity/dynamic_rendering.html#the-key-attribute">dynamic rendering chapter</a>, list items must have unique keys that are associated with the same items across renders. This helps Dioxus associate state with the contained components and ensures good diffing performance. Do not omit keys, unless you know that the list will never change.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    let data: &amp;HashMap&lt;_, _&gt; = &amp;cx.props.data;

@@ -161,7 +161,7 @@
 <p>As interfaces geralmente precisam fornecer uma maneira de inserir dados: por exemplo, texto, números, caixas de seleção, etc. No Dioxus, há duas maneiras de trabalhar com a entrada do usuário.</p>
 <h2 id="entradas-controladas"><a class="header" href="#entradas-controladas">Entradas Controladas</a></h2>
 <p>Com entradas controladas, você fica diretamente responsável pelo estado da entrada. Isso lhe dá muita flexibilidade e facilita manter as coisas em sincronia. Por exemplo, é assim que você criaria uma entrada de texto controlada:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -189,7 +189,7 @@
 <h2 id="entradas-não-controladas"><a class="header" href="#entradas-não-controladas">Entradas não Controladas</a></h2>
 <p>Como alternativa às entradas controladas, você pode simplesmente deixar a plataforma acompanhar os valores de entrada. Se não dissermos a uma entrada HTML qual conteúdo ela deve ter, ela poderá ser editada de qualquer maneira (isso está embutido na visualização da web). Essa abordagem pode ser mais eficiente, mas menos flexível. Por exemplo, é mais difícil manter a entrada sincronizada com outro elemento.</p>
 <p>Como você não tem necessariamente o valor atual da entrada não controlada no estado, você pode acessá-lo ouvindo os eventos <code>oninput</code> (de maneira semelhante aos componentes controlados) ou, se a entrada for parte de um formulário, você pode acessar os dados do formulário nos eventos do formulário (por exemplo, <code>oninput</code> ou <code>onsubmit</code>):</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {

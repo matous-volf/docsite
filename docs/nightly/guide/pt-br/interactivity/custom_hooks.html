@@ -162,7 +162,7 @@
 <h2 id="hooks-de-composição"><a class="header" href="#hooks-de-composição">Hooks de Composição</a></h2>
 <p>Para evitar a repetição, você pode encapsular a lógica de negócios com base em <em>hooks</em> existentes para criar um novo gancho.</p>
 <p>Por exemplo, se muitos componentes precisam acessar uma <em>struct</em> <code>AppSettings</code>, você pode criar um gancho de &quot;atalho&quot;:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn use_settings(cx: &amp;ScopeState) -&gt; &amp;UseSharedState&lt;AppSettings&gt; {

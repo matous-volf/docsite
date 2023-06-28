@@ -162,7 +162,7 @@
 <p>Like regular futures, code in a coroutine will run until the next <code>await</code> point before yielding. This low-level control over asynchronous tasks is quite powerful, allowing for infinitely looping tasks like WebSocket polling, background timers, and other periodic actions.</p>
 <h2 id="use_coroutine"><a class="header" href="#use_coroutine"><code>use_coroutine</code></a></h2>
 <p>The <code>use_coroutine</code> hook allows you to create a coroutine. Most coroutines we write will be polling loops using async/await.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn app(cx: Scope) -&gt; Element {
@@ -180,7 +180,7 @@
 </span></code></pre></pre>
 <p>For many services, a simple async loop will handle the majority of use cases.</p>
 <p>However, if we want to temporarily disable the coroutine, we can &quot;pause&quot; it using the <code>pause</code> method, and &quot;resume&quot; it using the <code>resume</code> method:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let sync: &amp;UseCoroutine&lt;()&gt; = use_coroutine(cx, |rx| async move {
@@ -209,7 +209,7 @@ if sync.is_running() {
 <p>To yield values from a coroutine, simply bring in a <code>UseState</code> handle and set the value whenever your coroutine completes its work.</p>
 <p>The future must be <code>'static</code> – so any values captured by the task cannot carry any references to <code>cx</code>, such as a <code>UseState</code>.</p>
 <p>You can use <a href="https://doc.rust-lang.org/std/borrow/trait.ToOwned.html#tymethod.to_owned">to_owned</a> to create a clone of the hook handle which can be moved into the async closure.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let sync_status = use_state(cx, || Status::Launching);
@@ -225,7 +225,7 @@ let sync_task = use_coroutine(cx, |rx: UnboundedReceiver&lt;SyncAction&gt;| {
 <span class="boring">}
 </span></code></pre></pre>
 <p>To make this a bit less verbose, Dioxus exports the <code>to_owned!</code> macro which will create a binding as shown above, which can be quite helpful when dealing with many values.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let sync_status = use_state(cx, || Status::Launching);
@@ -241,7 +241,7 @@ let sync_task = use_coroutine(cx, |rx: UnboundedReceiver&lt;SyncAction&gt;| {
 <h2 id="sending-values"><a class="header" href="#sending-values">Sending Values</a></h2>
 <p>You might've noticed the <code>use_coroutine</code> closure takes an argument called <code>rx</code>. What is that? Well, a common pattern in complex apps is to handle a bunch of async code at once. With libraries like Redux Toolkit, managing multiple promises at once can be challenging and a common source of bugs.</p>
 <p>With Coroutines, we can centralize our async logic. The <code>rx</code> parameter is an Channel that allows code external to the coroutine to send data <em>into</em> the coroutine. Instead of looping on an external service, we can loop on the channel itself, processing messages from within our app without needing to spawn a new future. To send data into the coroutine, we would call &quot;send&quot; on the handle.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use futures_util::stream::StreamExt;
@@ -275,7 +275,7 @@ cx.render(rsx!{
 <p>Note: In order to use/run the <code>rx.next().await</code> statement you will need to extend the [<code>Stream</code>] trait (used by [<code>UnboundedReceiver</code>]) by adding 'futures_util' as a dependency to your project and adding the <code>use futures_util::stream::StreamExt;</code>.</p>
 </blockquote>
 <p>For sufficiently complex apps, we could build a bunch of different useful &quot;services&quot; that loop on channels to update the app.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let profile = use_coroutine(cx, profile_service);
@@ -296,7 +296,7 @@ async fn editor_service(rx: UnboundedReceiver&lt;EditorCommand&gt;) {
 <span class="boring">}
 </span></code></pre></pre>
 <p>We can combine coroutines with <a href="https://docs.rs/fermi/latest/fermi/index.html">Fermi</a> to emulate Redux Toolkit's Thunk system with much less headache. This lets us store all of our app's state <em>within</em> a task and then simply update the &quot;view&quot; values stored in Atoms. It cannot be understated how powerful this technique is: we get all the perks of native Rust tasks with the optimizations and ergonomics of global state. This means your <em>actual</em> state does not need to be tied up in a system like Fermi or Redux – the only Atoms that need to exist are those that are used to drive the display/UI.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>static USERNAME: Atom&lt;String&gt; = |_| &quot;default&quot;.to_string();
@@ -321,7 +321,7 @@ fn Banner(cx: Scope) -&gt; Element {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Now, in our sync service, we can structure our state however we want. We only need to update the view values when ready.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use futures_util::stream::StreamExt;
@@ -350,7 +350,7 @@ async fn sync_service(mut rx: UnboundedReceiver&lt;SyncAction&gt;, atoms: AtomRo
 </span></code></pre></pre>
 <h2 id="automatic-injection-into-the-context-api"><a class="header" href="#automatic-injection-into-the-context-api">Automatic injection into the Context API</a></h2>
 <p>Coroutine handles are automatically injected through the context API. You can use the <code>use_coroutine_handle</code> hook with the message type as a generic to fetch a handle.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn Child(cx: Scope) -&gt; Element {

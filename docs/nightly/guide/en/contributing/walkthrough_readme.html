@@ -161,7 +161,7 @@
 <p>This walkthrough will take you through the internals of the Hello World example program. It will explain how major parts of Dioxus internals interact with each other to take the readme example from a source file to a running application. This guide should serve as a high-level overview of the internals of Dioxus. It is not meant to be a comprehensive guide.</p>
 <h2 id="the-source-file"><a class="header" href="#the-source-file">The Source File</a></h2>
 <p>We start will a hello world program. This program renders a desktop app with the text &quot;Hello World&quot; in a webview.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">//! Example: README.md showcase
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">//! Example: README.md showcase
 //!
 //! The example from the README.md.
 
@@ -184,7 +184,7 @@ fn app(cx: Scope) -&gt; Element {
 <p><a href="https://mermaid.live/edit#pako:eNqNkT1vwyAQhv8KvSlR48HphtQtqjK0S6tuSBGBS0CxwcJHk8rxfy_YVqxKVdR3ug_u4YXrQHmNwOFQ-bMyMhB7fReOJbVxfwyyMSy0l7GSpW1ARda727ksUy5MuSyKgvBC5ULA1h5N8WK_kCkfHWHgrBuiXsBynrvdsY9E3u1iM_eyvFOVVadMnELOap-o1911JLPHZ1b-YqLTc3LjTt7WifTZMJPsPdx1ov3Z_ellfcdL8R8vmTy5eUqsTUpZ-vzZzjAEK6gx1NLqtJwuNwSQwRoF8BRqGU4ChOvTORnJf3w7BZxCxBXERkvCjZXpQTXwg6zaVEVtyYe3cdvD0vsf4bucgw"><img src="https://mermaid.ink/img/pako:eNqNkT1vwyAQhv8KvSlR48HphtQtqjK0S6tuSBGBS0CxwcJHk8rxfy_YVqxKVdR3ug_u4YXrQHmNwOFQ-bMyMhB7fReOJbVxfwyyMSy0l7GSpW1ARda727ksUy5MuSyKgvBC5ULA1h5N8WK_kCkfHWHgrBuiXsBynrvdsY9E3u1iM_eyvFOVVadMnELOap-o1911JLPHZ1b-YqLTc3LjTt7WifTZMJPsPdx1ov3Z_ellfcdL8R8vmTy5eUqsTUpZ-vzZzjAEK6gx1NLqtJwuNwSQwRoF8BRqGU4ChOvTORnJf3w7BZxCxBXERkvCjZXpQTXwg6zaVEVtyYe3cdvD0vsf4bucgw?type=png" alt="" /></a></p>
 <h2 id="the-rsx-macro"><a class="header" href="#the-rsx-macro">The rsx! Macro</a></h2>
 <p>Before the Rust compiler runs the program, it will expand all macros. Here is what the hello world example looks like expanded:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use dioxus::prelude::*;
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">use dioxus::prelude::*;
 
 fn main() {
     dioxus_desktop::launch(app);
@@ -302,7 +302,7 @@ fn app(cx: Scope) -&gt; Element {
 <h2 id="the-virtual-dom"><a class="header" href="#the-virtual-dom">The Virtual DOM</a></h2>
 <p>Before we dive into the initial render in the virtual dom, we need to discuss what the virtual dom is. The virtual dom is a representation of the dom that is used to diff the current dom from the new dom. This diff is then used to create a list of mutations that need to be applied to the dom.</p>
 <p>The Virtual Dom roughly looks like this:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub struct VirtualDom {

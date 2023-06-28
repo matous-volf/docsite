@@ -166,7 +166,7 @@
 <p>Ao trabalhar com frameworks web que requerem <code>Send</code>, é possível renderizar um <code>VirtualDom</code> imediatamente para uma <code>String</code> – mas você não pode manter o <code>VirtualDom</code> em um ponto de espera. Para SSR de estado retido (essencialmente LiveView), você precisará criar um <em>pool</em> de <code>VirtualDoms</code>.</p>
 <h2 id="configurar"><a class="header" href="#configurar">Configurar</a></h2>
 <p>Se você quer apenas renderizar <code>rsx!</code> ou um VirtualDom para HTML, confira os documentos da API. É bem simples:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// We can render VirtualDoms
@@ -199,7 +199,7 @@ dioxus-ssr = { version = &quot;*&quot; }
 tokio = { version = &quot;1.15.0&quot;, features = [&quot;full&quot;] }
 </code></pre>
 <p>Agora, configure seu aplicativo Axum para responder em um <em>endpoint</em>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use axum::{response::Html, routing::get, Router};
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">use axum::{response::Html, routing::get, Router};
 use dioxus::prelude::*;
 
 #[tokio::main]
@@ -218,7 +218,7 @@ async fn main() {
 }
 </code></pre></pre>
 <p>E, em seguida, adicione nosso <em>endpoint</em>. Podemos renderizar <code>rsx!</code> diretamente:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>async fn app_endpoint() -&gt; Html&lt;String&gt; {
@@ -229,7 +229,7 @@ async fn main() {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Ou podemos renderizar <code>VirtualDoms</code>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>async fn app_endpoint() -&gt; Html&lt;String&gt; {

@@ -159,7 +159,7 @@
                     <main>
                         <h1 id="component-children"><a class="header" href="#component-children">Component Children</a></h1>
 <p>In some cases, you may wish to create a component that acts as a container for some other content, without the component needing to know what that content is. To achieve this, create a prop of type <code>Element</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(Props)]
@@ -180,7 +180,7 @@ fn Clickable&lt;'a&gt;(cx: Scope&lt;'a, ClickableProps&lt;'a&gt;&gt;) -&gt; Elem
 <span class="boring">}
 </span></code></pre></pre>
 <p>Then, when rendering the component, you can pass in the output of <code>cx.render(rsx!(...))</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    cx.render(rsx! {
@@ -199,7 +199,7 @@ fn Clickable&lt;'a&gt;(cx: Scope&lt;'a, ClickableProps&lt;'a&gt;&gt;) -&gt; Elem
 </blockquote>
 <h2 id="the-children-field"><a class="header" href="#the-children-field">The <code>children</code> field</a></h2>
 <p>Rather than passing the RSX through a regular prop, you may wish to accept children similarly to how elements can have children. The &quot;magic&quot; <code>children</code> prop lets you achieve this:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(Props)]
@@ -220,7 +220,7 @@ fn Clickable&lt;'a&gt;(cx: Scope&lt;'a, ClickableProps&lt;'a&gt;&gt;) -&gt; Elem
 <span class="boring">}
 </span></code></pre></pre>
 <p>This makes using the component much simpler: simply put the RSX inside the <code>{}</code> brackets – and there is no need for a <code>render</code> call or another macro!</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    cx.render(rsx! {

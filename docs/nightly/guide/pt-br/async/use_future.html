@@ -160,7 +160,7 @@
                         <h1 id="usefuture"><a class="header" href="#usefuture"><code>UseFuture</code></a></h1>
 <p><a href="https://docs.rs/dioxus-hooks/latest/dioxus_hooks/fn.use_future.html"><code>use_future</code></a> permite executar um encerramento assíncrono e fornece seu resultado.</p>
 <p>Por exemplo, podemos fazer uma solicitação de API dentro de <code>use_future</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let future = use_future(cx, (), |_| async move {
@@ -175,7 +175,7 @@
 <p>O código dentro de <code>use_future</code> será enviado ao agendador do Dioxus assim que o componente for renderizado.</p>
 <p>Podemos usar <code>.value()</code> para obter o resultado do <code>Future</code>. Na primeira execução, como não há dados prontos quando o componente é carregado, seu valor será <code>None</code>. No entanto, uma vez finalizado o <code>Future</code>, o componente será renderizado novamente e o valor agora será <code>Some(...)</code>, contendo o valor de retorno do encerramento.</p>
 <p>Podemos então renderizar esse resultado:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(match future.value() {
@@ -201,7 +201,7 @@
 <p>O identificador <code>UseFuture</code> fornece um método <code>restart</code>. Ele pode ser usado para executar o <code>Future</code> novamente, produzindo um novo valor.</p>
 <h2 id="dependências"><a class="header" href="#dependências">Dependências</a></h2>
 <p>Muitas vezes, você precisará executar o <code>Future</code> novamente toda vez que algum valor (por exemplo, uma prop) mudar. Ao invés de <code>.restart</code> manualmente, você pode fornecer uma tupla de &quot;dependências&quot; para o gancho. Ele executará automaticamente o <code>Future</code> quando qualquer uma dessas dependências for alterada. Exemplo:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let future = use_future(cx, (breed,), |(breed,)| async move {

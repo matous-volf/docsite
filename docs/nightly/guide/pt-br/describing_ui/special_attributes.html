@@ -162,7 +162,7 @@
 <h2 id="a-escotilha-de-escape-do-html"><a class="header" href="#a-escotilha-de-escape-do-html">A Escotilha de Escape do HTML</a></h2>
 <p>Se você estiver trabalhando com itens pré-renderizados, modelos ou uma biblioteca JS, convém passar o HTML diretamente em vez de passar pelo Dioxus. Nesses casos, use <code>dangerous_inner_html</code>.</p>
 <p>Por exemplo, enviar um conversor de markdown para Dioxus pode aumentar significativamente o tamanho final do aplicativo. Em vez disso, você desejará pré-renderizar sua remarcação para HTML e, em seguida, incluir o HTML diretamente em sua saída. Usamos essa abordagem para a <a href="https://dioxuslabs.com">página inicial do Dioxus</a>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// this should come from a trusted source
@@ -182,7 +182,7 @@ cx.render(rsx! {
 <h2 id="atributos-booleanos"><a class="header" href="#atributos-booleanos">Atributos Booleanos</a></h2>
 <p>A maioria dos atributos, quando renderizados, serão renderizados exatamente como a entrada que você forneceu. No entanto, alguns atributos são considerados atributos &quot;booleanos&quot; e apenas sua presença determina se eles afetam a saída. Para esses atributos, um valor fornecido de <code>&quot;false&quot;</code> fará com que eles sejam removidos do elemento de destino.</p>
 <p>Portanto, este RSX não renderizaria o atributo <code>hidden</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx! {

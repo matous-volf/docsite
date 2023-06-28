@@ -178,7 +178,7 @@
 </ul>
 <h3 id="props-próprios"><a class="header" href="#props-próprios">Props Próprios</a></h3>
 <p><em>Props</em> próprios são muito simples – eles não emprestam nada. Exemplo:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// Remember: Owned props must implement `PartialEq`!
@@ -199,7 +199,7 @@ fn Likes(cx: Scope&lt;LikesProps&gt;) -&gt; Element {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Você pode então passar valores de <em>prop</em> para o componente da mesma forma que você passaria atributos para um elemento:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -215,7 +215,7 @@ fn Likes(cx: Scope&lt;LikesProps&gt;) -&gt; Element {
 <h3 id="props-emprestados"><a class="header" href="#props-emprestados">Props Emprestados</a></h3>
 <p>Possuir <em>props</em> funciona bem se seus <em>props</em> forem fáceis de copiar – como um único número. Mas e se precisarmos passar um tipo de dados maior, como uma <code>String</code> de um componente <code>App</code> para um subcomponente <code>TitleCard</code>? Uma solução ingênua pode ser <a href="https://doc.rust-lang.org/std/clone/trait.Clone.html"><code>.clone()</code></a> a <code>String</code>, criando uma cópia dela para o subcomponente – mas isso seria ineficiente, especialmente para <code>Strings</code> maiores.</p>
 <p>Rust permite algo mais eficiente – emprestar a <code>String</code> como um <code>&amp;str</code> – é para isso que servem as <em>props emprestadas</em>!</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(Props)]
@@ -231,7 +231,7 @@ fn TitleCard&lt;'a&gt;(cx: Scope&lt;'a, TitleCardProps&lt;'a&gt;&gt;) -&gt; Elem
 <span class="boring">}
 </span></code></pre></pre>
 <p>Podemos então usar o componente assim:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -246,7 +246,7 @@ fn TitleCard&lt;'a&gt;(cx: Scope&lt;'a, TitleCardProps&lt;'a&gt;&gt;) -&gt; Elem
 <p>A macro <code>#[derive(Props)]</code> tem alguns recursos que permitem personalizar o comportamento dos adereços.</p>
 <h3 id="props-opcionais"><a class="header" href="#props-opcionais">Props Opcionais</a></h3>
 <p>Você pode criar campos opcionais usando o tipo <code>Option&lt;…&gt;</code> para um campo:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(Props)]
@@ -264,7 +264,7 @@ fn Title&lt;'a&gt;(cx: Scope&lt;'a, OptionalProps&gt;) -&gt; Element&lt;'a&gt; {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Em seguida, você pode optar por fornecê-los ou não:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>Title {
@@ -283,7 +283,7 @@ Title {
 </span></code></pre></pre>
 <h3 id="option-explicitamente-obrigatórias"><a class="header" href="#option-explicitamente-obrigatórias"><code>Option</code> Explicitamente Obrigatórias</a></h3>
 <p>Se você quiser exigir explicitamente uma <code>Option</code>, e não uma <em>prop</em> opcional, você pode anotá-la com <code>#[props(!optional)]</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(Props)]
@@ -302,7 +302,7 @@ fn ExplicitOption&lt;'a&gt;(cx: Scope&lt;'a, ExplicitOptionProps&gt;) -&gt; Elem
 <span class="boring">}
 </span></code></pre></pre>
 <p>Então, você tem que passar explicitamente <code>Some(&quot;str&quot;)</code> ou <code>None</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>ExplicitOption {
@@ -321,7 +321,7 @@ ExplicitOption {
 </span></code></pre></pre>
 <h3 id="props-padrão"><a class="header" href="#props-padrão">Props Padrão</a></h3>
 <p>Você pode usar <code>#[props(default = 42)]</code> para tornar um campo opcional e especificar seu valor padrão:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(PartialEq, Props)]
@@ -337,7 +337,7 @@ fn DefaultComponent(cx: Scope&lt;DefaultProps&gt;) -&gt; Element {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Então, da mesma forma que <em>props</em> opcionais, você não precisa fornecê-lo:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>DefaultComponent {
@@ -348,7 +348,7 @@ DefaultComponent {},
 </span></code></pre></pre>
 <h3 id="conversão-automática-com-into"><a class="header" href="#conversão-automática-com-into">Conversão Automática com <code>.into</code></a></h3>
 <p>É comum que as funções Rust aceitem <code>impl Into&lt;SomeType&gt;</code> em vez de apenas <code>SomeType</code> para suportar uma ampla gama de parâmetros. Se você quiser uma funcionalidade semelhante com <em>props</em>, você pode usar <code>#[props(into)]</code>. Por exemplo, você pode adicioná-lo em uma prop <code>String</code> – e <code>&amp;str</code> também será aceito automaticamente, pois pode ser convertido em <code>String</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(PartialEq, Props)]
@@ -363,7 +363,7 @@ fn IntoComponent(cx: Scope&lt;IntoProps&gt;) -&gt; Element {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Então, você pode usá-lo assim:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>IntoComponent {
@@ -374,7 +374,7 @@ fn IntoComponent(cx: Scope&lt;IntoProps&gt;) -&gt; Element {
 <h2 id="a-macro-inline_props"><a class="header" href="#a-macro-inline_props">A macro <code>inline_props</code></a></h2>
 <p>Até agora, todas as funções <code>Component</code> que vimos tinham uma <em>struct</em> <code>ComponentProps</code> correspondente para passar em <em>props</em>. Isso foi bastante verboso... Não seria legal ter <em>props</em> como argumentos de função simples? Então não precisaríamos definir uma estrutura Props, e ao invés de digitar <code>cx.props.whatever</code>, poderíamos usar <code>whatever</code> diretamente!</p>
 <p><code>inline_props</code> permite que você faça exatamente isso. Em vez de digitar a versão &quot;completa&quot;:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(Props, PartialEq)]
@@ -390,7 +390,7 @@ fn TitleCard(cx: Scope&lt;TitleCardProps&gt;) -&gt; Element {
 <span class="boring">}
 </span></code></pre></pre>
 <p>...você pode definir uma função que aceita <em>props</em> como argumentos. Então, basta anotá-lo com <code>#[inline_props]</code>, e a macro irá transformá-lo em um componente regular para você:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[inline_props]

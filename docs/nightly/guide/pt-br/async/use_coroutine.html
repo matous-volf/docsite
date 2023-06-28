@@ -162,7 +162,7 @@
 <p>Assim como os <code>Futures</code> regulares, o código em uma corrotina Dioxus será executado até o próximo ponto <code>await</code> antes do <em>render</em>. Esse controle de baixo nível sobre tarefas assíncronas é bastante poderoso, permitindo tarefas em <em>loop</em> infinito, como pesquisa de WebSocket, temporizadores em segundo plano e outras ações periódicas.</p>
 <h2 id="use_coroutine"><a class="header" href="#use_coroutine"><code>use_coroutine</code></a></h2>
 <p>A configuração básica para corrotinas é o <em>hook</em> <code>use_coroutine</code>. A maioria das corrotinas que escrevemos serão <em>loops</em> de pesquisa usando <code>async</code>/<code>await</code>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn app(cx: Scope) -&gt; Element {
@@ -180,7 +180,7 @@
 </span></code></pre></pre>
 <p>Para muitos serviços, um <em>loop</em> assíncrono simples lidará com a maioria dos casos de uso.</p>
 <p>No entanto, se quisermos desabilitar temporariamente a corrotina, podemos &quot;pausá-la&quot; usando o método <code>pause</code> e &quot;retomá-la&quot; usando o método <code>resume</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let sync: &amp;UseCoroutine&lt;()&gt; = use_coroutine(cx, |rx| async move {
@@ -208,7 +208,7 @@ if sync.is_running() {
 <h2 id="enviando-valores"><a class="header" href="#enviando-valores">Enviando valores</a></h2>
 <p>Você deve ter notado que o encerramento <code>use_coroutine</code> recebe um argumento chamado <code>rx</code>. O que é aquilo? Bem, um padrão comum em aplicativos complexos é lidar com vários códigos assíncronos de uma só vez. Com bibliotecas como o Redux Toolkit, gerenciar várias promessas ao mesmo tempo pode ser um desafio e uma fonte comum de <em>bugs</em>.</p>
 <p>Usando corrotinas, temos a oportunidade de centralizar nossa lógica assíncrona. O parâmetro <code>rx</code> é um canal ilimitado para código externo à corrotina para enviar dados <em>para</em> a corrotina. Em vez de fazer um <em>loop</em> em um serviço externo, podemos fazer um <em>loop</em> no próprio canal, processando mensagens de dentro de nosso aplicativo sem precisar gerar um novo <code>Future</code>. Para enviar dados para a corrotina, chamaríamos &quot;send&quot; no <em>handle</em>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum ProfileUpdate {
@@ -237,7 +237,7 @@ cx.render(rsx!{
 <span class="boring">}
 </span></code></pre></pre>
 <p>Para aplicativos suficientemente complexos, poderíamos criar vários &quot;serviços&quot; úteis diferentes que fazem um <em>loop</em> nos canais para atualizar o aplicativo.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let profile = use_coroutine(cx, profile_service);
@@ -258,7 +258,7 @@ async fn editor_service(rx: UnboundedReceiver&lt;EditorCommand&gt;) {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Podemos combinar corrotinas com <code>Fermi</code> para emular o sistema <code>Thunk</code> do <strong>Redux Toolkit</strong> com muito menos dor de cabeça. Isso nos permite armazenar todo o estado do nosso aplicativo <em>dentro</em> de uma tarefa e, em seguida, simplesmente atualizar os valores de &quot;visualização&quot; armazenados em <code>Atoms</code>. Não pode ser subestimado o quão poderosa é essa técnica: temos todas as vantagens das tarefas nativas do Rust com as otimizações e ergonomia do estado global. Isso significa que seu estado <em>real</em> não precisa estar vinculado a um sistema como <code>Fermi</code> ou <code>Redux</code> – os únicos <code>Atoms</code> que precisam existir são aqueles que são usados para controlar a interface.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>static USERNAME: Atom&lt;String&gt; = |_| &quot;default&quot;.to_string();
@@ -283,7 +283,7 @@ fn Banner(cx: Scope) -&gt; Element {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Agora, em nosso serviço de sincronização, podemos estruturar nosso estado como quisermos. Só precisamos atualizar os valores da <em>view</em> quando estiver pronto.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum SyncAction {
@@ -310,7 +310,7 @@ async fn sync_service(mut rx: UnboundedReceiver&lt;SyncAction&gt;, atoms: AtomRo
 </span></code></pre></pre>
 <h2 id="valores-de-rendimento"><a class="header" href="#valores-de-rendimento">Valores de Rendimento</a></h2>
 <p>Para obter valores de uma corrotina, basta usar um identificador <code>UseState</code> e definir o valor sempre que sua corrotina concluir seu trabalho.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let sync_status = use_state(cx, || Status::Launching);
@@ -327,7 +327,7 @@ let sync_task = use_coroutine(cx, |rx: UnboundedReceiver&lt;SyncAction&gt;| {
 </span></code></pre></pre>
 <h2 id="injeção-automática-na-api-de-contexto"><a class="header" href="#injeção-automática-na-api-de-contexto">Injeção Automática na API de Contexto</a></h2>
 <p>Os identificadores de corrotina são injetados automaticamente por meio da API de contexto. <code>use_coroutine_handle</code> com o tipo de mensagem como genérico pode ser usado para buscar um <em>handle</em>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn Child(cx: Scope) -&gt; Element {

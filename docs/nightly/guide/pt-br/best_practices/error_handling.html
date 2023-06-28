@@ -162,7 +162,7 @@
 <p>No entanto, não falamos sobre tratamento de erros neste guia! Neste capítulo, abordaremos algumas estratégias para lidar com erros para garantir que seu aplicativo nunca falhe.</p>
 <h2 id="o-mais-simples--retornando-none"><a class="header" href="#o-mais-simples--retornando-none">O mais simples – retornando None</a></h2>
 <p>Observadores astutos podem ter notado que <code>Element</code> é na verdade um alias de tipo para <code>Option&lt;VNode&gt;</code>. Você não precisa saber o que é um <code>VNode</code>, mas é importante reconhecer que não poderíamos retornar nada:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -174,7 +174,7 @@
 <blockquote>
 <p>A natureza de <code>Option&lt;VNode&gt;</code> pode mudar no futuro à medida que a característica <code>try</code> for atualizada.</p>
 </blockquote>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -185,7 +185,7 @@
 </span></code></pre></pre>
 <h2 id="retorno-antecipado-do-resultado"><a class="header" href="#retorno-antecipado-do-resultado">Retorno Antecipado do Resultado</a></h2>
 <p>Como o Rust não pode aceitar opções e resultados com a infraestrutura <em>try</em> existente, você precisará manipular os resultados manualmente. Isso pode ser feito convertendo-os em <code>Option</code> ou manipulando-os explicitamente.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -206,14 +206,14 @@
 <h2 id="resultados-usando-match"><a class="header" href="#resultados-usando-match">Resultados usando <code>match</code></a></h2>
 <p>A próxima &quot;melhor&quot; maneira de lidar com erros no Dioxus é combinar (<code>match</code>) o erro localmente. Essa é a maneira mais robusta de lidar com erros, embora não seja dimensionada para arquiteturas além de um único componente.</p>
 <p>Para fazer isso, simplesmente temos um estado de erro embutido em nosso componente:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let err = use_state(cx, || None);
 <span class="boring">}
 </span></code></pre></pre>
 <p>Sempre que realizarmos uma ação que gere um erro, definiremos esse estado de erro. Podemos então combinar o erro de várias maneiras (retorno antecipado, elemento de retorno etc.).</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn Commandline(cx: Scope) -&gt; Element {
@@ -234,7 +234,7 @@
 </span></code></pre></pre>
 <h2 id="passando-estados-de-erro-através-de-componentes"><a class="header" href="#passando-estados-de-erro-através-de-componentes">Passando Estados de Erro Através de Componentes</a></h2>
 <p>Se você estiver lidando com alguns componentes com um mínimo de aninhamento, basta passar o identificador de erro para componentes filhos.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn Commandline(cx: Scope) -&gt; Element {
@@ -258,7 +258,7 @@
 <p>Uma estratégia para lidar com erros em cascata em aplicativos maiores é sinalizar um erro usando o estado global. Esse padrão específico envolve a criação de um contexto de &quot;erro&quot; e, em seguida, defini-lo sempre que relevante. Este método em particular não é tão &quot;sofisticado&quot; quanto o controle de erros do React, mas é mais adequado para Rust.</p>
 <p>Para começar, considere usar um <em>hook</em> embutido como <code>use_context</code> e <code>use_context_provider</code> ou <code>Fermi</code>. Claro, é muito fácil criar seu próprio <em>hook</em> também.</p>
 <p>No &quot;topo&quot; de nossa arquitetura, queremos declarar explicitamente um valor que pode ser um erro.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum InputError {
@@ -271,7 +271,7 @@ static INPUT_ERROR: Atom&lt;InputError&gt; = |_| InputError::None;
 <span class="boring">}
 </span></code></pre></pre>
 <p>Então, em nosso componente de nível superior, queremos tratar explicitamente o possível estado de erro para esta parte da árvore.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn TopLevel(cx: Scope) -&gt; Element {
@@ -286,7 +286,7 @@ static INPUT_ERROR: Atom&lt;InputError&gt; = |_| InputError::None;
 <span class="boring">}
 </span></code></pre></pre>
 <p>Agora, sempre que um componente <em>downstream</em> tiver um erro em suas ações, ele pode simplesmente definir seu próprio estado de erro:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn Commandline(cx: Scope) -&gt; Element {

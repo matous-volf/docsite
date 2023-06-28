@@ -162,7 +162,7 @@
 <h2 id="fragmentos-aninhados-desnecessariamente"><a class="header" href="#fragmentos-aninhados-desnecessariamente">Fragmentos Aninhados Desnecessariamente</a></h2>
 <p>Os fragmentos não montam um elemento físico no DOM imediatamente, então o Dioxus deve recorrer a seus filhos para encontrar um nó DOM físico. Este processo é chamado de &quot;normalização&quot;. Isso significa que fragmentos profundamente aninhados fazem o Dioxus realizar um trabalho desnecessário. Prefira um ou dois níveis de fragmentos/componentes aninhados até apresentar um elemento DOM verdadeiro.</p>
 <p>Apenas os nós Componente e Fragmento são suscetíveis a esse problema. O Dioxus atenua isso com componentes fornecendo uma API para registrar o estado compartilhado sem o padrão <em>Context Provider</em>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    // ❌ Don't unnecessarily nest fragments
@@ -188,7 +188,7 @@
 </span></code></pre></pre>
 <h2 id="chaves-do-iterador-incorretas"><a class="header" href="#chaves-do-iterador-incorretas">Chaves do Iterador Incorretas</a></h2>
 <p>Conforme descrito no capítulo de renderização condicional, os itens da lista devem ter <em>keys</em> exclusivas associadas aos mesmos itens nas renderizações. Isso ajuda o Dioxus a associar o estado aos componentes contidos e garante um bom desempenho de diferenciação. Não omita as <em>keys</em>, a menos que você saiba que a lista é estática e nunca será alterada.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    let data: &amp;HashMap&lt;_, _&gt; = &amp;cx.props.data;

@@ -160,7 +160,7 @@
                         <h1 id="componentes"><a class="header" href="#componentes">Componentes</a></h1>
 <p>Assim como você não gostaria de escrever um programa complexo em uma única e longa função <code>main</code>, você não deve construir uma interface complexa em uma única função <code>App</code>. Em vez disso, seria melhor dividir a funcionalidade de um aplicativo em partes lógicas chamadas componentes.</p>
 <p>Um componente é uma função Rust, nomeada em <em>UpperCammelCase</em>, que recebe um parâmetro <code>Scope</code> e retorna um <code>Element</code> descrevendo a interface do usuário que deseja renderizar. Na verdade, nossa função <code>App</code> é um componente!</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// define a component that renders a div with the text &quot;Hello, world!&quot;
@@ -177,7 +177,7 @@ fn App(cx: Scope) -&gt; Element {
 <p>Você provavelmente desejará adicionar <code>#![allow(non_snake_case)]</code> no topo de sua caixa para evitar avisos sobre o nome da função</p>
 </blockquote>
 <p>Um Componente é responsável por alguma tarefa de renderização – normalmente, renderizando uma parte isolada da interface do usuário. Por exemplo, você pode ter um componente <code>About</code> que renderiza uma breve descrição do Dioxus Labs:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub fn About(cx: Scope) -&gt; Element {
@@ -189,7 +189,7 @@ fn App(cx: Scope) -&gt; Element {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Em seguida, você pode renderizar seu componente em outro componente, da mesma forma que os elementos são renderizados:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {

@@ -159,7 +159,7 @@
                     <main>
                         <h1 id="gerando-futures"><a class="header" href="#gerando-futures">Gerando Futures</a></h1>
 <p>Os <strong>&quot;hooks&quot;</strong> <code>use_future</code> e <code>use_coroutine</code> são úteis se você quiser gerar incondicionalmente o <code>Future</code>. Às vezes, porém, você desejará apenas gerar um <code>Future</code> em resposta a um evento, como um clique do mouse. Por exemplo, suponha que você precise enviar uma solicitação quando o usuário clicar em um botão &quot;log in&quot;. Para isso, você pode usar <code>cx.spawn</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    let logged_in = use_state(cx, || false);
@@ -203,7 +203,7 @@
 <p>O <code>Future</code> deve ser <code>'static</code> – então quaisquer valores capturados pela tarefa não podem carregar nenhuma referência a <code>cx</code>, como um <code>UseState</code>.</p>
 <p>No entanto, como você normalmente precisa de uma maneira de atualizar o valor de um gancho, você pode usar <code>to_owned</code> para criar um clone do <em>handle</em> do <em>hook</em>. Você pode então usar esse clone no encerramento assíncrono.</p>
 <p>Para tornar isso um pouco menos detalhado, o Dioxus exporta a macro <code>to_owned!</code> que criará uma ligação como mostrado acima, o que pode ser bastante útil ao lidar com muitos valores.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>        use dioxus::hooks::to_owned;
@@ -219,7 +219,7 @@
 <p>Calling <code>spawn</code> will give you a <code>JoinHandle</code> which lets you cancel or pause the future.</p>
 <h2 id="gerando-tarefas-do-tokio"><a class="header" href="#gerando-tarefas-do-tokio">Gerando Tarefas do Tokio</a></h2>
 <p>Às vezes, você pode querer gerar uma tarefa em segundo plano que precise de vários <em>threads</em> ou conversar com o hardware que pode bloquear o código do seu aplicativo. Nesses casos, podemos gerar diretamente uma tarefa Tokio do nosso <code>Future</code>. Para Dioxus-Desktop, sua tarefa será gerada no tempo de execução Multi-Tarefado do Tokio:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>        cx.spawn(async {

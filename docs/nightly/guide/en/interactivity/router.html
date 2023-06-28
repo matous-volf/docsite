@@ -172,7 +172,7 @@
 </code></pre>
 <h2 id="using-the-router"><a class="header" href="#using-the-router">Using the router</a></h2>
 <p>Unlike other routers in the Rust ecosystem, our router is built declaratively. This makes it possible to compose our app layout simply by arranging components.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>rsx!{
@@ -191,7 +191,7 @@
 <ul>
 <li>A fallback 404 page</li>
 </ul>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>rsx!{
@@ -207,7 +207,7 @@
 <ul>
 <li>Redirect 404 to home</li>
 </ul>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>rsx!{
@@ -222,7 +222,7 @@
 </span></code></pre></pre>
 <h2 id="links"><a class="header" href="#links">Links</a></h2>
 <p>For our app to navigate these routes, we can provide clickable elements called Links. These simply wrap <code>&lt;a&gt;</code> elements that, when clicked, navigate the app to the given location.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>rsx!{

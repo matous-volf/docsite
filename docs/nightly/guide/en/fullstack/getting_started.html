@@ -183,7 +183,7 @@ dioxus-fullstack = { version = &quot;*&quot;, features = [&quot;axum&quot;, &quo
 tokio = { version = &quot;*&quot;, features = [&quot;full&quot;] }
 </code></pre>
 <p>Now, set up your Axum app to serve the Dioxus app.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">#![allow(non_snake_case, unused)]
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">#![allow(non_snake_case, unused)]
 use dioxus::prelude::*;
 
 #[tokio::main]
@@ -236,7 +236,7 @@ ssr = [&quot;axum&quot;, &quot;tokio&quot;, &quot;dioxus-fullstack/axum&quot;]
 web = [&quot;dioxus-web&quot;]
 </code></pre>
 <p>Next, we need to modify our <code>main.rs</code> to use either hydrate on the client or render on the server depending on the active features.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">#![allow(non_snake_case, unused)]
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">#![allow(non_snake_case, unused)]
 use dioxus::prelude::*;
 
 fn main() {
@@ -284,7 +284,7 @@ fn app(cx: Scope) -&gt; Element {
 </ul>
 <h3 id="modifying-the-client"><a class="header" href="#modifying-the-client">Modifying the client</a></h3>
 <p>The only thing we need to change on the client is the props. <code>dioxus-fullstack</code> will automatically serialize the props it uses to server render the app and send them to the client. In the client section of <code>main.rs</code>, we need to add <code>get_root_props_from_document</code> to deserialize the props before we hydrate the app.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">#![allow(non_snake_case, unused)]
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">#![allow(non_snake_case, unused)]
 use dioxus::prelude::*;
 use dioxus_fullstack::prelude::*;
 

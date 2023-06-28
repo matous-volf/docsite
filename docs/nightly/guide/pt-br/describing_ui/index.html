@@ -160,7 +160,7 @@
                         <h1 id="descrevendo-a-interface-do-usuário"><a class="header" href="#descrevendo-a-interface-do-usuário">Descrevendo a Interface do Usuário</a></h1>
 <p>Dioxus é uma estrutura <em>declarativa</em>. Isso significa que, em vez de dizer ao Dioxus o que fazer (por exemplo, &quot;criar um elemento&quot; ou &quot;definir a cor para vermelho&quot;), simplesmente <em>declaramos</em> como queremos que a interface do usuário se pareça usando o RSX.</p>
 <p>Você já viu um exemplo simples ou sintaxe <code>RSX</code> no aplicativo &quot;hello world&quot;:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// define a component that renders a div with the text &quot;Hello, world!&quot;
@@ -176,7 +176,7 @@ fn App(cx: Scope) -&gt; Element {
 <p>Aqui, usamos a macro <code>rsx!</code> para <em>declarar</em> que queremos um elemento <code>div</code>, contendo o texto <code>&quot;Hello, world!&quot;</code>. Dioxus pega o RSX e constrói uma interface do usuário a partir dele.</p>
 <h2 id="recursos-do-rsx"><a class="header" href="#recursos-do-rsx">Recursos do RSX</a></h2>
 <p>O RSX é muito semelhante ao HTML, pois descreve elementos com atributos e filhos. Aqui está um elemento <code>div</code> vazio no RSX, bem como o HTML resultante:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx!(div {
@@ -189,7 +189,7 @@ fn App(cx: Scope) -&gt; Element {
 </code></pre>
 <h3 id="filhos"><a class="header" href="#filhos">Filhos</a></h3>
 <p>Para adicionar filhos a um elemento, coloque-os dentro dos colchetes <code>{}</code>. Eles podem ser outros elementos ou texto. Por exemplo, você pode ter um elemento <code>ol</code> (lista ordenada), contendo 3 elementos <code>li</code> (item da lista), cada um dos quais contém algum texto:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx!(ol {
@@ -210,7 +210,7 @@ fn App(cx: Scope) -&gt; Element {
 <blockquote>
 <p>Nota: você também pode renderizar vários elementos no nível superior de <code>rsx!</code> e eles serão agrupados automaticamente – não há necessidade de um <code>Fragment {}</code> explícito lá.</p>
 </blockquote>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx!(
@@ -232,7 +232,7 @@ fn App(cx: Scope) -&gt; Element {
 </code></pre>
 <h3 id="atributos"><a class="header" href="#atributos">Atributos</a></h3>
 <p>Os atributos também são especificados dentro dos colchetes <code>{}</code>, usando a sintaxe <code>name: value</code>. Você pode fornecer o valor como um literal no RSX:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx!(a {
@@ -254,7 +254,7 @@ fn App(cx: Scope) -&gt; Element {
 </blockquote>
 <h4 id="atributos-personalizados"><a class="header" href="#atributos-personalizados">Atributos Personalizados</a></h4>
 <p>Dioxus tem um conjunto pré-configurado de atributos que você pode usar. O RSX é validado em tempo de compilação para garantir que você não especificou um atributo inválido. Se você quiser substituir esse comportamento por um nome de atributo personalizado, especifique o atributo entre aspas:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    cx.render(rsx!(b {
@@ -266,7 +266,7 @@ fn App(cx: Scope) -&gt; Element {
 </code></pre>
 <h3 id="interpolação"><a class="header" href="#interpolação">Interpolação</a></h3>
 <p>Da mesma forma que você pode <a href="https://doc.rust-lang.org/rust-by-example/hello/print/fmt.html">formatar</a> Rust <em>strings</em>, você também pode interpolar no texto RSX. Use <code>{variable}</code> para exibir o valor de uma variável em uma <em>string</em>, ou <code>{variable:?}</code> para usar a representação <code>Debug</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let coordinates = (42, 0);
@@ -297,7 +297,7 @@ cx.render(rsx!(div {
 </code></pre>
 <h3 id="expressões"><a class="header" href="#expressões">Expressões</a></h3>
 <p>Você pode incluir expressões Rust arbitrárias dentro do RSX, mas deve escapá-las entre colchetes <code>[]</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let text = &quot;Dioxus&quot;;

@@ -159,7 +159,7 @@
                     <main>
                         <h1 id="componente-filhos"><a class="header" href="#componente-filhos">Componente Filhos</a></h1>
 <p>Em alguns casos, você pode desejar criar um componente que atue como um contêiner para algum outro conteúdo, sem que o componente precise saber qual é esse conteúdo. Para conseguir isso, crie uma <em>prop</em> do tipo <code>Element</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(Props)]
@@ -180,7 +180,7 @@ fn Clickable&lt;'a&gt;(cx: Scope&lt;'a, ClickableProps&lt;'a&gt;&gt;) -&gt; Elem
 <span class="boring">}
 </span></code></pre></pre>
 <p>Então, ao renderizar o componente, você pode passar a saída de <code>cx.render(rsx!(...))</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    cx.render(rsx! {
@@ -199,7 +199,7 @@ fn Clickable&lt;'a&gt;(cx: Scope&lt;'a, ClickableProps&lt;'a&gt;&gt;) -&gt; Elem
 </blockquote>
 <h2 id="o-campo-children"><a class="header" href="#o-campo-children">O Campo <code>children</code></a></h2>
 <p>Em vez de passar o <code>RSX</code> através de uma <em>prop</em> regular, você pode querer aceitar filhos da mesma forma que os elementos podem ter filhos. O prop &quot;mágico&quot; <code>children</code> permite que você consiga isso:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(Props)]
@@ -220,7 +220,7 @@ fn Clickable&lt;'a&gt;(cx: Scope&lt;'a, ClickableProps&lt;'a&gt;&gt;) -&gt; Elem
 <span class="boring">}
 </span></code></pre></pre>
 <p>Isso torna o uso do componente muito mais simples: basta colocar o <code>RSX</code> dentro dos colchetes <code>{}</code> – e não há necessidade de uma chamada <code>render</code> ou outra macro!</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    cx.render(rsx! {

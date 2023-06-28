@@ -161,7 +161,7 @@
 <p>Às vezes você quer renderizar coisas diferentes dependendo do estado/<em>props</em>. Com o Dioxus, apenas descreva o que você quer ver usando o fluxo de controle do Rust – o <em>framework</em> se encarregará de fazer as mudanças necessárias em tempo real se o estado ou <em>props</em> mudarem!</p>
 <h2 id="renderização-condicional"><a class="header" href="#renderização-condicional">Renderização Condicional</a></h2>
 <p>Para renderizar diferentes elementos com base em uma condição, você pode usar uma instrução <code>if-else</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>if *is_logged_in {
@@ -187,7 +187,7 @@
 </blockquote>
 <h3 id="inspecionando-props-element"><a class="header" href="#inspecionando-props-element">Inspecionando <em>props</em> <code>Element</code></a></h3>
 <p>Como <code>Element</code> é uma <code>Option&lt;VNode&gt;</code>, os componentes que aceitam <code>Element</code> como <em>prop</em> podem realmente inspecionar seu conteúdo e renderizar coisas diferentes com base nisso. Exemplo:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn Clickable&lt;'a&gt;(cx: Scope&lt;'a, ClickableProps&lt;'a&gt;&gt;) -&gt; Element {
@@ -205,7 +205,7 @@
 <p>Você não pode modificar o <code>Element</code>, mas se precisar de uma versão modificada dele, você pode construir um novo baseado em seus atributos/filhos/etc.</p>
 <h2 id="renderizando-nada"><a class="header" href="#renderizando-nada">Renderizando Nada</a></h2>
 <p>Para renderizar nada, você pode retornar <code>None</code> de um componente. Isso é útil se você deseja ocultar algo condicionalmente:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>if *is_logged_in {
@@ -236,7 +236,7 @@ cx.render(rsx! {
 <li>Incluir este iterador no RSX final</li>
 </ul>
 <p>Exemplo: suponha que você tenha uma lista de comentários que deseja renderizar. Então, você pode renderizá-los assim:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let comment_field = use_state(cx, String::new);

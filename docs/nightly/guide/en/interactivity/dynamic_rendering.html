@@ -161,7 +161,7 @@
 <p>Sometimes you want to render different things depending on the state/props. With Dioxus, just describe what you want to see using Rust control flow – the framework will take care of making the necessary changes on the fly if the state or props change!</p>
 <h2 id="conditional-rendering"><a class="header" href="#conditional-rendering">Conditional Rendering</a></h2>
 <p>To render different elements based on a condition, you could use an <code>if-else</code> statement:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>if *is_logged_in {
@@ -188,7 +188,7 @@
 <h3 id="improving-the-if-else-example"><a class="header" href="#improving-the-if-else-example">Improving the <code>if-else</code> Example</a></h3>
 <p>You may have noticed some repeated code in the <code>if-else</code> example above. Repeating code like this is both bad for maintainability and performance. Dioxus will skip diffing static elements like the button, but when switching between multiple <code>rsx</code> calls it cannot perform this optimization. For this example either approach is fine, but for components with large parts that are reused between conditionals, it can be more of an issue.</p>
 <p>We can improve this example by splitting up the dynamic parts and inserting them where they are needed.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx! {
@@ -219,7 +219,7 @@
 </span></code></pre></pre>
 <h3 id="inspecting-element-props"><a class="header" href="#inspecting-element-props">Inspecting <code>Element</code> props</a></h3>
 <p>Since <code>Element</code> is a <code>Option&lt;VNode&gt;</code>, components accepting <code>Element</code> as a prop can inspect its contents, and render different things based on that. Example:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn Clickable&lt;'a&gt;(cx: Scope&lt;'a, ClickableProps&lt;'a&gt;&gt;) -&gt; Element {
@@ -237,7 +237,7 @@
 <p>You can't mutate the <code>Element</code>, but if you need a modified version of it, you can construct a new one based on its attributes/children/etc.</p>
 <h2 id="rendering-nothing"><a class="header" href="#rendering-nothing">Rendering Nothing</a></h2>
 <p>To render nothing, you can return <code>None</code> from a component. This is useful if you want to conditionally hide something:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>if *is_logged_in {
@@ -268,7 +268,7 @@ cx.render(rsx! {
 <li>Include this iterator in the final RSX (or use it inline)</li>
 </ul>
 <p>Example: suppose you have a list of comments you want to render. Then, you can render them like this:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let comment_field = use_state(cx, String::new);
@@ -308,7 +308,7 @@ cx.render(rsx!(
 </span></code></pre></pre>
 <h3 id="inline-for-loops"><a class="header" href="#inline-for-loops">Inline for loops</a></h3>
 <p>Because of how common it is to render a list of items, Dioxus provides a shorthand for this. Instead of using <code>.iter</code>, <code>.map</code>, and <code>rsx</code>, you can use a <code>for</code> loop with a body of rsx code:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let comment_field = use_state(cx, String::new);

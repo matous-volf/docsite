@@ -159,7 +159,7 @@
                     <main>
                         <h1 id="spawning-futures"><a class="header" href="#spawning-futures">Spawning Futures</a></h1>
 <p>The <code>use_future</code> and <code>use_coroutine</code> hooks are useful if you want to unconditionally spawn the future. Sometimes, though, you'll want to only spawn a future in response to an event, such as a mouse click. For example, suppose you need to send a request when the user clicks a &quot;log in&quot; button. For this, you can use <code>cx.spawn</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    let logged_in = use_state(cx, || false);
@@ -203,7 +203,7 @@
 <p>Calling <code>spawn</code> will give you a <code>JoinHandle</code> which lets you cancel or pause the future.</p>
 <h2 id="spawning-tokio-tasks"><a class="header" href="#spawning-tokio-tasks">Spawning Tokio Tasks</a></h2>
 <p>Sometimes, you might want to spawn a background task that needs multiple threads or talk to hardware that might block your app code. In these cases, we can directly spawn a Tokio task from our future. For Dioxus-Desktop, your task will be spawned onto Tokio's Multithreaded runtime:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>        cx.spawn(async {

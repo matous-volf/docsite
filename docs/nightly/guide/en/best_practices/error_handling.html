@@ -162,7 +162,7 @@
 <p>However, we haven't talked about error handling at all in this guide! In this chapter, we'll cover some strategies in handling errors to ensure your app never crashes.</p>
 <h2 id="the-simplest--returning-none"><a class="header" href="#the-simplest--returning-none">The simplest – returning None</a></h2>
 <p>Astute observers might have noticed that <code>Element</code> is actually a type alias for <code>Option&lt;VNode&gt;</code>. You don't need to know what a <code>VNode</code> is, but it's important to recognize that we could actually return nothing at all:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -174,7 +174,7 @@
 <blockquote>
 <p>The nature of <code>Option&lt;VNode&gt;</code> might change in the future as the <code>try</code> trait gets upgraded.</p>
 </blockquote>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -185,7 +185,7 @@
 </span></code></pre></pre>
 <h2 id="early-return-on-result"><a class="header" href="#early-return-on-result">Early return on result</a></h2>
 <p>Because Rust can't accept both Options and Results with the existing try infrastructure, you'll need to manually handle Results. This can be done by converting them into Options or by explicitly handling them.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -206,14 +206,14 @@
 <h2 id="match-results"><a class="header" href="#match-results">Match results</a></h2>
 <p>The next &quot;best&quot; way of handling errors in Dioxus is to match on the error locally. This is the most robust way of handling errors, though it doesn't scale to architectures beyond a single component.</p>
 <p>To do this, we simply have an error state built into our component:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let err = use_state(cx, || None);
 <span class="boring">}
 </span></code></pre></pre>
 <p>Whenever we perform an action that generates an error, we'll set that error state. We can then match on the error in a number of ways (early return, return Element, etc).</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn Commandline(cx: Scope) -&gt; Element {
@@ -234,7 +234,7 @@
 </span></code></pre></pre>
 <h2 id="passing-error-states-through-components"><a class="header" href="#passing-error-states-through-components">Passing error states through components</a></h2>
 <p>If you're dealing with a handful of components with minimal nesting, you can just pass the error handle into child components.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn Commandline(cx: Scope) -&gt; Element {
@@ -258,7 +258,7 @@
 <p>A strategy for handling cascaded errors in larger apps is through signaling an error using global state. This particular pattern involves creating an &quot;error&quot; context, and then setting it wherever relevant. This particular method is not as &quot;sophisticated&quot; as React's error boundary, but it is more fitting for Rust.</p>
 <p>To get started, consider using a built-in hook like <code>use_context</code> and <code>use_context_provider</code> or Fermi. Of course, it's pretty easy to roll your own hook too.</p>
 <p>At the &quot;top&quot; of our architecture, we're going to want to explicitly declare a value that could be an error.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum InputError {
@@ -271,7 +271,7 @@ static INPUT_ERROR: Atom&lt;InputError&gt; = |_| InputError::None;
 <span class="boring">}
 </span></code></pre></pre>
 <p>Then, in our top level component, we want to explicitly handle the possible error state for this part of the tree.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn TopLevel(cx: Scope) -&gt; Element {
@@ -286,7 +286,7 @@ static INPUT_ERROR: Atom&lt;InputError&gt; = |_| InputError::None;
 <span class="boring">}
 </span></code></pre></pre>
 <p>Now, whenever a downstream component has an error in its actions, it can simply just set its own error state:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn Commandline(cx: Scope) -&gt; Element {

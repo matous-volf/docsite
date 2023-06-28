@@ -166,7 +166,7 @@
 <p>Claro, neste exemplo simples, poderíamos escrever tudo em um componente - mas é melhor dividir tudo em componentes menores para tornar o código mais reutilizável e fácil de manter (isso é ainda mais importante para aplicativos maiores e complexos) .</p>
 </blockquote>
 <p>Começamos com um componente <code>Meme</code>, responsável por renderizar um meme com uma determinada legenda:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[inline_props]
@@ -214,7 +214,7 @@ fn Meme&lt;'a&gt;(cx: Scope&lt;'a&gt;, caption: &amp;'a str) -&gt; Element&lt;'a
 <p>Observe que o componente <code>Meme</code> não sabe de onde vem a legenda – ela pode ser armazenada em <code>use_state</code>, <code>use_ref</code> ou uma constante. Isso garante que seja muito reutilizável - o mesmo componente pode ser usado para uma galeria de memes sem nenhuma alteração!</p>
 </blockquote>
 <p>Também criamos um editor de legendas, totalmente desacoplado do meme. O editor de legendas não deve armazenar a legenda em si – caso contrário, como iremos fornecê-la ao componente <code>Meme</code>? Em vez disso, ele deve aceitar a legenda atual como um suporte, bem como um manipulador de eventos para delegar eventos de entrada para:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[inline_props]
@@ -241,7 +241,7 @@ fn CaptionEditor&lt;'a&gt;(
 <span class="boring">}
 </span></code></pre></pre>
 <p>Finalmente, um terceiro componente renderizará os outros dois como filhos. Ele será responsável por manter o estado e passar os <em>props</em> relevantes.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn MemeEditor(cx: Scope) -&gt; Element {
@@ -281,21 +281,21 @@ fn CaptionEditor&lt;'a&gt;(
 <p>Agora, poderíamos escrever outro <code>use_state</code> no componente superior e passar <code>is_dark_mode</code> para cada componente através de <em>props</em>. Mas pense no que acontecerá à medida que o aplicativo crescer em complexidade – quase todos os componentes que renderizam qualquer CSS precisarão saber se o modo escuro está ativado ou não – para que todos precisem do mesmo suporte do modo escuro. E cada componente pai precisará passá-lo para eles. Imagine como isso ficaria confuso e verboso, especialmente se tivéssemos componentes com vários níveis de profundidade!</p>
 <p>A Dioxus oferece uma solução melhor do que esta &quot;perfuração com hélice&quot; – fornecendo contexto. O <em>hook</em> <a href="https://docs.rs/dioxus-hooks/latest/dioxus_hooks/fn.use_context_provider.html"><code>use_context_provider</code></a> é semelhante ao <code>use_ref</code>, mas o torna disponível através do <a href="https://docs.rs/dioxus-hooks/latest/dioxus_hooks/fn.use_context.html"><code>use_context</code></a> para todos os componentes filhos.</p>
 <p>Primeiro, temos que criar um <em>struct</em> para nossa configuração de modo escuro:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>struct DarkMode(bool);
 <span class="boring">}
 </span></code></pre></pre>
 <p>Agora, em um componente de nível superior (como <code>App</code>), podemos fornecer o contexto <code>DarkMode</code> para todos os componentes filhos:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use_shared_state_provider(cx, || DarkMode(false));
 <span class="boring">}
 </span></code></pre></pre>
 <p>Como resultado, qualquer componente filho de <code>App</code> (direto ou não), pode acessar o contexto <code>DarkMode</code>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let dark_mode_context = use_shared_state::&lt;DarkMode&gt;(cx);
@@ -305,7 +305,7 @@ fn CaptionEditor&lt;'a&gt;(
 <p><code>use_context</code> retorna <code>Option&lt;UseSharedState&lt;DarkMode&gt;&gt;</code> aqui. Se o contexto foi fornecido, o valor é <code>Some(UseSharedState)</code>, que você pode chamar <code>.read</code> ou <code>.write</code>, similarmente a <code>UseRef</code>. Caso contrário, o valor é <code>None</code>.</p>
 </blockquote>
 <p>Por exemplo, aqui está como implementaríamos a alternância do modo escuro, que lê o contexto (para determinar a cor que deve renderizar) e grava nele (para alternar o modo escuro):</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub fn DarkModeToggle(cx: Scope) -&gt; Element {

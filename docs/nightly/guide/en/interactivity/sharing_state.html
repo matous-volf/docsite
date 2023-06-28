@@ -166,7 +166,7 @@
 <p>Of course, in this simple example, we could write everything in one component – but it is better to split everything out in smaller components to make the code more reusable, maintainable, and performant (this is even more important for larger, complex apps).</p>
 </blockquote>
 <p>We start with a <code>Meme</code> component, responsible for rendering a meme with a given caption:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[inline_props]
@@ -214,7 +214,7 @@ fn Meme&lt;'a&gt;(cx: Scope&lt;'a&gt;, caption: &amp;'a str) -&gt; Element&lt;'a
 <p>Note that the <code>Meme</code> component is unaware where the caption is coming from – it could be stored in <code>use_state</code>, <code>use_ref</code>, or a constant. This ensures that it is very reusable – the same component can be used for a meme gallery without any changes!</p>
 </blockquote>
 <p>We also create a caption editor, completely decoupled from the meme. The caption editor must not store the caption itself – otherwise, how will we provide it to the <code>Meme</code> component? Instead, it should accept the current caption as a prop, as well as an event handler to delegate input events to:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[inline_props]
@@ -241,7 +241,7 @@ fn CaptionEditor&lt;'a&gt;(
 <span class="boring">}
 </span></code></pre></pre>
 <p>Finally, a third component will render the other two as children. It will be responsible for keeping the state and passing down the relevant props.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn MemeEditor(cx: Scope) -&gt; Element {
@@ -281,21 +281,21 @@ fn CaptionEditor&lt;'a&gt;(
 <p>Now, we could write another <code>use_state</code> in the top component, and pass <code>is_dark_mode</code> down to every component through props. But think about what will happen as the app grows in complexity – almost every component that renders any CSS is going to need to know if dark mode is enabled or not – so they'll all need the same dark mode prop. And every parent component will need to pass it down to them. Imagine how messy and verbose that would get, especially if we had components several levels deep!</p>
 <p>Dioxus offers a better solution than this &quot;prop drilling&quot; – providing context. The <a href="https://docs.rs/dioxus-hooks/latest/dioxus_hooks/fn.use_context_provider.html"><code>use_context_provider</code></a> hook is similar to <code>use_ref</code>, but it makes it available through <a href="https://docs.rs/dioxus-hooks/latest/dioxus_hooks/fn.use_context.html"><code>use_context</code></a> for all children components.</p>
 <p>First, we have to create a struct for our dark mode configuration:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>struct DarkMode(bool);
 <span class="boring">}
 </span></code></pre></pre>
 <p>Now, in a top-level component (like <code>App</code>), we can provide the <code>DarkMode</code> context to all children components:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use_shared_state_provider(cx, || DarkMode(false));
 <span class="boring">}
 </span></code></pre></pre>
 <p>As a result, any child component of <code>App</code> (direct or not), can access the <code>DarkMode</code> context.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let dark_mode_context = use_shared_state::&lt;DarkMode&gt;(cx);
@@ -305,7 +305,7 @@ fn CaptionEditor&lt;'a&gt;(
 <p><code>use_context</code> returns <code>Option&lt;UseSharedState&lt;DarkMode&gt;&gt;</code> here. If the context has been provided, the value is <code>Some(UseSharedState&lt;DarkMode&gt;)</code>, which you can call <code>.read</code> or <code>.write</code> on, similarly to <code>UseRef</code>. Otherwise, the value is <code>None</code>.</p>
 </blockquote>
 <p>For example, here's how we would implement the dark mode toggle, which both reads the context (to determine what color it should render) and writes to it (to toggle dark mode):</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub fn DarkModeToggle(cx: Scope) -&gt; Element {

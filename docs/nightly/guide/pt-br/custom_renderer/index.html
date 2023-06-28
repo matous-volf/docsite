@@ -171,7 +171,7 @@
 <p>Como referência, confira o interpretador <code>javascript</code> ou o renderizador <code>tui</code> como ponto de partida para seu renderizador personalizado.</p>
 <h2 id="domedit"><a class="header" href="#domedit">DomEdit</a></h2>
 <p>O tipo &quot;DomEdit&quot; é uma <code>enum</code> serializada que representa uma operação atômica que ocorre no <code>RealDom</code>. As variantes seguem aproximadamente este conjunto:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum DomEdit {
@@ -197,7 +197,7 @@
 <p>O mecanismo de diferenciação Dioxus opera como uma [máquina de pilha] (https://en.wikipedia.org/wiki/Stack_machine) onde o método &quot;push_root&quot; empurra um novo nó DOM &quot;real&quot; para a pilha e &quot;append_child&quot; e &quot;replace_with&quot; &quot; ambos removem nós da pilha.</p>
 <h3 id="exemplo"><a class="header" href="#exemplo">Exemplo</a></h3>
 <p>Para fins de compreensão, vamos considerar este exemplo – uma declaração de interface do usuário muito simples:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>rsx!( h1 {&quot;hello world&quot;} )
@@ -205,7 +205,7 @@
 </span></code></pre></pre>
 <p>Para começar, o Dioxus deve primeiro navegar até o contêiner dessa tag h1. Para &quot;navegar&quot; aqui, o algoritmo de diferenciação interna gera o <code>DomEdit</code> <code>PushRoot</code> onde o ID da raiz é o contêiner.</p>
 <p>Quando o renderizador recebe essa instrução, ele empurra o <code>Node</code> real para sua própria pilha. A pilha do renderizador real ficará assim:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>instructions: [
@@ -217,7 +217,7 @@ stack: [
 <span class="boring">}
 </span></code></pre></pre>
 <p>Em seguida, o Dioxus encontrará o nó <code>h1</code>. O algoritmo <code>diff</code> decide que este nó precisa ser criado, então o Dioxus irá gerar o DomEdit <code>CreateElement</code>. Quando o renderizador receber esta instrução, ele criará um nó desmontado e o enviará para sua própria pilha (<em>stack</em>):</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>instructions: [
@@ -231,7 +231,7 @@ stack: [
 <span class="boring">}
 </span></code></pre></pre>
 <p>Em seguida, Dioxus vê o nó de texto e gera o DomEdit <code>CreateTextNode</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>instructions: [
@@ -247,7 +247,7 @@ stack: [
 <span class="boring">}
 </span></code></pre></pre>
 <p>Lembre-se, o nó de texto não está anexado a nada (ele está desmontado), então o Dioxus precisa gerar um <em>Edit</em> que conecte o nó de texto ao elemento <code>h1</code>. Depende da situação, mas neste caso usamos <code>AppendChildren</code>. Isso remove o nó de texto da <em>stack</em>, deixando o elemento <code>h1</code> como o próximo elemento na linha.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>instructions: [
@@ -263,7 +263,7 @@ stack: [
 <span class="boring">}
 </span></code></pre></pre>
 <p>Chamamos <code>AppendChildren</code> novamente, retirando o nó <code>h1</code> e anexando-o ao pai:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>instructions: [
@@ -279,7 +279,7 @@ stack: [
 <span class="boring">}
 </span></code></pre></pre>
 <p>Finalmente, o contêiner é aberto, pois não precisamos mais dele.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>instructions: [
@@ -294,7 +294,7 @@ stack: []
 <span class="boring">}
 </span></code></pre></pre>
 <p>Com o tempo, nossa <em>stack</em> ficou assim:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>[]
@@ -314,7 +314,7 @@ stack: []
 <h2 id="ciclo-de-eventos"><a class="header" href="#ciclo-de-eventos">Ciclo de Eventos</a></h2>
 <p>Como a maioria das GUIs, o Dioxus conta com um <em>loop</em> de eventos para progredir no <code>VirtualDOM</code>. O próprio <code>VirtualDOM</code> também pode produzir eventos, por isso é importante que seu renderizador personalizado também possa lidar com eles.</p>
 <p>O código para a implementação do <code>WebSys</code> é direto, então vamos adicioná-lo aqui para demonstrar como um <code>loop</code> de eventos é simples:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub async fn run(&amp;mut self) -&gt; dioxus_core::error::Result&lt;()&gt; {
@@ -345,7 +345,7 @@ stack: []
 <span class="boring">}
 </span></code></pre></pre>
 <p>É importante que você decodifique os eventos reais do seu sistema de eventos no sistema de eventos sintético do Dioxus (entenda sintético como abstraído). Isso significa simplesmente combinar seu tipo de evento e criar um tipo Dioxus <code>UserEvent</code>. No momento, o sistema <code>VirtualEvent</code> é modelado quase inteiramente em torno da especificação HTML, mas estamos interessados em reduzi-lo.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn virtual_event_from_websys_event(event: &amp;web_sys::Event) -&gt; VirtualEvent {
@@ -381,7 +381,7 @@ stack: []
 <p>Se você precisa ir tão longe a ponto de confiar em elementos personalizados para o seu renderizador – você pode. Isso ainda permite que você use a natureza reativa do Dioxus, sistema de componentes, estado compartilhado e outros recursos, mas acabará gerando nós diferentes. Todos os atributos e ouvintes para o namespace HTML e SVG são transportados por meio de estruturas auxiliares que essencialmente compilam (não representam sobrecarga de tempo de execução). Você pode colocar seus próprios elementos a qualquer hora, sem problemas. No entanto, você deve ter certeza absoluta de que seu renderizador pode lidar com o novo tipo, ou ele irá &quot;bater e queimar&quot;.</p>
 <p>Esses elementos personalizados são definidos como estruturas de unidade com implementações de características.</p>
 <p>Por exemplo, o elemento <code>div</code> é (aproximadamente!) definido assim:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>struct div;
@@ -405,7 +405,7 @@ impl div {
 <h3 id="exemplo-1"><a class="header" href="#exemplo-1">Exemplo</a></h3>
 <p>Vamos construir um renderizador de exemplo com bordas, tamanho e cor do texto.
 Antes de começarmos, vamos dar uma olhada em um elemento de exemplo que podemos renderizar:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx!{
@@ -423,7 +423,7 @@ Antes de começarmos, vamos dar uma olhada em um elemento de exemplo que podemos
 <p>No diagrama a seguir, as setas representam o fluxo de dados:</p>
 <p><a href="https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNqdVNFqgzAU_RXJXizUUZPJmIM-jO0LukdhpCbO0JhIGteW0n9fNK1Oa0brfUnu9VxyzzkXjyCVhIIYZFzu0hwr7X2-JcIzsa3W3wqXuZdKoele22oddfa1Y0Tnfn31muvMfqeCDNq3GmvaNROmaKqZFO1DPTRhP8MOd1fTWYNDvzlmQbBMJZcq9JtjNgY1mLVUhBqQPQeojl3wGCw5PsjqnIe-zXqEL8GZ2Kz0gVMPmoeU3ND4IcuiaLGY2zRouuKncv_qGKv3VodpJe0JVU6QCQ5kgqMyWQVr8hbk4hm1PBcmsuwmnrCVH94rP7xN_ucp8sOB_EPSfz9drYVrkpc_AmH8_yTjJueUc-ntpOJkgt2os9tKjcYlt-DLUiD3UsB2KZCLcwjv3Aq33-g2v0M0xXA0MBy5DUdXi-gcJZriuLmAOSioKjAj5ld8rMsJ0DktaAJicyVYbRKQiJPBVSUx438QpqUCcYb5ls4BrrRcHUTaFizqnWGzR8W5evoFI-bJdw"><img src="https://mermaid.ink/img/pako:eNqdVNFqgzAU_RXJXizUUZPJmIM-jO0LukdhpCbO0JhIGteW0n9fNK1Oa0brfUnu9VxyzzkXjyCVhIIYZFzu0hwr7X2-JcIzsa3W3wqXuZdKoele22oddfa1Y0Tnfn31muvMfqeCDNq3GmvaNROmaKqZFO1DPTRhP8MOd1fTWYNDvzlmQbBMJZcq9JtjNgY1mLVUhBqQPQeojl3wGCw5PsjqnIe-zXqEL8GZ2Kz0gVMPmoeU3ND4IcuiaLGY2zRouuKncv_qGKv3VodpJe0JVU6QCQ5kgqMyWQVr8hbk4hm1PBcmsuwmnrCVH94rP7xN_ucp8sOB_EPSfz9drYVrkpc_AmH8_yTjJueUc-ntpOJkgt2os9tKjcYlt-DLUiD3UsB2KZCLcwjv3Aq33-g2v0M0xXA0MBy5DUdXi-gcJZriuLmAOSioKjAj5ld8rMsJ0DktaAJicyVYbRKQiJPBVSUx438QpqUCcYb5ls4BrrRcHUTaFizqnWGzR8W5evoFI-bJdw" alt="" /></a></p>
 <p>Para ajudar na construção de um DOM, o núcleo nativo fornece quatro <code>traits</code>: <code>State</code>, <code>ChildDepState</code>, <code>ParentDepState</code> e <code>NodeDepState</code> e uma estrutura <code>RealDom</code>. O <code>ChildDepState</code>, <code>ParentDepState</code> e <code>NodeDepState</code> fornecem uma maneira de descrever como algumas informações em um nó se relacionam com as de seus parentes. Ao fornecer como construir um único nó a partir de suas relações, o native-core derivará uma maneira de atualizar o estado de todos os nós para você com <code>#[derive(State)]</code>. Depois de ter um estado, você pode fornecê-lo como genérico ao <code>RealDom</code>. <code>RealDom</code> fornece todos os métodos para interagir e atualizar seu novo dom.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use dioxus_native_core::node_ref::*;
@@ -556,7 +556,7 @@ struct ToyState {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Agora que temos nosso estado, podemos colocá-lo em uso em nosso DOM. Você pode atualizar o DOM com <code>update_state</code> para atualizar a estrutura do dom (adicionando, removendo e alterando as propriedades dos nós) e então <code>apply_mutations</code> para atualizar o <code>ToyState</code> para cada um dos nós que foram alterados.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">fn main(){
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">fn main(){
     fn app(cx: Scope) -&gt; Element {
         cx.render(rsx!{
             div{

@@ -181,7 +181,7 @@ dioxus-ssr = { version = &quot;*&quot; }
 tokio = { version = &quot;1.15.0&quot;, features = [&quot;full&quot;] }
 </code></pre>
 <p>Now, set up your Axum app to respond on an endpoint.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">#![allow(non_snake_case)]
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">#![allow(non_snake_case)]
 use axum::{response::Html, routing::get, Router};
 // import the prelude to get access to the `rsx!` macro and the `Scope` and `Element` types
 use dioxus::prelude::*;
@@ -203,7 +203,7 @@ async fn main() {
 
 </code></pre></pre>
 <p>And then add our endpoint. We can either render <code>rsx!</code> directly:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>async fn app_endpoint() -&gt; Html&lt;String&gt; {
@@ -215,7 +215,7 @@ async fn main() {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Or we can render VirtualDoms.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>async fn second_app_endpoint() -&gt; Html&lt;String&gt; {

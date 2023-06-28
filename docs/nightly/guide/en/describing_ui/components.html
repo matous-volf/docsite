@@ -160,7 +160,7 @@
                         <h1 id="components"><a class="header" href="#components">Components</a></h1>
 <p>Just like you wouldn't want to write a complex program in a single, long, <code>main</code> function, you shouldn't build a complex UI in a single <code>App</code> function. Instead, you should break down the functionality of an app in logical parts called components.</p>
 <p>A component is a Rust function, named in UpperCammelCase, that takes a <code>Scope</code> parameter and returns an <code>Element</code> describing the UI it wants to render. In fact, our <code>App</code> function is a component!</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// define a component that renders a div with the text &quot;Hello, world!&quot;
@@ -177,7 +177,7 @@ fn App(cx: Scope) -&gt; Element {
 <p>You'll probably want to add <code>#![allow(non_snake_case)]</code> to the top of your crate to avoid warnings about UpperCammelCase component names</p>
 </blockquote>
 <p>A Component is responsible for some rendering task – typically, rendering an isolated part of the user interface. For example, you could have an <code>About</code> component that renders a short description of Dioxus Labs:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub fn About(cx: Scope) -&gt; Element {
@@ -189,7 +189,7 @@ fn App(cx: Scope) -&gt; Element {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Then, you can render your component in another component, similarly to how elements are rendered:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {

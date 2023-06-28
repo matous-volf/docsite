@@ -158,7 +158,7 @@
                         <h1 id="introdução"><a class="header" href="#introdução">Introdução</a></h1>
 <p><img src="./images/dioxuslogo_full.png" alt="dioxuslogo" /></p>
 <p>Dioxus é uma estrutura portátil, de alto desempenho e ergonômica para a construção de interfaces de usuário multiplataforma no Rust. Este guia irá ajudá-lo a começar a escrever aplicativos Dioxus para a Web, Desktop, Mobile e muito mais.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn app(cx: Scope) -&gt; Element {
@@ -272,7 +272,7 @@ cd demo
 cargo add dioxus-desktop
 </code></pre>
 <p>Edite seu <code>main.rs</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">#![allow(non_snake_case)]
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">#![allow(non_snake_case)]
 // import the prelude to get access to the `rsx!` macro and the `Scope` and `Element` types
 use dioxus::prelude::*;
 
@@ -333,7 +333,7 @@ cargo add dioxus-web
 &lt;/html&gt;
 </code></pre>
 <p>Edite seu <code>main.rs</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">#![allow(non_snake_case)]
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">#![allow(non_snake_case)]
 // import the prelude to get access to the `rsx!` macro and the `Scope` and `Element` types
 use dioxus::prelude::*;
 
@@ -390,7 +390,7 @@ Habilite o recurso de <em>hot-reload</em> no dioxus:</p>
 <p>Ao trabalhar com frameworks web que requerem <code>Send</code>, é possível renderizar um <code>VirtualDom</code> imediatamente para uma <code>String</code> – mas você não pode manter o <code>VirtualDom</code> em um ponto de espera. Para SSR de estado retido (essencialmente LiveView), você precisará criar um <em>pool</em> de <code>VirtualDoms</code>.</p>
 <h2 id="configurar-1"><a class="header" href="#configurar-1">Configurar</a></h2>
 <p>Se você quer apenas renderizar <code>rsx!</code> ou um VirtualDom para HTML, confira os documentos da API. É bem simples:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// We can render VirtualDoms
@@ -423,7 +423,7 @@ dioxus-ssr = { version = &quot;*&quot; }
 tokio = { version = &quot;1.15.0&quot;, features = [&quot;full&quot;] }
 </code></pre>
 <p>Agora, configure seu aplicativo Axum para responder em um <em>endpoint</em>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use axum::{response::Html, routing::get, Router};
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">use axum::{response::Html, routing::get, Router};
 use dioxus::prelude::*;
 
 #[tokio::main]
@@ -442,7 +442,7 @@ async fn main() {
 }
 </code></pre></pre>
 <p>E, em seguida, adicione nosso <em>endpoint</em>. Podemos renderizar <code>rsx!</code> diretamente:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>async fn app_endpoint() -&gt; Html&lt;String&gt; {
@@ -453,7 +453,7 @@ async fn main() {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Ou podemos renderizar <code>VirtualDoms</code>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>async fn app_endpoint() -&gt; Html&lt;String&gt; {
@@ -487,7 +487,7 @@ cargo add dioxus
 cargo add dioxus-tui
 </code></pre>
 <p>Em seguida, edite seu <code>main.rs</code> com o modelo básico.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">#![allow(non_snake_case)]
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">#![allow(non_snake_case)]
 // import the prelude to get access to the `rsx!` macro and the `Scope` and `Element` types
 use dioxus::prelude::*;
 
@@ -509,7 +509,7 @@ fn App(cx: Scope) -&gt; Element {
 <pre><code class="language-shell">cargo run
 </code></pre>
 <p>Pressione &quot;ctrl-c&quot; para fechar o aplicativo. Para mudar de &quot;ctrl-c&quot; para apenas &quot;q&quot; para sair, você pode iniciar o aplicativo com uma configuração para desativar o sair padrão e usar a raiz TuiContext para sair por conta própria.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">// todo remove deprecated
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">// todo remove deprecated
 #![allow(non_snake_case, deprecated)]
 
 use dioxus::events::{KeyCode, KeyboardEvent};
@@ -594,7 +594,7 @@ dioxus-desktop = { version = &quot;*&quot; }
 simple_logger = &quot;*&quot;
 </code></pre>
 <p>Edite seu <code>lib.rs</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use dioxus::prelude::*;
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">use dioxus::prelude::*;
 
 fn main() {
     dioxus_desktop::launch(app);
@@ -611,7 +611,7 @@ fn app(cx: Scope) -&gt; Element {
 <div style="break-before: page; page-break-before: always;"></div><h1 id="descrevendo-a-interface-do-usuário"><a class="header" href="#descrevendo-a-interface-do-usuário">Descrevendo a Interface do Usuário</a></h1>
 <p>Dioxus é uma estrutura <em>declarativa</em>. Isso significa que, em vez de dizer ao Dioxus o que fazer (por exemplo, &quot;criar um elemento&quot; ou &quot;definir a cor para vermelho&quot;), simplesmente <em>declaramos</em> como queremos que a interface do usuário se pareça usando o RSX.</p>
 <p>Você já viu um exemplo simples ou sintaxe <code>RSX</code> no aplicativo &quot;hello world&quot;:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// define a component that renders a div with the text &quot;Hello, world!&quot;
@@ -627,7 +627,7 @@ fn App(cx: Scope) -&gt; Element {
 <p>Aqui, usamos a macro <code>rsx!</code> para <em>declarar</em> que queremos um elemento <code>div</code>, contendo o texto <code>&quot;Hello, world!&quot;</code>. Dioxus pega o RSX e constrói uma interface do usuário a partir dele.</p>
 <h2 id="recursos-do-rsx"><a class="header" href="#recursos-do-rsx">Recursos do RSX</a></h2>
 <p>O RSX é muito semelhante ao HTML, pois descreve elementos com atributos e filhos. Aqui está um elemento <code>div</code> vazio no RSX, bem como o HTML resultante:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx!(div {
@@ -640,7 +640,7 @@ fn App(cx: Scope) -&gt; Element {
 </code></pre>
 <h3 id="filhos"><a class="header" href="#filhos">Filhos</a></h3>
 <p>Para adicionar filhos a um elemento, coloque-os dentro dos colchetes <code>{}</code>. Eles podem ser outros elementos ou texto. Por exemplo, você pode ter um elemento <code>ol</code> (lista ordenada), contendo 3 elementos <code>li</code> (item da lista), cada um dos quais contém algum texto:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx!(ol {
@@ -661,7 +661,7 @@ fn App(cx: Scope) -&gt; Element {
 <blockquote>
 <p>Nota: você também pode renderizar vários elementos no nível superior de <code>rsx!</code> e eles serão agrupados automaticamente – não há necessidade de um <code>Fragment {}</code> explícito lá.</p>
 </blockquote>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx!(
@@ -683,7 +683,7 @@ fn App(cx: Scope) -&gt; Element {
 </code></pre>
 <h3 id="atributos"><a class="header" href="#atributos">Atributos</a></h3>
 <p>Os atributos também são especificados dentro dos colchetes <code>{}</code>, usando a sintaxe <code>name: value</code>. Você pode fornecer o valor como um literal no RSX:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx!(a {
@@ -705,7 +705,7 @@ fn App(cx: Scope) -&gt; Element {
 </blockquote>
 <h4 id="atributos-personalizados"><a class="header" href="#atributos-personalizados">Atributos Personalizados</a></h4>
 <p>Dioxus tem um conjunto pré-configurado de atributos que você pode usar. O RSX é validado em tempo de compilação para garantir que você não especificou um atributo inválido. Se você quiser substituir esse comportamento por um nome de atributo personalizado, especifique o atributo entre aspas:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    cx.render(rsx!(b {
@@ -717,7 +717,7 @@ fn App(cx: Scope) -&gt; Element {
 </code></pre>
 <h3 id="interpolação"><a class="header" href="#interpolação">Interpolação</a></h3>
 <p>Da mesma forma que você pode <a href="https://doc.rust-lang.org/rust-by-example/hello/print/fmt.html">formatar</a> Rust <em>strings</em>, você também pode interpolar no texto RSX. Use <code>{variable}</code> para exibir o valor de uma variável em uma <em>string</em>, ou <code>{variable:?}</code> para usar a representação <code>Debug</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let coordinates = (42, 0);
@@ -748,7 +748,7 @@ cx.render(rsx!(div {
 </code></pre>
 <h3 id="expressões"><a class="header" href="#expressões">Expressões</a></h3>
 <p>Você pode incluir expressões Rust arbitrárias dentro do RSX, mas deve escapá-las entre colchetes <code>[]</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let text = &quot;Dioxus&quot;;
@@ -766,7 +766,7 @@ cx.render(rsx!(span {
 <h2 id="a-escotilha-de-escape-do-html"><a class="header" href="#a-escotilha-de-escape-do-html">A Escotilha de Escape do HTML</a></h2>
 <p>Se você estiver trabalhando com itens pré-renderizados, modelos ou uma biblioteca JS, convém passar o HTML diretamente em vez de passar pelo Dioxus. Nesses casos, use <code>dangerous_inner_html</code>.</p>
 <p>Por exemplo, enviar um conversor de markdown para Dioxus pode aumentar significativamente o tamanho final do aplicativo. Em vez disso, você desejará pré-renderizar sua remarcação para HTML e, em seguida, incluir o HTML diretamente em sua saída. Usamos essa abordagem para a <a href="https://dioxuslabs.com">página inicial do Dioxus</a>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// this should come from a trusted source
@@ -786,7 +786,7 @@ cx.render(rsx! {
 <h2 id="atributos-booleanos"><a class="header" href="#atributos-booleanos">Atributos Booleanos</a></h2>
 <p>A maioria dos atributos, quando renderizados, serão renderizados exatamente como a entrada que você forneceu. No entanto, alguns atributos são considerados atributos &quot;booleanos&quot; e apenas sua presença determina se eles afetam a saída. Para esses atributos, um valor fornecido de <code>&quot;false&quot;</code> fará com que eles sejam removidos do elemento de destino.</p>
 <p>Portanto, este RSX não renderizaria o atributo <code>hidden</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx! {
@@ -832,7 +832,7 @@ cx.render(rsx! {
 <div style="break-before: page; page-break-before: always;"></div><h1 id="componentes"><a class="header" href="#componentes">Componentes</a></h1>
 <p>Assim como você não gostaria de escrever um programa complexo em uma única e longa função <code>main</code>, você não deve construir uma interface complexa em uma única função <code>App</code>. Em vez disso, seria melhor dividir a funcionalidade de um aplicativo em partes lógicas chamadas componentes.</p>
 <p>Um componente é uma função Rust, nomeada em <em>UpperCammelCase</em>, que recebe um parâmetro <code>Scope</code> e retorna um <code>Element</code> descrevendo a interface do usuário que deseja renderizar. Na verdade, nossa função <code>App</code> é um componente!</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// define a component that renders a div with the text &quot;Hello, world!&quot;
@@ -849,7 +849,7 @@ fn App(cx: Scope) -&gt; Element {
 <p>Você provavelmente desejará adicionar <code>#![allow(non_snake_case)]</code> no topo de sua caixa para evitar avisos sobre o nome da função</p>
 </blockquote>
 <p>Um Componente é responsável por alguma tarefa de renderização – normalmente, renderizando uma parte isolada da interface do usuário. Por exemplo, você pode ter um componente <code>About</code> que renderiza uma breve descrição do Dioxus Labs:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub fn About(cx: Scope) -&gt; Element {
@@ -861,7 +861,7 @@ fn App(cx: Scope) -&gt; Element {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Em seguida, você pode renderizar seu componente em outro componente, da mesma forma que os elementos são renderizados:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -897,7 +897,7 @@ fn App(cx: Scope) -&gt; Element {
 </ul>
 <h3 id="props-próprios"><a class="header" href="#props-próprios">Props Próprios</a></h3>
 <p><em>Props</em> próprios são muito simples – eles não emprestam nada. Exemplo:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// Remember: Owned props must implement `PartialEq`!
@@ -918,7 +918,7 @@ fn Likes(cx: Scope&lt;LikesProps&gt;) -&gt; Element {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Você pode então passar valores de <em>prop</em> para o componente da mesma forma que você passaria atributos para um elemento:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -934,7 +934,7 @@ fn Likes(cx: Scope&lt;LikesProps&gt;) -&gt; Element {
 <h3 id="props-emprestados"><a class="header" href="#props-emprestados">Props Emprestados</a></h3>
 <p>Possuir <em>props</em> funciona bem se seus <em>props</em> forem fáceis de copiar – como um único número. Mas e se precisarmos passar um tipo de dados maior, como uma <code>String</code> de um componente <code>App</code> para um subcomponente <code>TitleCard</code>? Uma solução ingênua pode ser <a href="https://doc.rust-lang.org/std/clone/trait.Clone.html"><code>.clone()</code></a> a <code>String</code>, criando uma cópia dela para o subcomponente – mas isso seria ineficiente, especialmente para <code>Strings</code> maiores.</p>
 <p>Rust permite algo mais eficiente – emprestar a <code>String</code> como um <code>&amp;str</code> – é para isso que servem as <em>props emprestadas</em>!</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(Props)]
@@ -950,7 +950,7 @@ fn TitleCard&lt;'a&gt;(cx: Scope&lt;'a, TitleCardProps&lt;'a&gt;&gt;) -&gt; Elem
 <span class="boring">}
 </span></code></pre></pre>
 <p>Podemos então usar o componente assim:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -965,7 +965,7 @@ fn TitleCard&lt;'a&gt;(cx: Scope&lt;'a, TitleCardProps&lt;'a&gt;&gt;) -&gt; Elem
 <p>A macro <code>#[derive(Props)]</code> tem alguns recursos que permitem personalizar o comportamento dos adereços.</p>
 <h3 id="props-opcionais"><a class="header" href="#props-opcionais">Props Opcionais</a></h3>
 <p>Você pode criar campos opcionais usando o tipo <code>Option&lt;…&gt;</code> para um campo:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(Props)]
@@ -983,7 +983,7 @@ fn Title&lt;'a&gt;(cx: Scope&lt;'a, OptionalProps&gt;) -&gt; Element&lt;'a&gt; {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Em seguida, você pode optar por fornecê-los ou não:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>Title {
@@ -1002,7 +1002,7 @@ Title {
 </span></code></pre></pre>
 <h3 id="option-explicitamente-obrigatórias"><a class="header" href="#option-explicitamente-obrigatórias"><code>Option</code> Explicitamente Obrigatórias</a></h3>
 <p>Se você quiser exigir explicitamente uma <code>Option</code>, e não uma <em>prop</em> opcional, você pode anotá-la com <code>#[props(!optional)]</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(Props)]
@@ -1021,7 +1021,7 @@ fn ExplicitOption&lt;'a&gt;(cx: Scope&lt;'a, ExplicitOptionProps&gt;) -&gt; Elem
 <span class="boring">}
 </span></code></pre></pre>
 <p>Então, você tem que passar explicitamente <code>Some(&quot;str&quot;)</code> ou <code>None</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>ExplicitOption {
@@ -1040,7 +1040,7 @@ ExplicitOption {
 </span></code></pre></pre>
 <h3 id="props-padrão"><a class="header" href="#props-padrão">Props Padrão</a></h3>
 <p>Você pode usar <code>#[props(default = 42)]</code> para tornar um campo opcional e especificar seu valor padrão:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(PartialEq, Props)]
@@ -1056,7 +1056,7 @@ fn DefaultComponent(cx: Scope&lt;DefaultProps&gt;) -&gt; Element {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Então, da mesma forma que <em>props</em> opcionais, você não precisa fornecê-lo:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>DefaultComponent {
@@ -1067,7 +1067,7 @@ DefaultComponent {},
 </span></code></pre></pre>
 <h3 id="conversão-automática-com-into"><a class="header" href="#conversão-automática-com-into">Conversão Automática com <code>.into</code></a></h3>
 <p>É comum que as funções Rust aceitem <code>impl Into&lt;SomeType&gt;</code> em vez de apenas <code>SomeType</code> para suportar uma ampla gama de parâmetros. Se você quiser uma funcionalidade semelhante com <em>props</em>, você pode usar <code>#[props(into)]</code>. Por exemplo, você pode adicioná-lo em uma prop <code>String</code> – e <code>&amp;str</code> também será aceito automaticamente, pois pode ser convertido em <code>String</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(PartialEq, Props)]
@@ -1082,7 +1082,7 @@ fn IntoComponent(cx: Scope&lt;IntoProps&gt;) -&gt; Element {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Então, você pode usá-lo assim:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>IntoComponent {
@@ -1093,7 +1093,7 @@ fn IntoComponent(cx: Scope&lt;IntoProps&gt;) -&gt; Element {
 <h2 id="a-macro-inline_props"><a class="header" href="#a-macro-inline_props">A macro <code>inline_props</code></a></h2>
 <p>Até agora, todas as funções <code>Component</code> que vimos tinham uma <em>struct</em> <code>ComponentProps</code> correspondente para passar em <em>props</em>. Isso foi bastante verboso... Não seria legal ter <em>props</em> como argumentos de função simples? Então não precisaríamos definir uma estrutura Props, e ao invés de digitar <code>cx.props.whatever</code>, poderíamos usar <code>whatever</code> diretamente!</p>
 <p><code>inline_props</code> permite que você faça exatamente isso. Em vez de digitar a versão &quot;completa&quot;:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(Props, PartialEq)]
@@ -1109,7 +1109,7 @@ fn TitleCard(cx: Scope&lt;TitleCardProps&gt;) -&gt; Element {
 <span class="boring">}
 </span></code></pre></pre>
 <p>...você pode definir uma função que aceita <em>props</em> como argumentos. Então, basta anotá-lo com <code>#[inline_props]</code>, e a macro irá transformá-lo em um componente regular para você:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[inline_props]
@@ -1125,7 +1125,7 @@ fn TitleCard(cx: Scope, title: String) -&gt; Element {
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="componente-filhos"><a class="header" href="#componente-filhos">Componente Filhos</a></h1>
 <p>Em alguns casos, você pode desejar criar um componente que atue como um contêiner para algum outro conteúdo, sem que o componente precise saber qual é esse conteúdo. Para conseguir isso, crie uma <em>prop</em> do tipo <code>Element</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(Props)]
@@ -1146,7 +1146,7 @@ fn Clickable&lt;'a&gt;(cx: Scope&lt;'a, ClickableProps&lt;'a&gt;&gt;) -&gt; Elem
 <span class="boring">}
 </span></code></pre></pre>
 <p>Então, ao renderizar o componente, você pode passar a saída de <code>cx.render(rsx!(...))</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    cx.render(rsx! {
@@ -1165,7 +1165,7 @@ fn Clickable&lt;'a&gt;(cx: Scope&lt;'a, ClickableProps&lt;'a&gt;&gt;) -&gt; Elem
 </blockquote>
 <h2 id="o-campo-children"><a class="header" href="#o-campo-children">O Campo <code>children</code></a></h2>
 <p>Em vez de passar o <code>RSX</code> através de uma <em>prop</em> regular, você pode querer aceitar filhos da mesma forma que os elementos podem ter filhos. O prop &quot;mágico&quot; <code>children</code> permite que você consiga isso:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(Props)]
@@ -1186,7 +1186,7 @@ fn Clickable&lt;'a&gt;(cx: Scope&lt;'a, ClickableProps&lt;'a&gt;&gt;) -&gt; Elem
 <span class="boring">}
 </span></code></pre></pre>
 <p>Isso torna o uso do componente muito mais simples: basta colocar o <code>RSX</code> dentro dos colchetes <code>{}</code> – e não há necessidade de uma chamada <code>render</code> ou outra macro!</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    cx.render(rsx! {
@@ -1204,7 +1204,7 @@ fn Clickable&lt;'a&gt;(cx: Scope&lt;'a, ClickableProps&lt;'a&gt;&gt;) -&gt; Elem
 <p>Os eventos estão associados a elementos. Por exemplo, geralmente não nos importamos com todos os cliques que acontecem em um aplicativo, apenas aqueles em um botão específico. Para lidar com eventos que acontecem em um elemento, devemos anexar o manipulador de eventos desejado a ele.</p>
 <p>Os manipuladores de eventos são semelhantes aos atributos regulares, mas seus nomes geralmente começam com <code>on</code> - e aceitam encerramentos como valores. O encerramento será chamado sempre que o evento for acionado e será passado esse evento.</p>
 <p>Por exemplo, para manipular cliques em um elemento, podemos especificar um manipulador <code>onclick</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx! {
@@ -1224,7 +1224,7 @@ Clicked! Event: UiEvent { data: MouseData { coordinates: Coordinates { screen: (
 <p>Para saber o que os diferentes tipos de eventos fornecem, leia os <a href="https://docs.rs/dioxus/latest/dioxus/events/index.html">documentos do módulo de eventos</a>.</p>
 <h3 id="parando-a-propagação"><a class="header" href="#parando-a-propagação">Parando a propagação</a></h3>
 <p>Quando você tem, por exemplo um <code>button</code> dentro de um <code>div</code>, qualquer clique no <code>button</code> também é um clique no <code>div</code>. Por esta razão, Dioxus propaga o evento click: primeiro, ele é acionado no elemento alvo, depois nos elementos pai. Se você quiser evitar esse comportamento, você pode chamar <code>cancel_bubble()</code> no evento:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx! {
@@ -1238,7 +1238,7 @@ Clicked! Event: UiEvent { data: MouseData { coordinates: Coordinates { screen: (
 <h2 id="prevenir-o-padrão"><a class="header" href="#prevenir-o-padrão">Prevenir o Padrão</a></h2>
 <p>Alguns eventos têm um comportamento padrão. Para eventos de teclado, isso pode ser inserir o caractere digitado. Para eventos de mouse, isso pode estar selecionando algum texto.</p>
 <p>Em alguns casos, você pode querer evitar esse comportamento padrão. Para isso, você pode adicionar o atributo <code>prevent_default</code> com o nome do manipulador cujo comportamento padrão você deseja interromper. Este atributo é especial: você pode anexá-lo várias vezes para vários atributos:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx! {
@@ -1254,7 +1254,7 @@ Clicked! Event: UiEvent { data: MouseData { coordinates: Coordinates { screen: (
 </blockquote>
 <h2 id="manipulador-de-props"><a class="header" href="#manipulador-de-props">Manipulador de Props</a></h2>
 <p>Às vezes, você pode querer criar um componente que aceite um manipulador de eventos. Um exemplo simples seria um componente <code>FancyButton</code>, que aceita um manipulador <code>on_click</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(Props)]
@@ -1272,7 +1272,7 @@ pub fn FancyButton&lt;'a&gt;(cx: Scope&lt;'a, FancyButtonProps&lt;'a&gt;&gt;) -&
 <span class="boring">}
 </span></code></pre></pre>
 <p>Então, você pode usá-lo como qualquer outro manipulador:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    cx.render(rsx! {
@@ -1297,7 +1297,7 @@ pub fn FancyButton&lt;'a&gt;(cx: Scope&lt;'a, FancyButtonProps&lt;'a&gt;&gt;) -&
 <li>Quando o valor é atualizado, <code>use_state</code> faz o componente renderizar novamente e fornece o novo valor</li>
 </ul>
 <p>Por exemplo, você pode ter visto o exemplo do contador, no qual o estado (um número) é rastreado usando o <em>hook</em> <code>use_state</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -1330,7 +1330,7 @@ pub fn FancyButton&lt;'a&gt;(cx: Scope&lt;'a, FancyButtonProps&lt;'a&gt;&gt;) -&
 <p><code>use_state</code> retorna seu valor envolto em uma <em>smart pointer</em> do tipo <a href="https://docs.rs/dioxus/latest/dioxus/hooks/struct.UseState.html"><code>UseState</code></a>. É por isso que você pode ler o valor e atualizá-lo, mesmo dentro de um manipulador.</p>
 </blockquote>
 <p>Você pode usar vários <em>hooks</em> no mesmo componente se quiser:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -1352,7 +1352,7 @@ pub fn FancyButton&lt;'a&gt;(cx: Scope&lt;'a, FancyButtonProps&lt;'a&gt;&gt;) -&
 <h2 id="regras-dos-hooks"><a class="header" href="#regras-dos-hooks">Regras dos Hooks</a></h2>
 <p>O exemplo acima pode parecer um pouco mágico, já que as funções Rust normalmente não estão associadas ao estado. O Dioxus permite que os <em>hooks</em> mantenham o estado entre as renderizações através de uma referência a <code>ScopeState</code>, e é por isso que você deve passar <code>&amp;cx</code> para eles.</p>
 <p>Mas como Dioxus pode diferenciar entre vários <em>hooks</em> no mesmo componente? Como você viu no segundo exemplo, ambas as funções <code>use_state</code> foram chamadas com os mesmos parâmetros, então como elas podem retornar coisas diferentes quando os contadores são diferentes?</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    let mut count_a = use_state(cx, || 0);
@@ -1372,7 +1372,7 @@ pub fn FancyButton&lt;'a&gt;(cx: Scope&lt;'a, FancyButtonProps&lt;'a&gt;&gt;) -&
 </ol>
 <p>Essas regras significam que há certas coisas que você não pode fazer com <em>hooks</em>:</p>
 <h3 id="sem-hooks-em-condicionais"><a class="header" href="#sem-hooks-em-condicionais">Sem Hooks em Condicionais</a></h3>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// ❌ don't call hooks in conditionals!
@@ -1393,7 +1393,7 @@ if you_are_happy &amp;&amp; you_know_it {
 <span class="boring">}
 </span></code></pre></pre>
 <h3 id="sem-hooks-em-closures"><a class="header" href="#sem-hooks-em-closures">Sem Hooks em Closures</a></h3>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// ❌ don't call hooks inside closures!
@@ -1409,7 +1409,7 @@ let _a = || b.get();
 <span class="boring">}
 </span></code></pre></pre>
 <h3 id="sem-hooks-em-loops"><a class="header" href="#sem-hooks-em-loops">Sem Hooks em Loops</a></h3>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// `names` is a Vec&lt;&amp;str&gt;
@@ -1435,7 +1435,7 @@ for name in &amp;names {
 <p>Por exemplo, suponha que queremos manter um <code>Vec</code> de valores. Se o armazenamos com <code>use_state</code>, a única maneira de adicionar um novo valor à lista seria criar um novo <code>Vec</code> com o valor adicional e colocá-lo no estado. Isto é custoso! Queremos modificar o <code>Vec</code> existente.</p>
 <p>Felizmente, existe outro <em>hook</em> para isso, <code>use_ref</code>! É semelhante ao <code>use_state</code>, mas permite obter uma referência mutável aos dados contidos.</p>
 <p>Aqui está um exemplo simples que mantém uma lista de eventos em um <code>use_ref</code>. Podemos adquirir acesso de escrita ao estado com <code>.write()</code>, e então apenas <code>.push</code> um novo valor para o estado:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -1460,7 +1460,7 @@ for name in &amp;names {
 <p>As interfaces geralmente precisam fornecer uma maneira de inserir dados: por exemplo, texto, números, caixas de seleção, etc. No Dioxus, há duas maneiras de trabalhar com a entrada do usuário.</p>
 <h2 id="entradas-controladas"><a class="header" href="#entradas-controladas">Entradas Controladas</a></h2>
 <p>Com entradas controladas, você fica diretamente responsável pelo estado da entrada. Isso lhe dá muita flexibilidade e facilita manter as coisas em sincronia. Por exemplo, é assim que você criaria uma entrada de texto controlada:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -1488,7 +1488,7 @@ for name in &amp;names {
 <h2 id="entradas-não-controladas"><a class="header" href="#entradas-não-controladas">Entradas não Controladas</a></h2>
 <p>Como alternativa às entradas controladas, você pode simplesmente deixar a plataforma acompanhar os valores de entrada. Se não dissermos a uma entrada HTML qual conteúdo ela deve ter, ela poderá ser editada de qualquer maneira (isso está embutido na visualização da web). Essa abordagem pode ser mais eficiente, mas menos flexível. Por exemplo, é mais difícil manter a entrada sincronizada com outro elemento.</p>
 <p>Como você não tem necessariamente o valor atual da entrada não controlada no estado, você pode acessá-lo ouvindo os eventos <code>oninput</code> (de maneira semelhante aos componentes controlados) ou, se a entrada for parte de um formulário, você pode acessar os dados do formulário nos eventos do formulário (por exemplo, <code>oninput</code> ou <code>onsubmit</code>):</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -1517,7 +1517,7 @@ for name in &amp;names {
 <p>Claro, neste exemplo simples, poderíamos escrever tudo em um componente - mas é melhor dividir tudo em componentes menores para tornar o código mais reutilizável e fácil de manter (isso é ainda mais importante para aplicativos maiores e complexos) .</p>
 </blockquote>
 <p>Começamos com um componente <code>Meme</code>, responsável por renderizar um meme com uma determinada legenda:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[inline_props]
@@ -1565,7 +1565,7 @@ fn Meme&lt;'a&gt;(cx: Scope&lt;'a&gt;, caption: &amp;'a str) -&gt; Element&lt;'a
 <p>Observe que o componente <code>Meme</code> não sabe de onde vem a legenda – ela pode ser armazenada em <code>use_state</code>, <code>use_ref</code> ou uma constante. Isso garante que seja muito reutilizável - o mesmo componente pode ser usado para uma galeria de memes sem nenhuma alteração!</p>
 </blockquote>
 <p>Também criamos um editor de legendas, totalmente desacoplado do meme. O editor de legendas não deve armazenar a legenda em si – caso contrário, como iremos fornecê-la ao componente <code>Meme</code>? Em vez disso, ele deve aceitar a legenda atual como um suporte, bem como um manipulador de eventos para delegar eventos de entrada para:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[inline_props]
@@ -1592,7 +1592,7 @@ fn CaptionEditor&lt;'a&gt;(
 <span class="boring">}
 </span></code></pre></pre>
 <p>Finalmente, um terceiro componente renderizará os outros dois como filhos. Ele será responsável por manter o estado e passar os <em>props</em> relevantes.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn MemeEditor(cx: Scope) -&gt; Element {
@@ -1632,21 +1632,21 @@ fn CaptionEditor&lt;'a&gt;(
 <p>Agora, poderíamos escrever outro <code>use_state</code> no componente superior e passar <code>is_dark_mode</code> para cada componente através de <em>props</em>. Mas pense no que acontecerá à medida que o aplicativo crescer em complexidade – quase todos os componentes que renderizam qualquer CSS precisarão saber se o modo escuro está ativado ou não – para que todos precisem do mesmo suporte do modo escuro. E cada componente pai precisará passá-lo para eles. Imagine como isso ficaria confuso e verboso, especialmente se tivéssemos componentes com vários níveis de profundidade!</p>
 <p>A Dioxus oferece uma solução melhor do que esta &quot;perfuração com hélice&quot; – fornecendo contexto. O <em>hook</em> <a href="https://docs.rs/dioxus-hooks/latest/dioxus_hooks/fn.use_context_provider.html"><code>use_context_provider</code></a> é semelhante ao <code>use_ref</code>, mas o torna disponível através do <a href="https://docs.rs/dioxus-hooks/latest/dioxus_hooks/fn.use_context.html"><code>use_context</code></a> para todos os componentes filhos.</p>
 <p>Primeiro, temos que criar um <em>struct</em> para nossa configuração de modo escuro:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>struct DarkMode(bool);
 <span class="boring">}
 </span></code></pre></pre>
 <p>Agora, em um componente de nível superior (como <code>App</code>), podemos fornecer o contexto <code>DarkMode</code> para todos os componentes filhos:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use_shared_state_provider(cx, || DarkMode(false));
 <span class="boring">}
 </span></code></pre></pre>
 <p>Como resultado, qualquer componente filho de <code>App</code> (direto ou não), pode acessar o contexto <code>DarkMode</code>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let dark_mode_context = use_shared_state::&lt;DarkMode&gt;(cx);
@@ -1656,7 +1656,7 @@ fn CaptionEditor&lt;'a&gt;(
 <p><code>use_context</code> retorna <code>Option&lt;UseSharedState&lt;DarkMode&gt;&gt;</code> aqui. Se o contexto foi fornecido, o valor é <code>Some(UseSharedState)</code>, que você pode chamar <code>.read</code> ou <code>.write</code>, similarmente a <code>UseRef</code>. Caso contrário, o valor é <code>None</code>.</p>
 </blockquote>
 <p>Por exemplo, aqui está como implementaríamos a alternância do modo escuro, que lê o contexto (para determinar a cor que deve renderizar) e grava nele (para alternar o modo escuro):</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub fn DarkModeToggle(cx: Scope) -&gt; Element {
@@ -1687,7 +1687,7 @@ fn CaptionEditor&lt;'a&gt;(
 <h2 id="hooks-de-composição"><a class="header" href="#hooks-de-composição">Hooks de Composição</a></h2>
 <p>Para evitar a repetição, você pode encapsular a lógica de negócios com base em <em>hooks</em> existentes para criar um novo gancho.</p>
 <p>Por exemplo, se muitos componentes precisam acessar uma <em>struct</em> <code>AppSettings</code>, você pode criar um gancho de &quot;atalho&quot;:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn use_settings(cx: &amp;ScopeState) -&gt; &amp;UseSharedState&lt;AppSettings&gt; {
@@ -1710,7 +1710,7 @@ fn CaptionEditor&lt;'a&gt;(
 <p>Às vezes você quer renderizar coisas diferentes dependendo do estado/<em>props</em>. Com o Dioxus, apenas descreva o que você quer ver usando o fluxo de controle do Rust – o <em>framework</em> se encarregará de fazer as mudanças necessárias em tempo real se o estado ou <em>props</em> mudarem!</p>
 <h2 id="renderização-condicional"><a class="header" href="#renderização-condicional">Renderização Condicional</a></h2>
 <p>Para renderizar diferentes elementos com base em uma condição, você pode usar uma instrução <code>if-else</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>if *is_logged_in {
@@ -1736,7 +1736,7 @@ fn CaptionEditor&lt;'a&gt;(
 </blockquote>
 <h3 id="inspecionando-props-element"><a class="header" href="#inspecionando-props-element">Inspecionando <em>props</em> <code>Element</code></a></h3>
 <p>Como <code>Element</code> é uma <code>Option&lt;VNode&gt;</code>, os componentes que aceitam <code>Element</code> como <em>prop</em> podem realmente inspecionar seu conteúdo e renderizar coisas diferentes com base nisso. Exemplo:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn Clickable&lt;'a&gt;(cx: Scope&lt;'a, ClickableProps&lt;'a&gt;&gt;) -&gt; Element {
@@ -1754,7 +1754,7 @@ fn CaptionEditor&lt;'a&gt;(
 <p>Você não pode modificar o <code>Element</code>, mas se precisar de uma versão modificada dele, você pode construir um novo baseado em seus atributos/filhos/etc.</p>
 <h2 id="renderizando-nada"><a class="header" href="#renderizando-nada">Renderizando Nada</a></h2>
 <p>Para renderizar nada, você pode retornar <code>None</code> de um componente. Isso é útil se você deseja ocultar algo condicionalmente:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>if *is_logged_in {
@@ -1785,7 +1785,7 @@ cx.render(rsx! {
 <li>Incluir este iterador no RSX final</li>
 </ul>
 <p>Exemplo: suponha que você tenha uma lista de comentários que deseja renderizar. Então, você pode renderizá-los assim:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let comment_field = use_state(cx, String::new);
@@ -1849,7 +1849,7 @@ cx.render(rsx!(
 <div style="break-before: page; page-break-before: always;"></div><h1 id="usefuture"><a class="header" href="#usefuture"><code>UseFuture</code></a></h1>
 <p><a href="https://docs.rs/dioxus-hooks/latest/dioxus_hooks/fn.use_future.html"><code>use_future</code></a> permite executar um encerramento assíncrono e fornece seu resultado.</p>
 <p>Por exemplo, podemos fazer uma solicitação de API dentro de <code>use_future</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let future = use_future(cx, (), |_| async move {
@@ -1864,7 +1864,7 @@ cx.render(rsx!(
 <p>O código dentro de <code>use_future</code> será enviado ao agendador do Dioxus assim que o componente for renderizado.</p>
 <p>Podemos usar <code>.value()</code> para obter o resultado do <code>Future</code>. Na primeira execução, como não há dados prontos quando o componente é carregado, seu valor será <code>None</code>. No entanto, uma vez finalizado o <code>Future</code>, o componente será renderizado novamente e o valor agora será <code>Some(...)</code>, contendo o valor de retorno do encerramento.</p>
 <p>Podemos então renderizar esse resultado:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(match future.value() {
@@ -1890,7 +1890,7 @@ cx.render(rsx!(
 <p>O identificador <code>UseFuture</code> fornece um método <code>restart</code>. Ele pode ser usado para executar o <code>Future</code> novamente, produzindo um novo valor.</p>
 <h2 id="dependências"><a class="header" href="#dependências">Dependências</a></h2>
 <p>Muitas vezes, você precisará executar o <code>Future</code> novamente toda vez que algum valor (por exemplo, uma prop) mudar. Ao invés de <code>.restart</code> manualmente, você pode fornecer uma tupla de &quot;dependências&quot; para o gancho. Ele executará automaticamente o <code>Future</code> quando qualquer uma dessas dependências for alterada. Exemplo:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let future = use_future(cx, (breed,), |(breed,)| async move {
@@ -1907,7 +1907,7 @@ cx.render(rsx!(
 <p>Assim como os <code>Futures</code> regulares, o código em uma corrotina Dioxus será executado até o próximo ponto <code>await</code> antes do <em>render</em>. Esse controle de baixo nível sobre tarefas assíncronas é bastante poderoso, permitindo tarefas em <em>loop</em> infinito, como pesquisa de WebSocket, temporizadores em segundo plano e outras ações periódicas.</p>
 <h2 id="use_coroutine"><a class="header" href="#use_coroutine"><code>use_coroutine</code></a></h2>
 <p>A configuração básica para corrotinas é o <em>hook</em> <code>use_coroutine</code>. A maioria das corrotinas que escrevemos serão <em>loops</em> de pesquisa usando <code>async</code>/<code>await</code>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn app(cx: Scope) -&gt; Element {
@@ -1925,7 +1925,7 @@ cx.render(rsx!(
 </span></code></pre></pre>
 <p>Para muitos serviços, um <em>loop</em> assíncrono simples lidará com a maioria dos casos de uso.</p>
 <p>No entanto, se quisermos desabilitar temporariamente a corrotina, podemos &quot;pausá-la&quot; usando o método <code>pause</code> e &quot;retomá-la&quot; usando o método <code>resume</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let sync: &amp;UseCoroutine&lt;()&gt; = use_coroutine(cx, |rx| async move {
@@ -1953,7 +1953,7 @@ if sync.is_running() {
 <h2 id="enviando-valores"><a class="header" href="#enviando-valores">Enviando valores</a></h2>
 <p>Você deve ter notado que o encerramento <code>use_coroutine</code> recebe um argumento chamado <code>rx</code>. O que é aquilo? Bem, um padrão comum em aplicativos complexos é lidar com vários códigos assíncronos de uma só vez. Com bibliotecas como o Redux Toolkit, gerenciar várias promessas ao mesmo tempo pode ser um desafio e uma fonte comum de <em>bugs</em>.</p>
 <p>Usando corrotinas, temos a oportunidade de centralizar nossa lógica assíncrona. O parâmetro <code>rx</code> é um canal ilimitado para código externo à corrotina para enviar dados <em>para</em> a corrotina. Em vez de fazer um <em>loop</em> em um serviço externo, podemos fazer um <em>loop</em> no próprio canal, processando mensagens de dentro de nosso aplicativo sem precisar gerar um novo <code>Future</code>. Para enviar dados para a corrotina, chamaríamos &quot;send&quot; no <em>handle</em>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum ProfileUpdate {
@@ -1982,7 +1982,7 @@ cx.render(rsx!{
 <span class="boring">}
 </span></code></pre></pre>
 <p>Para aplicativos suficientemente complexos, poderíamos criar vários &quot;serviços&quot; úteis diferentes que fazem um <em>loop</em> nos canais para atualizar o aplicativo.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let profile = use_coroutine(cx, profile_service);
@@ -2003,7 +2003,7 @@ async fn editor_service(rx: UnboundedReceiver&lt;EditorCommand&gt;) {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Podemos combinar corrotinas com <code>Fermi</code> para emular o sistema <code>Thunk</code> do <strong>Redux Toolkit</strong> com muito menos dor de cabeça. Isso nos permite armazenar todo o estado do nosso aplicativo <em>dentro</em> de uma tarefa e, em seguida, simplesmente atualizar os valores de &quot;visualização&quot; armazenados em <code>Atoms</code>. Não pode ser subestimado o quão poderosa é essa técnica: temos todas as vantagens das tarefas nativas do Rust com as otimizações e ergonomia do estado global. Isso significa que seu estado <em>real</em> não precisa estar vinculado a um sistema como <code>Fermi</code> ou <code>Redux</code> – os únicos <code>Atoms</code> que precisam existir são aqueles que são usados para controlar a interface.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>static USERNAME: Atom&lt;String&gt; = |_| &quot;default&quot;.to_string();
@@ -2028,7 +2028,7 @@ fn Banner(cx: Scope) -&gt; Element {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Agora, em nosso serviço de sincronização, podemos estruturar nosso estado como quisermos. Só precisamos atualizar os valores da <em>view</em> quando estiver pronto.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum SyncAction {
@@ -2055,7 +2055,7 @@ async fn sync_service(mut rx: UnboundedReceiver&lt;SyncAction&gt;, atoms: AtomRo
 </span></code></pre></pre>
 <h2 id="valores-de-rendimento"><a class="header" href="#valores-de-rendimento">Valores de Rendimento</a></h2>
 <p>Para obter valores de uma corrotina, basta usar um identificador <code>UseState</code> e definir o valor sempre que sua corrotina concluir seu trabalho.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let sync_status = use_state(cx, || Status::Launching);
@@ -2072,7 +2072,7 @@ let sync_task = use_coroutine(cx, |rx: UnboundedReceiver&lt;SyncAction&gt;| {
 </span></code></pre></pre>
 <h2 id="injeção-automática-na-api-de-contexto"><a class="header" href="#injeção-automática-na-api-de-contexto">Injeção Automática na API de Contexto</a></h2>
 <p>Os identificadores de corrotina são injetados automaticamente por meio da API de contexto. <code>use_coroutine_handle</code> com o tipo de mensagem como genérico pode ser usado para buscar um <em>handle</em>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn Child(cx: Scope) -&gt; Element {
@@ -2084,7 +2084,7 @@ let sync_task = use_coroutine(cx, |rx: UnboundedReceiver&lt;SyncAction&gt;| {
 </span></code></pre></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="gerando-futures"><a class="header" href="#gerando-futures">Gerando Futures</a></h1>
 <p>Os <strong>&quot;hooks&quot;</strong> <code>use_future</code> e <code>use_coroutine</code> são úteis se você quiser gerar incondicionalmente o <code>Future</code>. Às vezes, porém, você desejará apenas gerar um <code>Future</code> em resposta a um evento, como um clique do mouse. Por exemplo, suponha que você precise enviar uma solicitação quando o usuário clicar em um botão &quot;log in&quot;. Para isso, você pode usar <code>cx.spawn</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    let logged_in = use_state(cx, || false);
@@ -2128,7 +2128,7 @@ let sync_task = use_coroutine(cx, |rx: UnboundedReceiver&lt;SyncAction&gt;| {
 <p>O <code>Future</code> deve ser <code>'static</code> – então quaisquer valores capturados pela tarefa não podem carregar nenhuma referência a <code>cx</code>, como um <code>UseState</code>.</p>
 <p>No entanto, como você normalmente precisa de uma maneira de atualizar o valor de um gancho, você pode usar <code>to_owned</code> para criar um clone do <em>handle</em> do <em>hook</em>. Você pode então usar esse clone no encerramento assíncrono.</p>
 <p>Para tornar isso um pouco menos detalhado, o Dioxus exporta a macro <code>to_owned!</code> que criará uma ligação como mostrado acima, o que pode ser bastante útil ao lidar com muitos valores.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>        use dioxus::hooks::to_owned;
@@ -2144,7 +2144,7 @@ let sync_task = use_coroutine(cx, |rx: UnboundedReceiver&lt;SyncAction&gt;| {
 <p>Calling <code>spawn</code> will give you a <code>JoinHandle</code> which lets you cancel or pause the future.</p>
 <h2 id="gerando-tarefas-do-tokio"><a class="header" href="#gerando-tarefas-do-tokio">Gerando Tarefas do Tokio</a></h2>
 <p>Às vezes, você pode querer gerar uma tarefa em segundo plano que precise de vários <em>threads</em> ou conversar com o hardware que pode bloquear o código do seu aplicativo. Nesses casos, podemos gerar diretamente uma tarefa Tokio do nosso <code>Future</code>. Para Dioxus-Desktop, sua tarefa será gerada no tempo de execução Multi-Tarefado do Tokio:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>        cx.spawn(async {
@@ -2172,7 +2172,7 @@ let sync_task = use_coroutine(cx, |rx: UnboundedReceiver&lt;SyncAction&gt;| {
 <p>No entanto, não falamos sobre tratamento de erros neste guia! Neste capítulo, abordaremos algumas estratégias para lidar com erros para garantir que seu aplicativo nunca falhe.</p>
 <h2 id="o-mais-simples--retornando-none"><a class="header" href="#o-mais-simples--retornando-none">O mais simples – retornando None</a></h2>
 <p>Observadores astutos podem ter notado que <code>Element</code> é na verdade um alias de tipo para <code>Option&lt;VNode&gt;</code>. Você não precisa saber o que é um <code>VNode</code>, mas é importante reconhecer que não poderíamos retornar nada:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -2184,7 +2184,7 @@ let sync_task = use_coroutine(cx, |rx: UnboundedReceiver&lt;SyncAction&gt;| {
 <blockquote>
 <p>A natureza de <code>Option&lt;VNode&gt;</code> pode mudar no futuro à medida que a característica <code>try</code> for atualizada.</p>
 </blockquote>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -2195,7 +2195,7 @@ let sync_task = use_coroutine(cx, |rx: UnboundedReceiver&lt;SyncAction&gt;| {
 </span></code></pre></pre>
 <h2 id="retorno-antecipado-do-resultado"><a class="header" href="#retorno-antecipado-do-resultado">Retorno Antecipado do Resultado</a></h2>
 <p>Como o Rust não pode aceitar opções e resultados com a infraestrutura <em>try</em> existente, você precisará manipular os resultados manualmente. Isso pode ser feito convertendo-os em <code>Option</code> ou manipulando-os explicitamente.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -2216,14 +2216,14 @@ let sync_task = use_coroutine(cx, |rx: UnboundedReceiver&lt;SyncAction&gt;| {
 <h2 id="resultados-usando-match"><a class="header" href="#resultados-usando-match">Resultados usando <code>match</code></a></h2>
 <p>A próxima &quot;melhor&quot; maneira de lidar com erros no Dioxus é combinar (<code>match</code>) o erro localmente. Essa é a maneira mais robusta de lidar com erros, embora não seja dimensionada para arquiteturas além de um único componente.</p>
 <p>Para fazer isso, simplesmente temos um estado de erro embutido em nosso componente:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let err = use_state(cx, || None);
 <span class="boring">}
 </span></code></pre></pre>
 <p>Sempre que realizarmos uma ação que gere um erro, definiremos esse estado de erro. Podemos então combinar o erro de várias maneiras (retorno antecipado, elemento de retorno etc.).</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn Commandline(cx: Scope) -&gt; Element {
@@ -2244,7 +2244,7 @@ let sync_task = use_coroutine(cx, |rx: UnboundedReceiver&lt;SyncAction&gt;| {
 </span></code></pre></pre>
 <h2 id="passando-estados-de-erro-através-de-componentes"><a class="header" href="#passando-estados-de-erro-através-de-componentes">Passando Estados de Erro Através de Componentes</a></h2>
 <p>Se você estiver lidando com alguns componentes com um mínimo de aninhamento, basta passar o identificador de erro para componentes filhos.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn Commandline(cx: Scope) -&gt; Element {
@@ -2268,7 +2268,7 @@ let sync_task = use_coroutine(cx, |rx: UnboundedReceiver&lt;SyncAction&gt;| {
 <p>Uma estratégia para lidar com erros em cascata em aplicativos maiores é sinalizar um erro usando o estado global. Esse padrão específico envolve a criação de um contexto de &quot;erro&quot; e, em seguida, defini-lo sempre que relevante. Este método em particular não é tão &quot;sofisticado&quot; quanto o controle de erros do React, mas é mais adequado para Rust.</p>
 <p>Para começar, considere usar um <em>hook</em> embutido como <code>use_context</code> e <code>use_context_provider</code> ou <code>Fermi</code>. Claro, é muito fácil criar seu próprio <em>hook</em> também.</p>
 <p>No &quot;topo&quot; de nossa arquitetura, queremos declarar explicitamente um valor que pode ser um erro.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum InputError {
@@ -2281,7 +2281,7 @@ static INPUT_ERROR: Atom&lt;InputError&gt; = |_| InputError::None;
 <span class="boring">}
 </span></code></pre></pre>
 <p>Então, em nosso componente de nível superior, queremos tratar explicitamente o possível estado de erro para esta parte da árvore.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn TopLevel(cx: Scope) -&gt; Element {
@@ -2296,7 +2296,7 @@ static INPUT_ERROR: Atom&lt;InputError&gt; = |_| InputError::None;
 <span class="boring">}
 </span></code></pre></pre>
 <p>Agora, sempre que um componente <em>downstream</em> tiver um erro em suas ações, ele pode simplesmente definir seu próprio estado de erro:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn Commandline(cx: Scope) -&gt; Element {
@@ -2321,7 +2321,7 @@ static INPUT_ERROR: Atom&lt;InputError&gt; = |_| InputError::None;
 <h2 id="fragmentos-aninhados-desnecessariamente"><a class="header" href="#fragmentos-aninhados-desnecessariamente">Fragmentos Aninhados Desnecessariamente</a></h2>
 <p>Os fragmentos não montam um elemento físico no DOM imediatamente, então o Dioxus deve recorrer a seus filhos para encontrar um nó DOM físico. Este processo é chamado de &quot;normalização&quot;. Isso significa que fragmentos profundamente aninhados fazem o Dioxus realizar um trabalho desnecessário. Prefira um ou dois níveis de fragmentos/componentes aninhados até apresentar um elemento DOM verdadeiro.</p>
 <p>Apenas os nós Componente e Fragmento são suscetíveis a esse problema. O Dioxus atenua isso com componentes fornecendo uma API para registrar o estado compartilhado sem o padrão <em>Context Provider</em>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    // ❌ Don't unnecessarily nest fragments
@@ -2347,7 +2347,7 @@ static INPUT_ERROR: Atom&lt;InputError&gt; = |_| InputError::None;
 </span></code></pre></pre>
 <h2 id="chaves-do-iterador-incorretas"><a class="header" href="#chaves-do-iterador-incorretas">Chaves do Iterador Incorretas</a></h2>
 <p>Conforme descrito no capítulo de renderização condicional, os itens da lista devem ter <em>keys</em> exclusivas associadas aos mesmos itens nas renderizações. Isso ajuda o Dioxus a associar o estado aos componentes contidos e garante um bom desempenho de diferenciação. Não omita as <em>keys</em>, a menos que você saiba que a lista é estática e nunca será alterada.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    let data: &amp;HashMap&lt;_, _&gt; = &amp;cx.props.data;
@@ -2446,7 +2446,7 @@ This app makes it quick and easy to browse photos of dogs from over 200 bree
 <p>Como referência, confira o interpretador <code>javascript</code> ou o renderizador <code>tui</code> como ponto de partida para seu renderizador personalizado.</p>
 <h2 id="domedit"><a class="header" href="#domedit">DomEdit</a></h2>
 <p>O tipo &quot;DomEdit&quot; é uma <code>enum</code> serializada que representa uma operação atômica que ocorre no <code>RealDom</code>. As variantes seguem aproximadamente este conjunto:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum DomEdit {
@@ -2472,7 +2472,7 @@ This app makes it quick and easy to browse photos of dogs from over 200 bree
 <p>O mecanismo de diferenciação Dioxus opera como uma [máquina de pilha] (https://en.wikipedia.org/wiki/Stack_machine) onde o método &quot;push_root&quot; empurra um novo nó DOM &quot;real&quot; para a pilha e &quot;append_child&quot; e &quot;replace_with&quot; &quot; ambos removem nós da pilha.</p>
 <h3 id="exemplo"><a class="header" href="#exemplo">Exemplo</a></h3>
 <p>Para fins de compreensão, vamos considerar este exemplo – uma declaração de interface do usuário muito simples:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>rsx!( h1 {&quot;hello world&quot;} )
@@ -2480,7 +2480,7 @@ This app makes it quick and easy to browse photos of dogs from over 200 bree
 </span></code></pre></pre>
 <p>Para começar, o Dioxus deve primeiro navegar até o contêiner dessa tag h1. Para &quot;navegar&quot; aqui, o algoritmo de diferenciação interna gera o <code>DomEdit</code> <code>PushRoot</code> onde o ID da raiz é o contêiner.</p>
 <p>Quando o renderizador recebe essa instrução, ele empurra o <code>Node</code> real para sua própria pilha. A pilha do renderizador real ficará assim:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>instructions: [
@@ -2492,7 +2492,7 @@ stack: [
 <span class="boring">}
 </span></code></pre></pre>
 <p>Em seguida, o Dioxus encontrará o nó <code>h1</code>. O algoritmo <code>diff</code> decide que este nó precisa ser criado, então o Dioxus irá gerar o DomEdit <code>CreateElement</code>. Quando o renderizador receber esta instrução, ele criará um nó desmontado e o enviará para sua própria pilha (<em>stack</em>):</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>instructions: [
@@ -2506,7 +2506,7 @@ stack: [
 <span class="boring">}
 </span></code></pre></pre>
 <p>Em seguida, Dioxus vê o nó de texto e gera o DomEdit <code>CreateTextNode</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>instructions: [
@@ -2522,7 +2522,7 @@ stack: [
 <span class="boring">}
 </span></code></pre></pre>
 <p>Lembre-se, o nó de texto não está anexado a nada (ele está desmontado), então o Dioxus precisa gerar um <em>Edit</em> que conecte o nó de texto ao elemento <code>h1</code>. Depende da situação, mas neste caso usamos <code>AppendChildren</code>. Isso remove o nó de texto da <em>stack</em>, deixando o elemento <code>h1</code> como o próximo elemento na linha.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>instructions: [
@@ -2538,7 +2538,7 @@ stack: [
 <span class="boring">}
 </span></code></pre></pre>
 <p>Chamamos <code>AppendChildren</code> novamente, retirando o nó <code>h1</code> e anexando-o ao pai:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>instructions: [
@@ -2554,7 +2554,7 @@ stack: [
 <span class="boring">}
 </span></code></pre></pre>
 <p>Finalmente, o contêiner é aberto, pois não precisamos mais dele.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>instructions: [
@@ -2569,7 +2569,7 @@ stack: []
 <span class="boring">}
 </span></code></pre></pre>
 <p>Com o tempo, nossa <em>stack</em> ficou assim:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>[]
@@ -2589,7 +2589,7 @@ stack: []
 <h2 id="ciclo-de-eventos"><a class="header" href="#ciclo-de-eventos">Ciclo de Eventos</a></h2>
 <p>Como a maioria das GUIs, o Dioxus conta com um <em>loop</em> de eventos para progredir no <code>VirtualDOM</code>. O próprio <code>VirtualDOM</code> também pode produzir eventos, por isso é importante que seu renderizador personalizado também possa lidar com eles.</p>
 <p>O código para a implementação do <code>WebSys</code> é direto, então vamos adicioná-lo aqui para demonstrar como um <code>loop</code> de eventos é simples:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub async fn run(&amp;mut self) -&gt; dioxus_core::error::Result&lt;()&gt; {
@@ -2620,7 +2620,7 @@ stack: []
 <span class="boring">}
 </span></code></pre></pre>
 <p>É importante que você decodifique os eventos reais do seu sistema de eventos no sistema de eventos sintético do Dioxus (entenda sintético como abstraído). Isso significa simplesmente combinar seu tipo de evento e criar um tipo Dioxus <code>UserEvent</code>. No momento, o sistema <code>VirtualEvent</code> é modelado quase inteiramente em torno da especificação HTML, mas estamos interessados em reduzi-lo.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn virtual_event_from_websys_event(event: &amp;web_sys::Event) -&gt; VirtualEvent {
@@ -2656,7 +2656,7 @@ stack: []
 <p>Se você precisa ir tão longe a ponto de confiar em elementos personalizados para o seu renderizador – você pode. Isso ainda permite que você use a natureza reativa do Dioxus, sistema de componentes, estado compartilhado e outros recursos, mas acabará gerando nós diferentes. Todos os atributos e ouvintes para o namespace HTML e SVG são transportados por meio de estruturas auxiliares que essencialmente compilam (não representam sobrecarga de tempo de execução). Você pode colocar seus próprios elementos a qualquer hora, sem problemas. No entanto, você deve ter certeza absoluta de que seu renderizador pode lidar com o novo tipo, ou ele irá &quot;bater e queimar&quot;.</p>
 <p>Esses elementos personalizados são definidos como estruturas de unidade com implementações de características.</p>
 <p>Por exemplo, o elemento <code>div</code> é (aproximadamente!) definido assim:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>struct div;
@@ -2680,7 +2680,7 @@ impl div {
 <h3 id="exemplo-1"><a class="header" href="#exemplo-1">Exemplo</a></h3>
 <p>Vamos construir um renderizador de exemplo com bordas, tamanho e cor do texto.
 Antes de começarmos, vamos dar uma olhada em um elemento de exemplo que podemos renderizar:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx!{
@@ -2698,7 +2698,7 @@ Antes de começarmos, vamos dar uma olhada em um elemento de exemplo que podemos
 <p>No diagrama a seguir, as setas representam o fluxo de dados:</p>
 <p><a href="https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNqdVNFqgzAU_RXJXizUUZPJmIM-jO0LukdhpCbO0JhIGteW0n9fNK1Oa0brfUnu9VxyzzkXjyCVhIIYZFzu0hwr7X2-JcIzsa3W3wqXuZdKoele22oddfa1Y0Tnfn31muvMfqeCDNq3GmvaNROmaKqZFO1DPTRhP8MOd1fTWYNDvzlmQbBMJZcq9JtjNgY1mLVUhBqQPQeojl3wGCw5PsjqnIe-zXqEL8GZ2Kz0gVMPmoeU3ND4IcuiaLGY2zRouuKncv_qGKv3VodpJe0JVU6QCQ5kgqMyWQVr8hbk4hm1PBcmsuwmnrCVH94rP7xN_ucp8sOB_EPSfz9drYVrkpc_AmH8_yTjJueUc-ntpOJkgt2os9tKjcYlt-DLUiD3UsB2KZCLcwjv3Aq33-g2v0M0xXA0MBy5DUdXi-gcJZriuLmAOSioKjAj5ld8rMsJ0DktaAJicyVYbRKQiJPBVSUx438QpqUCcYb5ls4BrrRcHUTaFizqnWGzR8W5evoFI-bJdw"><img src="https://mermaid.ink/img/pako:eNqdVNFqgzAU_RXJXizUUZPJmIM-jO0LukdhpCbO0JhIGteW0n9fNK1Oa0brfUnu9VxyzzkXjyCVhIIYZFzu0hwr7X2-JcIzsa3W3wqXuZdKoele22oddfa1Y0Tnfn31muvMfqeCDNq3GmvaNROmaKqZFO1DPTRhP8MOd1fTWYNDvzlmQbBMJZcq9JtjNgY1mLVUhBqQPQeojl3wGCw5PsjqnIe-zXqEL8GZ2Kz0gVMPmoeU3ND4IcuiaLGY2zRouuKncv_qGKv3VodpJe0JVU6QCQ5kgqMyWQVr8hbk4hm1PBcmsuwmnrCVH94rP7xN_ucp8sOB_EPSfz9drYVrkpc_AmH8_yTjJueUc-ntpOJkgt2os9tKjcYlt-DLUiD3UsB2KZCLcwjv3Aq33-g2v0M0xXA0MBy5DUdXi-gcJZriuLmAOSioKjAj5ld8rMsJ0DktaAJicyVYbRKQiJPBVSUx438QpqUCcYb5ls4BrrRcHUTaFizqnWGzR8W5evoFI-bJdw" alt="" /></a></p>
 <p>Para ajudar na construção de um DOM, o núcleo nativo fornece quatro <code>traits</code>: <code>State</code>, <code>ChildDepState</code>, <code>ParentDepState</code> e <code>NodeDepState</code> e uma estrutura <code>RealDom</code>. O <code>ChildDepState</code>, <code>ParentDepState</code> e <code>NodeDepState</code> fornecem uma maneira de descrever como algumas informações em um nó se relacionam com as de seus parentes. Ao fornecer como construir um único nó a partir de suas relações, o native-core derivará uma maneira de atualizar o estado de todos os nós para você com <code>#[derive(State)]</code>. Depois de ter um estado, você pode fornecê-lo como genérico ao <code>RealDom</code>. <code>RealDom</code> fornece todos os métodos para interagir e atualizar seu novo dom.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use dioxus_native_core::node_ref::*;
@@ -2831,7 +2831,7 @@ struct ToyState {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Agora que temos nosso estado, podemos colocá-lo em uso em nosso DOM. Você pode atualizar o DOM com <code>update_state</code> para atualizar a estrutura do dom (adicionando, removendo e alterando as propriedades dos nós) e então <code>apply_mutations</code> para atualizar o <code>ToyState</code> para cada um dos nós que foram alterados.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">fn main(){
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">fn main(){
     fn app(cx: Scope) -&gt; Element {
         cx.render(rsx!{
             div{

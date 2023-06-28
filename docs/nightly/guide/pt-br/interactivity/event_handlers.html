@@ -162,7 +162,7 @@
 <p>Os eventos estão associados a elementos. Por exemplo, geralmente não nos importamos com todos os cliques que acontecem em um aplicativo, apenas aqueles em um botão específico. Para lidar com eventos que acontecem em um elemento, devemos anexar o manipulador de eventos desejado a ele.</p>
 <p>Os manipuladores de eventos são semelhantes aos atributos regulares, mas seus nomes geralmente começam com <code>on</code> - e aceitam encerramentos como valores. O encerramento será chamado sempre que o evento for acionado e será passado esse evento.</p>
 <p>Por exemplo, para manipular cliques em um elemento, podemos especificar um manipulador <code>onclick</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx! {
@@ -182,7 +182,7 @@ Clicked! Event: UiEvent { data: MouseData { coordinates: Coordinates { screen: (
 <p>Para saber o que os diferentes tipos de eventos fornecem, leia os <a href="https://docs.rs/dioxus/latest/dioxus/events/index.html">documentos do módulo de eventos</a>.</p>
 <h3 id="parando-a-propagação"><a class="header" href="#parando-a-propagação">Parando a propagação</a></h3>
 <p>Quando você tem, por exemplo um <code>button</code> dentro de um <code>div</code>, qualquer clique no <code>button</code> também é um clique no <code>div</code>. Por esta razão, Dioxus propaga o evento click: primeiro, ele é acionado no elemento alvo, depois nos elementos pai. Se você quiser evitar esse comportamento, você pode chamar <code>cancel_bubble()</code> no evento:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx! {
@@ -196,7 +196,7 @@ Clicked! Event: UiEvent { data: MouseData { coordinates: Coordinates { screen: (
 <h2 id="prevenir-o-padrão"><a class="header" href="#prevenir-o-padrão">Prevenir o Padrão</a></h2>
 <p>Alguns eventos têm um comportamento padrão. Para eventos de teclado, isso pode ser inserir o caractere digitado. Para eventos de mouse, isso pode estar selecionando algum texto.</p>
 <p>Em alguns casos, você pode querer evitar esse comportamento padrão. Para isso, você pode adicionar o atributo <code>prevent_default</code> com o nome do manipulador cujo comportamento padrão você deseja interromper. Este atributo é especial: você pode anexá-lo várias vezes para vários atributos:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx! {
@@ -212,7 +212,7 @@ Clicked! Event: UiEvent { data: MouseData { coordinates: Coordinates { screen: (
 </blockquote>
 <h2 id="manipulador-de-props"><a class="header" href="#manipulador-de-props">Manipulador de Props</a></h2>
 <p>Às vezes, você pode querer criar um componente que aceite um manipulador de eventos. Um exemplo simples seria um componente <code>FancyButton</code>, que aceita um manipulador <code>on_click</code>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(Props)]
@@ -230,7 +230,7 @@ pub fn FancyButton&lt;'a&gt;(cx: Scope&lt;'a, FancyButtonProps&lt;'a&gt;&gt;) -&
 <span class="boring">}
 </span></code></pre></pre>
 <p>Então, você pode usá-lo como qualquer outro manipulador:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    cx.render(rsx! {

@@ -189,7 +189,7 @@ dioxus-liveview = { version = &quot;*&quot;, features = [&quot;axum&quot;] }
 tokio = { version = &quot;1.15.0&quot;, features = [&quot;full&quot;] }
 </code></pre>
 <p>Now, set up your Axum app to respond on an endpoint.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">#[tokio::main]
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">#[tokio::main]
 async fn main() {
     let addr: std::net::SocketAddr = ([127, 0, 0, 1], 3030).into();
 
@@ -234,7 +234,7 @@ async fn main() {
 }
 </code></pre></pre>
 <p>And then add our app component:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn app(cx: Scope) -&gt; Element {

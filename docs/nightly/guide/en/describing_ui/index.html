@@ -160,7 +160,7 @@
                         <h1 id="describing-the-ui"><a class="header" href="#describing-the-ui">Describing the UI</a></h1>
 <p>Dioxus is a <em>declarative</em> framework. This means that instead of telling Dioxus what to do (e.g. to &quot;create an element&quot; or &quot;set the color to red&quot;) we simply <em>declare</em> what we want the UI to look like using RSX.</p>
 <p>You have already seen a simple example of RSX syntax in the &quot;hello world&quot; application:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// define a component that renders a div with the text &quot;Hello, world!&quot;
@@ -176,7 +176,7 @@ fn App(cx: Scope) -&gt; Element {
 <p>Here, we use the <code>rsx!</code> macro to <em>declare</em> that we want a <code>div</code> element, containing the text <code>&quot;Hello, world!&quot;</code>. Dioxus takes the RSX and constructs a UI from it.</p>
 <h2 id="rsx-features"><a class="header" href="#rsx-features">RSX Features</a></h2>
 <p>RSX is very similar to HTML in that it describes elements with attributes and children. Here's an empty <code>div</code> element in RSX, as well as the resulting HTML:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx!(div {
@@ -189,7 +189,7 @@ fn App(cx: Scope) -&gt; Element {
 </code></pre>
 <h3 id="attributes"><a class="header" href="#attributes">Attributes</a></h3>
 <p>Attributes (and <a href="../interactivity/index.html">listeners</a>) modify the behavior or appearance of the element they are attached to. They are specified inside the <code>{}</code> brackets, using the <code>name: value</code> syntax. You can provide the value as a literal in the RSX:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx!(a {
@@ -199,7 +199,12 @@ fn App(cx: Scope) -&gt; Element {
 }))
 <span class="boring">}
 </span></code></pre></pre>
-<pre><code class="language-html">&lt;a href=&quot;https://www.youtube.com/watch?v=dQw4w9WgXcQ&quot; class=&quot;primary_button&quot; autofocus=&quot;true&quot; style=&quot;color: red&quot;&gt;&lt;/a&gt;
+<pre><code class="language-html">&lt;a
+  href=&quot;https://www.youtube.com/watch?v=dQw4w9WgXcQ&quot;
+  class=&quot;primary_button&quot;
+  autofocus=&quot;true&quot;
+  style=&quot;color: red&quot;
+&gt;&lt;/a&gt;
 </code></pre>
 <blockquote>
 <p>Note: All attributes defined in <code>dioxus-html</code> follow the snake_case naming convention. They transform their <code>snake_case</code> names to HTML's <code>camelCase</code> attributes.</p>
@@ -209,7 +214,7 @@ fn App(cx: Scope) -&gt; Element {
 </blockquote>
 <h4 id="custom-attributes"><a class="header" href="#custom-attributes">Custom Attributes</a></h4>
 <p>Dioxus has a pre-configured set of attributes that you can use. RSX is validated at compile time to make sure you didn't specify an invalid attribute. If you want to override this behavior with a custom attribute name, specify the attribute in quotes:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    cx.render(rsx!(b {
@@ -217,12 +222,11 @@ fn App(cx: Scope) -&gt; Element {
     }))
 <span class="boring">}
 </span></code></pre></pre>
-<pre><code class="language-html">&lt;b customAttribute=&quot;value&quot;&gt;
-&lt;/b&gt;
+<pre><code class="language-html">&lt;b customAttribute=&quot;value&quot;&gt; &lt;/b&gt;
 </code></pre>
 <h3 id="interpolation"><a class="header" href="#interpolation">Interpolation</a></h3>
 <p>Similarly to how you can <a href="https://doc.rust-lang.org/rust-by-example/hello/print/fmt.html">format</a> Rust strings, you can also interpolate in RSX text. Use <code>{variable}</code> to Display the value of a variable in a string, or <code>{variable:?}</code> to use the Debug representation:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let coordinates = (42, 0);
@@ -246,14 +250,14 @@ cx.render(rsx!(div {
 <span class="boring">}
 </span></code></pre></pre>
 <pre><code class="language-html">&lt;div class=&quot;country-es&quot; position=&quot;(42, 0)&quot;&gt;
-    &lt;div&gt;ES&lt;/div&gt;
-    &lt;div&gt;42&lt;/div&gt;
-    &lt;div&gt;{}&lt;/div&gt;
+  &lt;div&gt;ES&lt;/div&gt;
+  &lt;div&gt;42&lt;/div&gt;
+  &lt;div&gt;{}&lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
 <h3 id="children"><a class="header" href="#children">Children</a></h3>
 <p>To add children to an element, put them inside the <code>{}</code> brackets after all attributes and listeners in the element. They can be other elements, text, or <a href="components.html">components</a>. For example, you could have an <code>ol</code> (ordered list) element, containing 3 <code>li</code> (list item) elements, each of which contains some text:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx!(ol {
@@ -264,14 +268,14 @@ cx.render(rsx!(div {
 <span class="boring">}
 </span></code></pre></pre>
 <pre><code class="language-html">&lt;ol&gt;
-    &lt;li&gt;First Item&lt;/li&gt;
-    &lt;li&gt;Second Item&lt;/li&gt;
-    &lt;li&gt;Third Item&lt;/li&gt;
+  &lt;li&gt;First Item&lt;/li&gt;
+  &lt;li&gt;Second Item&lt;/li&gt;
+  &lt;li&gt;Third Item&lt;/li&gt;
 &lt;/ol&gt;
 </code></pre>
 <h3 id="fragments"><a class="header" href="#fragments">Fragments</a></h3>
 <p>You can render multiple elements at the top level of <code>rsx!</code> and they will be automatically grouped.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx!(
@@ -285,7 +289,7 @@ cx.render(rsx!(div {
 </code></pre>
 <h3 id="expressions"><a class="header" href="#expressions">Expressions</a></h3>
 <p>You can include arbitrary Rust expressions as children within RSX that implements <a href="https://docs.rs/dioxus-core/0.3/dioxus_core/trait.IntoDynNode.html">IntoDynNode</a>. This is useful for displaying data from an <a href="https://doc.rust-lang.org/stable/book/ch13-02-iterators.html#processing-a-series-of-items-with-iterators">iterator</a>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let text = &quot;Dioxus&quot;;
@@ -300,7 +304,7 @@ cx.render(rsx!(span {
 </code></pre>
 <h3 id="loops"><a class="header" href="#loops">Loops</a></h3>
 <p>In addition to iterators you can also use for loops directly within RSX:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx!{
@@ -330,7 +334,7 @@ cx.render(rsx!(span {
 </code></pre>
 <h3 id="if-statements"><a class="header" href="#if-statements">If statements</a></h3>
 <p>You can also use if statements without an else branch within RSX:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>cx.render(rsx!{

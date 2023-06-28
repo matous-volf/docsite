@@ -168,7 +168,7 @@
 <li>When the value updates, <code>use_state</code> makes the component re-render, and provides you with the new value</li>
 </ul>
 <p>For example, you might have seen the counter example, in which state (a number) is tracked using the <code>use_state</code> hook:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -201,7 +201,7 @@
 <p><code>use_state</code> returns your value wrapped in a smart pointer of type <a href="https://docs.rs/dioxus/latest/dioxus/prelude/struct.UseState.html"><code>UseState</code></a>. This is why you can both read the value and update it, even within an event handler.</p>
 </blockquote>
 <p>You can use multiple hooks in the same component if you want:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -223,7 +223,7 @@
 <h2 id="rules-of-hooks"><a class="header" href="#rules-of-hooks">Rules of Hooks</a></h2>
 <p>The above example might seem a bit magic, since Rust functions are typically not associated with state. Dioxus allows hooks to maintain state across renders through a reference to <code>ScopeState</code>, which is why you must pass <code>&amp;cx</code> to them.</p>
 <p>But how can Dioxus differentiate between multiple hooks in the same component? As you saw in the second example, both <code>use_state</code> functions were called with the same parameters, so how come they can return different things when the counters are different?</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    let mut count_a = use_state(cx, || 0);
@@ -243,7 +243,7 @@
 </ol>
 <p>These rules mean that there are certain things you can't do with hooks:</p>
 <h3 id="no-hooks-in-conditionals"><a class="header" href="#no-hooks-in-conditionals">No Hooks in Conditionals</a></h3>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// ❌ don't call hooks in conditionals!
@@ -264,7 +264,7 @@ if you_are_happy &amp;&amp; you_know_it {
 <span class="boring">}
 </span></code></pre></pre>
 <h3 id="no-hooks-in-closures"><a class="header" href="#no-hooks-in-closures">No Hooks in Closures</a></h3>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// ❌ don't call hooks inside closures!
@@ -280,7 +280,7 @@ let _a = || b.get();
 <span class="boring">}
 </span></code></pre></pre>
 <h3 id="no-hooks-in-loops"><a class="header" href="#no-hooks-in-loops">No Hooks in Loops</a></h3>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// `names` is a Vec&lt;&amp;str&gt;
@@ -306,7 +306,7 @@ for name in &amp;names {
 <p>For example, suppose we want to maintain a <code>Vec</code> of values. If we stored it with <code>use_state</code>, the only way to add a new value to the list would be to create a new <code>Vec</code> with the additional value, and put it in the state. This is expensive! We want to modify the existing <code>Vec</code> instead.</p>
 <p>Thankfully, there is another hook for that, <code>use_ref</code>! It is similar to <code>use_state</code>, but it lets you get a mutable reference to the contained data.</p>
 <p>Here's a simple example that keeps a list of events in a <code>use_ref</code>. We can acquire write access to the state with <code>.with_mut()</code>, and then just <code>.push</code> a new value to the state:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {

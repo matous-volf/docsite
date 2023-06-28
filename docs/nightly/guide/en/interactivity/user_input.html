@@ -161,7 +161,7 @@
 <p>Interfaces often need to provide a way to input data: e.g. text, numbers, checkboxes, etc. In Dioxus, there are two ways you can work with user input.</p>
 <h2 id="controlled-inputs"><a class="header" href="#controlled-inputs">Controlled Inputs</a></h2>
 <p>With controlled inputs, you are directly in charge of the state of the input. This gives you a lot of flexibility, and makes it easy to keep things in sync. For example, this is how you would create a controlled text input:</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {
@@ -189,7 +189,7 @@
 <h2 id="uncontrolled-inputs"><a class="header" href="#uncontrolled-inputs">Uncontrolled Inputs</a></h2>
 <p>As an alternative to controlled inputs, you can simply let the platform keep track of the input values. If we don't tell a HTML input what content it should have, it will be editable anyway (this is built into the browser). This approach can be more performant, but less flexible. For example, it's harder to keep the input in sync with another element.</p>
 <p>Since you don't necessarily have the current value of the uncontrolled input in state, you can access it either by listening to <code>oninput</code> events (similarly to controlled components), or, if the input is part of a form, you can access the form data in the form events (e.g. <code>oninput</code> or <code>onsubmit</code>):</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn App(cx: Scope) -&gt; Element {

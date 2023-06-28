@@ -173,7 +173,7 @@ cargo add dioxus
 cargo add dioxus-tui
 </code></pre>
 <p>Em seguida, edite seu <code>main.rs</code> com o modelo básico.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">#![allow(non_snake_case)]
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">#![allow(non_snake_case)]
 // import the prelude to get access to the `rsx!` macro and the `Scope` and `Element` types
 use dioxus::prelude::*;
 
@@ -195,7 +195,7 @@ fn App(cx: Scope) -&gt; Element {
 <pre><code class="language-shell">cargo run
 </code></pre>
 <p>Pressione &quot;ctrl-c&quot; para fechar o aplicativo. Para mudar de &quot;ctrl-c&quot; para apenas &quot;q&quot; para sair, você pode iniciar o aplicativo com uma configuração para desativar o sair padrão e usar a raiz TuiContext para sair por conta própria.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">// todo remove deprecated
+<pre><pre class="playground"><code class="language-rust  no_run edition2018">// todo remove deprecated
 #![allow(non_snake_case, deprecated)]
 
 use dioxus::events::{KeyCode, KeyboardEvent};
