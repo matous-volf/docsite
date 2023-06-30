@@ -186,6 +186,11 @@ Larger, more nuanced decisions about design, architecture, breaking changes, tra
 <pre><code class="language-sh">cargo clippy --workspace --examples --tests -- -D warnings
 </code></pre>
 <ul>
+<li>Browser tests are automated with <a href="https://playwright.dev/docs/intro#installing-playwright">Playwright</a></li>
+</ul>
+<pre><code class="language-sh">npx playwright test
+</code></pre>
+<ul>
 <li>Crates that use unsafe are checked for undefined behavior with <a href="https://github.com/rust-lang/miri">MIRI</a>. MIRI can be helpful to debug what unsafe code is causing issues. Only code that does not interact with system calls can be checked with MIRI. Currently, this is used for the two MIRI tests in <code>dioxus-core</code> and <code>dioxus-native-core</code>.</li>
 </ul>
 <pre><code class="language-sh">cargo miri test --package dioxus-core --test miri_stress
