@@ -299,7 +299,7 @@ async fn editor_service(rx: UnboundedReceiver&lt;EditorCommand&gt;) {
 <pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>static USERNAME: Atom&lt;String&gt; = |_| &quot;default&quot;.to_string();
+</span>static USERNAME: Atom&lt;String&gt; = Atom(|_| &quot;default&quot;.to_string());
 
 fn app(cx: Scope) -&gt; Element {
     let atoms = use_atom_root(cx);
@@ -312,7 +312,7 @@ fn app(cx: Scope) -&gt; Element {
 }
 
 fn Banner(cx: Scope) -&gt; Element {
-    let username = use_read(cx, USERNAME);
+    let username = use_read(cx, &amp;USERNAME);
 
     cx.render(rsx!{
         h1 { &quot;Welcome back, {username}&quot; }
@@ -331,8 +331,8 @@ enum SyncAction {
 }
 
 async fn sync_service(mut rx: UnboundedReceiver&lt;SyncAction&gt;, atoms: AtomRoot) {
-    let username = atoms.write(USERNAME);
-    let errors = atoms.write(ERRORS);
+    let username = atoms.write(&amp;USERNAME);
+    let errors = atoms.write(&amp;ERRORS);
 
     while let Ok(msg) = rx.next().await {
         match msg {

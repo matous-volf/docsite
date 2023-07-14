@@ -2595,7 +2595,7 @@ async fn editor_service(rx: UnboundedReceiver&lt;EditorCommand&gt;) {
 <pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>static USERNAME: Atom&lt;String&gt; = |_| &quot;default&quot;.to_string();
+</span>static USERNAME: Atom&lt;String&gt; = Atom(|_| &quot;default&quot;.to_string());
 
 fn app(cx: Scope) -&gt; Element {
     let atoms = use_atom_root(cx);
@@ -2608,7 +2608,7 @@ fn app(cx: Scope) -&gt; Element {
 }
 
 fn Banner(cx: Scope) -&gt; Element {
-    let username = use_read(cx, USERNAME);
+    let username = use_read(cx, &amp;USERNAME);
 
     cx.render(rsx!{
         h1 { &quot;Welcome back, {username}&quot; }
@@ -2627,8 +2627,8 @@ enum SyncAction {
 }
 
 async fn sync_service(mut rx: UnboundedReceiver&lt;SyncAction&gt;, atoms: AtomRoot) {
-    let username = atoms.write(USERNAME);
-    let errors = atoms.write(ERRORS);
+    let username = atoms.write(&amp;USERNAME);
+    let errors = atoms.write(&amp;ERRORS);
 
     while let Ok(msg) = rx.next().await {
         match msg {
@@ -2835,7 +2835,7 @@ async fn sync_service(mut rx: UnboundedReceiver&lt;SyncAction&gt;, atoms: AtomRo
     TooShort,
 }
 
-static INPUT_ERROR: Atom&lt;InputError&gt; = |_| InputError::None;
+static INPUT_ERROR: Atom&lt;InputError&gt; = Atom(|_| InputError::None);
 <span class="boring">}
 </span></code></pre></pre>
 <p>Then, in our top level component, we want to explicitly handle the possible error state for this part of the tree.</p>
@@ -2843,7 +2843,7 @@ static INPUT_ERROR: Atom&lt;InputError&gt; = |_| InputError::None;
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn TopLevel(cx: Scope) -&gt; Element {
-    let error = use_read(cx, INPUT_ERROR);
+    let error = use_read(cx, &amp;INPUT_ERROR);
 
     match error {
         TooLong =&gt; return cx.render(rsx!{ &quot;FAILED: Too long!&quot; }),
@@ -2858,7 +2858,7 @@ static INPUT_ERROR: Atom&lt;InputError&gt; = |_| InputError::None;
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn Commandline(cx: Scope) -&gt; Element {
-    let set_error = use_set(cx, INPUT_ERROR);
+    let set_error = use_set(cx, &amp;INPUT_ERROR);
 
     cx.render(rsx!{
         input {
