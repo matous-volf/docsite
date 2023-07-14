@@ -2359,7 +2359,7 @@ cx.render(rsx!(
 <p>By default, Dioxus-Desktop ships with the <code>Tokio</code> runtime and automatically sets everything up for you. This is currently not configurable, though it would be easy to write an integration for Dioxus desktop that uses a different asynchronous runtime.</p>
 <p>Dioxus is not currently thread-safe, so any async code you write does <em>not</em> need to be <code>Send/Sync</code>. That means that you can use non-thread-safe structures like <code>Cell</code>, <code>Rc</code>, and <code>RefCell</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="useeffect"><a class="header" href="#useeffect">UseEffect</a></h1>
-<p><a href="https://docs.rs/dioxus-hooks/latest/dioxus_hooks/fn.use_effect.html"><code>use_effect</code></a> lets you run a callback that returns a future, which will be re-run when it's <a href="async/use_effect.html#dependencies">dependencies</a> change. This is useful to syncrhonize with external events.</p>
+<p><a href="https://docs.rs/dioxus-hooks/latest/dioxus_hooks/fn.use_effect.html"><code>use_effect</code></a> lets you run a callback that returns a future, which will be re-run when its <a href="async/use_effect.html#dependencies">dependencies</a> change. This is useful to syncrhonize with external events.</p>
 <h2 id="dependencies"><a class="header" href="#dependencies">Dependencies</a></h2>
 <p>You can make the callback re-run when some value changes. For example, you might want to fetch a user's data only when the user id changes. You can provide a tuple of &quot;dependencies&quot; to the hook. It will automatically re-run it when any of those dependencies change.</p>
 <h2 id="example"><a class="header" href="#example">Example</a></h2>
