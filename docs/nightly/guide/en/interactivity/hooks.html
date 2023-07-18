@@ -159,13 +159,14 @@
                     <main>
                         <h1 id="hooks-and-component-state"><a class="header" href="#hooks-and-component-state">Hooks and Component State</a></h1>
 <p>So far our components have had no state like a normal rust functions. However, in a UI component, it is often useful to have stateful functionality to build user interactions. For example, you might want to track whether the user has opened a drop-down, and render different things accordingly.</p>
-<p>Hooks allow us to create state in our components. Hooks are Rust functions that take a reference to <code>ScopeState</code> (in a component, you can pass <code>cx</code>), and provide you with functionality and state.</p>
+<p>Hooks allow us to create state in our components. Hooks are Rust functions that take a reference to <a href="https://docs.rs/dioxus/latest/dioxus/prelude/struct.ScopeState.html"><code>ScopeState</code></a> (in a component, you can pass <code>cx</code>), and provide you with functionality and state.</p>
 <h2 id="use_state-hook"><a class="header" href="#use_state-hook"><code>use_state</code> Hook</a></h2>
 <p><a href="https://docs.rs/dioxus/latest/dioxus/prelude/fn.use_state.html"><code>use_state</code></a> is one of the simplest hooks.</p>
 <ul>
-<li>You provide a closure that determines the initial value</li>
+<li>You provide a closure that determines the initial value: <code>let mut count = use_state(cx, || 0);</code></li>
 <li><code>use_state</code> gives you the current value, and a way to update it by setting it to something else</li>
-<li>When the value updates, <code>use_state</code> makes the component re-render, and provides you with the new value</li>
+<li>When the value updates, <code>use_state</code> makes the component re-render (along with any other component
+that references it), and then provides you with the new value.</li>
 </ul>
 <p>For example, you might have seen the counter example, in which state (a number) is tracked using the <code>use_state</code> hook:</p>
 <pre><pre class="playground"><code class="language-rust  no_run edition2018">
@@ -233,13 +234,14 @@
 <p>This is only possible because the two hooks are always called in the same order, so Dioxus knows which is which. Because the order you call hooks matters, you must follow certain rules when using hooks:</p>
 <ol>
 <li>Hooks may be only used in components or other hooks (we'll get to that later)</li>
-<li>On every call to the component function
+<li>On every call to a component function
 <ol>
 <li>The same hooks must be called (except in the case of early returns, as explained later in the <a href="../best_practices/error_handling.html">Error Handling chapter</a>)</li>
 <li>In the same order</li>
 </ol>
 </li>
-<li>Hooks name's should start with <code>use_</code> so you don't accidentally confuse them with regular functions</li>
+<li>Hook names should start with <code>use_</code> so you don't accidentally confuse them with regular
+functions (<code>use_state()</code>, <code>use_ref()</code>, <code>use_future()</code>, etc...)</li>
 </ol>
 <p>These rules mean that there are certain things you can't do with hooks:</p>
 <h3 id="no-hooks-in-conditionals"><a class="header" href="#no-hooks-in-conditionals">No Hooks in Conditionals</a></h3>
@@ -303,8 +305,11 @@ for name in &amp;names {
 </span></code></pre></pre>
 <h2 id="use_ref-hook"><a class="header" href="#use_ref-hook"><code>use_ref</code> Hook</a></h2>
 <p><code>use_state</code> is great for tracking simple values. However, you may notice in the <a href="https://docs.rs/dioxus/latest/dioxus/hooks/struct.UseState.html"><code>UseState</code> API</a> that the only way to modify its value is to replace it with something else (e.g., by calling <code>set</code>, or through one of the <code>+=</code>, <code>-=</code> operators). This works well when it is cheap to construct a value (such as any primitive). But what if you want to maintain more complex data in the components state?</p>
-<p>For example, suppose we want to maintain a <code>Vec</code> of values. If we stored it with <code>use_state</code>, the only way to add a new value to the list would be to create a new <code>Vec</code> with the additional value, and put it in the state. This is expensive! We want to modify the existing <code>Vec</code> instead.</p>
-<p>Thankfully, there is another hook for that, <code>use_ref</code>! It is similar to <code>use_state</code>, but it lets you get a mutable reference to the contained data.</p>
+<p>For example, suppose we want to maintain a <code>Vec</code> of values. If we stored it with <code>use_state</code>, the
+only way to add a new value to the list would be to copy the existing <code>Vec</code>, add our value to it,
+and then replace the existing <code>Vec</code> in the state with it. This is expensive! We want to modify the
+existing <code>Vec</code> instead.</p>
+<p>Thankfully, there is another hook for that, <code>use_ref</code>! It <strong>is</strong> similar to <code>use_state</code>, but it lets you get a mutable reference to the contained data.</p>
 <p>Here's a simple example that keeps a list of events in a <code>use_ref</code>. We can acquire write access to the state with <code>.with_mut()</code>, and then just <code>.push</code> a new value to the state:</p>
 <pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
@@ -325,8 +330,24 @@ for name in &amp;names {
 <span class="boring">}
 </span></code></pre></pre>
 <blockquote>
-<p>The return values of <code>use_state</code> and <code>use_ref</code> (<code>UseState</code> and <code>UseRef</code>, respectively) are in some ways similar to <a href="https://doc.rust-lang.org/std/cell/"><code>Cell</code></a> and <a href="https://doc.rust-lang.org/std/cell/struct.RefCell.html"><code>RefCell</code></a> – they provide interior mutability. However, these Dioxus wrappers also ensure that the component gets re-rendered whenever you change the state.</p>
+<p>The return values of <code>use_state</code> and <code>use_ref</code> (
+<a href="https://docs.rs/dioxus/latest/dioxus/prelude/struct.UseState.html"><code>UseState</code></a> and
+<a href="https://docs.rs/dioxus/latest/dioxus/prelude/struct.UseRef.html"><code>UseRef</code></a>, respectively) are in
+some ways similar to <a href="https://doc.rust-lang.org/std/cell/"><code>Cell</code></a> and
+<a href="https://doc.rust-lang.org/std/cell/struct.RefCell.html"><code>RefCell</code></a> – they provide interior
+mutability. However, these Dioxus wrappers also ensure that the component gets re-rendered
+whenever you change the state.</p>
 </blockquote>
+<h2 id="additional-resources"><a class="header" href="#additional-resources">Additional Resources</a></h2>
+<ul>
+<li><a href="https://docs.rs/dioxus-hooks/latest/dioxus_hooks/"><strong>dioxus_hooks</strong> </a> rustdoc
+<ul>
+<li>Documents all hook types included with dioxus by default Most of these are also covered in
+later chapters of this guide.</li>
+</ul>
+</li>
+<li><a href="https://github.com/DioxusLabs/dioxus/tree/master/packages/hooks">Hooks Package</a></li>
+</ul>
 
                     </main>
 

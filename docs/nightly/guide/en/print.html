@@ -1444,13 +1444,14 @@ pub fn FancyButton&lt;'a&gt;(cx: Scope&lt;'a, FancyButtonProps&lt;'a&gt;&gt;) -&
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hooks-and-component-state"><a class="header" href="#hooks-and-component-state">Hooks and Component State</a></h1>
 <p>So far our components have had no state like a normal rust functions. However, in a UI component, it is often useful to have stateful functionality to build user interactions. For example, you might want to track whether the user has opened a drop-down, and render different things accordingly.</p>
-<p>Hooks allow us to create state in our components. Hooks are Rust functions that take a reference to <code>ScopeState</code> (in a component, you can pass <code>cx</code>), and provide you with functionality and state.</p>
+<p>Hooks allow us to create state in our components. Hooks are Rust functions that take a reference to <a href="https://docs.rs/dioxus/latest/dioxus/prelude/struct.ScopeState.html"><code>ScopeState</code></a> (in a component, you can pass <code>cx</code>), and provide you with functionality and state.</p>
 <h2 id="use_state-hook"><a class="header" href="#use_state-hook"><code>use_state</code> Hook</a></h2>
 <p><a href="https://docs.rs/dioxus/latest/dioxus/prelude/fn.use_state.html"><code>use_state</code></a> is one of the simplest hooks.</p>
 <ul>
-<li>You provide a closure that determines the initial value</li>
+<li>You provide a closure that determines the initial value: <code>let mut count = use_state(cx, || 0);</code></li>
 <li><code>use_state</code> gives you the current value, and a way to update it by setting it to something else</li>
-<li>When the value updates, <code>use_state</code> makes the component re-render, and provides you with the new value</li>
+<li>When the value updates, <code>use_state</code> makes the component re-render (along with any other component
+that references it), and then provides you with the new value.</li>
 </ul>
 <p>For example, you might have seen the counter example, in which state (a number) is tracked using the <code>use_state</code> hook:</p>
 <pre><pre class="playground"><code class="language-rust  no_run edition2018">
@@ -1518,13 +1519,14 @@ pub fn FancyButton&lt;'a&gt;(cx: Scope&lt;'a, FancyButtonProps&lt;'a&gt;&gt;) -&
 <p>This is only possible because the two hooks are always called in the same order, so Dioxus knows which is which. Because the order you call hooks matters, you must follow certain rules when using hooks:</p>
 <ol>
 <li>Hooks may be only used in components or other hooks (we'll get to that later)</li>
-<li>On every call to the component function
+<li>On every call to a component function
 <ol>
 <li>The same hooks must be called (except in the case of early returns, as explained later in the <a href="interactivity/../best_practices/error_handling.html">Error Handling chapter</a>)</li>
 <li>In the same order</li>
 </ol>
 </li>
-<li>Hooks name's should start with <code>use_</code> so you don't accidentally confuse them with regular functions</li>
+<li>Hook names should start with <code>use_</code> so you don't accidentally confuse them with regular
+functions (<code>use_state()</code>, <code>use_ref()</code>, <code>use_future()</code>, etc...)</li>
 </ol>
 <p>These rules mean that there are certain things you can't do with hooks:</p>
 <h3 id="no-hooks-in-conditionals"><a class="header" href="#no-hooks-in-conditionals">No Hooks in Conditionals</a></h3>
@@ -1588,8 +1590,11 @@ for name in &amp;names {
 </span></code></pre></pre>
 <h2 id="use_ref-hook"><a class="header" href="#use_ref-hook"><code>use_ref</code> Hook</a></h2>
 <p><code>use_state</code> is great for tracking simple values. However, you may notice in the <a href="https://docs.rs/dioxus/latest/dioxus/hooks/struct.UseState.html"><code>UseState</code> API</a> that the only way to modify its value is to replace it with something else (e.g., by calling <code>set</code>, or through one of the <code>+=</code>, <code>-=</code> operators). This works well when it is cheap to construct a value (such as any primitive). But what if you want to maintain more complex data in the components state?</p>
-<p>For example, suppose we want to maintain a <code>Vec</code> of values. If we stored it with <code>use_state</code>, the only way to add a new value to the list would be to create a new <code>Vec</code> with the additional value, and put it in the state. This is expensive! We want to modify the existing <code>Vec</code> instead.</p>
-<p>Thankfully, there is another hook for that, <code>use_ref</code>! It is similar to <code>use_state</code>, but it lets you get a mutable reference to the contained data.</p>
+<p>For example, suppose we want to maintain a <code>Vec</code> of values. If we stored it with <code>use_state</code>, the
+only way to add a new value to the list would be to copy the existing <code>Vec</code>, add our value to it,
+and then replace the existing <code>Vec</code> in the state with it. This is expensive! We want to modify the
+existing <code>Vec</code> instead.</p>
+<p>Thankfully, there is another hook for that, <code>use_ref</code>! It <strong>is</strong> similar to <code>use_state</code>, but it lets you get a mutable reference to the contained data.</p>
 <p>Here's a simple example that keeps a list of events in a <code>use_ref</code>. We can acquire write access to the state with <code>.with_mut()</code>, and then just <code>.push</code> a new value to the state:</p>
 <pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
@@ -1610,8 +1615,24 @@ for name in &amp;names {
 <span class="boring">}
 </span></code></pre></pre>
 <blockquote>
-<p>The return values of <code>use_state</code> and <code>use_ref</code> (<code>UseState</code> and <code>UseRef</code>, respectively) are in some ways similar to <a href="https://doc.rust-lang.org/std/cell/"><code>Cell</code></a> and <a href="https://doc.rust-lang.org/std/cell/struct.RefCell.html"><code>RefCell</code></a> – they provide interior mutability. However, these Dioxus wrappers also ensure that the component gets re-rendered whenever you change the state.</p>
+<p>The return values of <code>use_state</code> and <code>use_ref</code> (
+<a href="https://docs.rs/dioxus/latest/dioxus/prelude/struct.UseState.html"><code>UseState</code></a> and
+<a href="https://docs.rs/dioxus/latest/dioxus/prelude/struct.UseRef.html"><code>UseRef</code></a>, respectively) are in
+some ways similar to <a href="https://doc.rust-lang.org/std/cell/"><code>Cell</code></a> and
+<a href="https://doc.rust-lang.org/std/cell/struct.RefCell.html"><code>RefCell</code></a> – they provide interior
+mutability. However, these Dioxus wrappers also ensure that the component gets re-rendered
+whenever you change the state.</p>
 </blockquote>
+<h2 id="additional-resources"><a class="header" href="#additional-resources">Additional Resources</a></h2>
+<ul>
+<li><a href="https://docs.rs/dioxus-hooks/latest/dioxus_hooks/"><strong>dioxus_hooks</strong> </a> rustdoc
+<ul>
+<li>Documents all hook types included with dioxus by default Most of these are also covered in
+later chapters of this guide.</li>
+</ul>
+</li>
+<li><a href="https://github.com/DioxusLabs/dioxus/tree/master/packages/hooks">Hooks Package</a></li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="user-input"><a class="header" href="#user-input">User Input</a></h1>
 <p>Interfaces often need to provide a way to input data: e.g. text, numbers, checkboxes, etc. In Dioxus, there are two ways you can work with user input.</p>
 <h2 id="controlled-inputs"><a class="header" href="#controlled-inputs">Controlled Inputs</a></h2>
@@ -4102,7 +4123,7 @@ fn app(cx: Scope) -&gt; Element {
 </code></pre></pre>
 <p><a href="https://mermaid.live/edit#pako:eNqNkT1vwyAQhv8KvSlR48HphtQtqjK0S6tuSBGBS0CxwcJHk8rxfy_YVqxKVdR3ug_u4YXrQHmNwOFQ-bMyMhB7fReOJbVxfwyyMSy0l7GSpW1ARda727ksUy5MuSyKgvBC5ULA1h5N8WK_kCkfHWHgrBuiXsBynrvdsY9E3u1iM_eyvFOVVadMnELOap-o1911JLPHZ1b-YqLTc3LjTt7WifTZMJPsPdx1ov3Z_ellfcdL8R8vmTy5eUqsTUpZ-vzZzjAEK6gx1NLqtJwuNwSQwRoF8BRqGU4ChOvTORnJf3w7BZxCxBXERkvCjZXpQTXwg6zaVEVtyYe3cdvD0vsf4bucgw"><img src="https://mermaid.ink/img/pako:eNqNkT1vwyAQhv8KvSlR48HphtQtqjK0S6tuSBGBS0CxwcJHk8rxfy_YVqxKVdR3ug_u4YXrQHmNwOFQ-bMyMhB7fReOJbVxfwyyMSy0l7GSpW1ARda727ksUy5MuSyKgvBC5ULA1h5N8WK_kCkfHWHgrBuiXsBynrvdsY9E3u1iM_eyvFOVVadMnELOap-o1911JLPHZ1b-YqLTc3LjTt7WifTZMJPsPdx1ov3Z_ellfcdL8R8vmTy5eUqsTUpZ-vzZzjAEK6gx1NLqtJwuNwSQwRoF8BRqGU4ChOvTORnJf3w7BZxCxBXERkvCjZXpQTXwg6zaVEVtyYe3cdvD0vsf4bucgw?type=png" alt="" /></a></p>
 <h2 id="the-rsx-macro"><a class="header" href="#the-rsx-macro">The rsx! Macro</a></h2>
-<p>Before the Rust compiler runs the program, it will expand all macros. Here is what the hello world example looks like expanded:</p>
+<p>Before the Rust compiler runs the program, it will expand all <a href="https://doc.rust-lang.org/reference/procedural-macros.html">macros</a>. Here is what the hello world example looks like expanded:</p>
 <pre><pre class="playground"><code class="language-rust  no_run edition2018">use dioxus::prelude::*;
 
 fn main() {
@@ -4211,21 +4232,21 @@ fn app(cx: Scope) -&gt; Element {
     )
 }
 </code></pre></pre>
-<p>The rsx macro separates the static parts of the rsx (the template) and the dynamic parts (the dynamic_nodes and dynamic_attributes).</p>
+<p>The rsx macro separates the static parts of the rsx (the template) and the dynamic parts (the <a href="https://docs.rs/dioxus-core/0.3.2/dioxus_core/prelude/struct.VNode.html#structfield.dynamic_nodes">dynamic_nodes</a> and <a href="https://docs.rs/dioxus-core/0.3.2/dioxus_core/prelude/struct.VNode.html#structfield.dynamic_attrs">dynamic_attributes</a>).</p>
 <p>The static template only contains the parts of the rsx that cannot change at runtime with holes for the dynamic parts:</p>
 <p><a href="https://mermaid.live/edit#pako:eNqdksFuwjAMhl8l8wkkKtFx65njdtm0E0GVSQKJoEmVOgKEeHecUrXStO0wn5Lf9u8vcm6ggjZQwf4UzspiJPH2Ib3g6NLuELG1oiMkp0TsLs9EDu2iUeSCH8tz2HJmy3lRFPrqsXGq9mxeLzcbCU6LZSUGXWRdwnY7tY7Tdoko-Dq1U64fODgiUfzJMeuOe7_ZGq-ny2jNhGQu9DqT8NUK6w72RcL8dxgdzv4PnHLAKf-Fk80HoBUDrfkqeBkTUd8EC2hMbNBpXtYtJySQNQ0PqPioMR4lSH_nOkwUPq9eQUUxmQWkViOZtUN-UwPVHk8dq0Y7CvH9uf3-E9wfrmuk1A"><img src="https://mermaid.ink/img/pako:eNqdksFuwjAMhl8l8wkkKtFx65njdtm0E0GVSQKJoEmVOgKEeHecUrXStO0wn5Lf9u8vcm6ggjZQwf4UzspiJPH2Ib3g6NLuELG1oiMkp0TsLs9EDu2iUeSCH8tz2HJmy3lRFPrqsXGq9mxeLzcbCU6LZSUGXWRdwnY7tY7Tdoko-Dq1U64fODgiUfzJMeuOe7_ZGq-ny2jNhGQu9DqT8NUK6w72RcL8dxgdzv4PnHLAKf-Fk80HoBUDrfkqeBkTUd8EC2hMbNBpXtYtJySQNQ0PqPioMR4lSH_nOkwUPq9eQUUxmQWkViOZtUN-UwPVHk8dq0Y7CvH9uf3-E9wfrmuk1A?type=png" alt="" /></a></p>
 <p>The dynamic_nodes and dynamic_attributes are the parts of the rsx that can change at runtime:</p>
 <p><a href="https://mermaid.live/edit#pako:eNp1UcFOwzAM_RXLVzZpvUbighDiABfgtkxTlnirtSaZUgc0df130hZEEcwny35-79nu0EZHqHDfxA9bmyTw9KIDlGjz7pDMqQZ3DsazhVCQ7dQbwnEiKxwDvN3NqhN4O4C3q_VaIztYKXjkQ7184HcCG3MQSgq6Mes1bjbTPAV3RdqIJN5l-V__2_Fcf5iY68dgG7ZHBT4WD5ftZfIBN7dQ_Tj4w1B9MVTXGZa_GMYdcIGekjfsymW7oaFRavKkUZXUmXTUqENfcCZLfD0Hi0pSpgXmkzNC92zKATyqvWnaUiXHEtPz9KrxY_0nzYOPmA"><img src="https://mermaid.ink/img/pako:eNp1UcFOwzAM_RXLVzZpvUbighDiABfgtkxTlnirtSaZUgc0df130hZEEcwny35-79nu0EZHqHDfxA9bmyTw9KIDlGjz7pDMqQZ3DsazhVCQ7dQbwnEiKxwDvN3NqhN4O4C3q_VaIztYKXjkQ7184HcCG3MQSgq6Mes1bjbTPAV3RdqIJN5l-V__2_Fcf5iY68dgG7ZHBT4WD5ftZfIBN7dQ_Tj4w1B9MVTXGZa_GMYdcIGekjfsymW7oaFRavKkUZXUmXTUqENfcCZLfD0Hi0pSpgXmkzNC92zKATyqvWnaUiXHEtPz9KrxY_0nzYOPmA?type=png" alt="" /></a></p>
 <h2 id="launching-the-app"><a class="header" href="#launching-the-app">Launching the App</a></h2>
-<p>The app is launched by calling the <code>launch</code> function with the root component. Internally, this function will create a new web view using <a href="https://docs.rs/wry/latest/wry/">wry</a> and create a virtual dom with the root component. This guide will not explain the renderer in-depth, but you can read more about it in the <a href="contributing//guide/custom-renderer">custom renderer</a> section.</p>
+<p>The app is launched by calling the <code>launch</code> function with the root component. Internally, this function will create a new web view using <a href="https://docs.rs/wry/latest/wry/">wry</a> and create a virtual dom with the root component (<code>fn app()</code> in the readme example). This guide will not explain the renderer in-depth, but you can read more about it in the <a href="contributing//guide/custom-renderer">custom renderer</a> section.</p>
 <h2 id="the-virtual-dom"><a class="header" href="#the-virtual-dom">The Virtual DOM</a></h2>
-<p>Before we dive into the initial render in the virtual dom, we need to discuss what the virtual dom is. The virtual dom is a representation of the dom that is used to diff the current dom from the new dom. This diff is then used to create a list of mutations that need to be applied to the dom.</p>
-<p>The Virtual Dom roughly looks like this:</p>
+<p>Before we dive into the initial render in the virtual DOM, we need to discuss what the virtual DOM is. The virtual DOM is a representation of the DOM that is used to diff the current DOM from the new DOM. This diff is then used to create a list of mutations that need to be applied to the DOM to bring it into sync with the virtual DOM.</p>
+<p>The Virtual DOM roughly looks like this:</p>
 <pre><pre class="playground"><code class="language-rust  no_run edition2018">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub struct VirtualDom {
-    // All the templates that have been created or set durring hot reloading
+    // All the templates that have been created or set during hot reloading
     pub(crate) templates: FxHashMap&lt;TemplateId, FxHashMap&lt;usize, Template&lt;'static&gt;&gt;&gt;,
 
     // A slab of all the scopes that have been created
@@ -4246,51 +4267,60 @@ fn app(cx: Scope) -&gt; Element {
 <span class="boring">}
 </span></code></pre></pre>
 <blockquote>
-<p>What is a <a href="https://docs.rs/slab/latest/slab/">slab</a>?
-A slab acts like a hashmap with integer keys if you don't care about the value of the keys. It is internally backed by a dense vector which makes it more efficient than a hashmap. When you insert a value into a slab, it returns an integer key that you can use to retrieve the value later.</p>
+<p>What is a <a href="https://docs.rs/slab/latest/slab/">slab</a>?</p>
+<p>A slab acts like a hashmap with integer keys if you don't care about the value of the keys. It is internally backed by a dense vector which makes it more efficient than a hashmap. When you insert a value into a slab, it returns an integer key that you can use to retrieve the value later.</p>
 </blockquote>
 <blockquote>
-<p>How does Dioxus use slabs?
-Dioxus uses &quot;synchronized slabs&quot; to communicate between the renderer and the VDOM. When an node is created in the Virtual Dom, a ElementId is passed along with the mutation to the renderer to identify the node. These ids are used by the Virtual Dom to reference that nodes in future mutations like setting an attribute on a node or removing a node.
-When the renderer sends an event to the Virtual Dom, it sends the ElementId of the node that the event was triggered on. The Virtual Dom uses this id to find the node in the slab and then run the necessary event handlers.</p>
+<p>How does Dioxus use slabs?</p>
+<p>Dioxus uses &quot;synchronized slabs&quot; to communicate between the renderer and the VDOM. When a node is created in the Virtual DOM, an (elementId, mutation) pair is passed to the renderer to identify that node, which the renderer will then render in actual DOM. These ids are also used by the Virtual Dom to reference that node in future mutations, like setting an attribute on a node or removing a node. When the renderer sends an event to the Virtual Dom, it sends the ElementId of the node that the event was triggered on. The Virtual DOM uses this id to find that node in the slab and then run the necessary event handlers.</p>
 </blockquote>
-<p>The virtual dom is a tree of scopes. A new scope is created for every component when it is first rendered and recycled when the component is unmounted.</p>
+<p>The virtual DOM is a tree of scopes. A new <code>Scope</code> is created for every component when it is first rendered and recycled when the component is unmounted.</p>
 <p>Scopes serve three main purposes:</p>
 <ol>
 <li>They store the state of hooks used by the component</li>
-<li>They store the state for the context API</li>
-<li>They store the current and previous VNode that was rendered for diffing</li>
+<li>They store the state for the context API (for example: using
+<a href="https://docs.rs/dioxus/latest/dioxus/prelude/fn.use_shared_state_provider.html">use_shared_state_provider</a>).</li>
+<li>They store the current and previous versions of the <code>VNode</code> that was rendered, so they can be
+diffed to generate the set of mutations needed to re-render it.</li>
 </ol>
 <h3 id="the-initial-render"><a class="header" href="#the-initial-render">The Initial Render</a></h3>
 <p>The root scope is created and rebuilt:</p>
 <ol>
 <li>The root component is run</li>
-<li>The root component returns a VNode</li>
-<li>Mutations for the VNode are created and added to the mutation list (this may involve creating new child components)</li>
-<li>The VNode is stored in the root scope</li>
+<li>The root component returns a <code>VNode</code></li>
+<li>Mutations for this <code>VNode</code> are created and added to the mutation list (this may involve creating new child components)</li>
+<li>The <code>VNode</code> is stored in the root's <code>Scope</code>.</li>
 </ol>
-<p>After the root scope is built, the mutations are sent to the renderer to be applied to the dom.</p>
-<p>After the initial render, the root scope looks like this:</p>
+<p>After the root's <code>Scope</code> is built, all generated mutations are sent to the renderer, which applies them to the DOM.</p>
+<p>After the initial render, the root <code>Scope</code> looks like this:</p>
 <p><a href="https://mermaid.live/edit#pako:eNqtVE1P4zAQ_SuzPrWikRpWXCLtBRDisItWsOxhCaqM7RKricdyJrQV8N93QtvQNCkfEnOynydv3nxkHoVCbUQipjnOVSYDwc_L1AFbWd3dB-kzuEQkuFLoDUwDFkCZAek9nGDh0RlHK__atA1GkUUHf45f0YbppAqB_aOzIAvz-t7-chN_Y-1bw1WSJKsglIu2w9tktWXxIIuHURT5XCqTYa5NmDguw2R8c5MKq2GcgF46WTB_jafi9rZL0yi5q4jQTSrf9altO4okCn1Ratwyz55Qxuku2ITlTMgs6HCQimsPmb3PvqVi-L5gjXP3QcnxWnL8JZLrwGvR31n0KV-Bx6-r-oVkT_-3G1S-NQLbk9i8rj7udP2cixed2QcDCitHJiQw7ub3EVlNecrPjudG2-6soFO5VbMECmR9T5OnlUY4-AFxfw9aTFst3McU9TK1Otm6NEn_DubBYlX2_dglLXOz48FgwJmJ5lZTlhz6xWgNaFnyDgpymcARHO0W2a9J_l5w2wYXvHuGPcqaQ-rESBQmFNJq3nCPNZoK3l4sUSR81DLMUpG6Z_aTFeHV0imRUKjMSFReSzKnVnKGhUimMi8ZNdoShl-rlfmyOUfCS_cPcePz_B_Wl4pc"><img src="https://mermaid.ink/img/pako:eNqtVE1P4zAQ_SuzPrWikRpWXCLtBRDisItWsOxhCaqM7RKricdyJrQV8N93QtvQNCkfEnOynydv3nxkHoVCbUQipjnOVSYDwc_L1AFbWd3dB-kzuEQkuFLoDUwDFkCZAek9nGDh0RlHK__atA1GkUUHf45f0YbppAqB_aOzIAvz-t7-chN_Y-1bw1WSJKsglIu2w9tktWXxIIuHURT5XCqTYa5NmDguw2R8c5MKq2GcgF46WTB_jafi9rZL0yi5q4jQTSrf9altO4okCn1Ratwyz55Qxuku2ITlTMgs6HCQimsPmb3PvqVi-L5gjXP3QcnxWnL8JZLrwGvR31n0KV-Bx6-r-oVkT_-3G1S-NQLbk9i8rj7udP2cixed2QcDCitHJiQw7ub3EVlNecrPjudG2-6soFO5VbMECmR9T5OnlUY4-AFxfw9aTFst3McU9TK1Otm6NEn_DubBYlX2_dglLXOz48FgwJmJ5lZTlhz6xWgNaFnyDgpymcARHO0W2a9J_l5w2wYXvHuGPcqaQ-rESBQmFNJq3nCPNZoK3l4sUSR81DLMUpG6Z_aTFeHV0imRUKjMSFReSzKnVnKGhUimMi8ZNdoShl-rlfmyOUfCS_cPcePz_B_Wl4pc?type=png" alt="" /></a></p>
 <h3 id="waiting-for-events"><a class="header" href="#waiting-for-events">Waiting for Events</a></h3>
-<p>The Virtual Dom will only ever rerender a scope if it is marked as dirty. Each hook is responsible for marking the scope as dirty if the state has changed. Hooks can mark a scope as dirty by sending a message to the Virtual Dom's channel.</p>
+<p>The Virtual DOM will only ever re-render a <code>Scope</code> if it is marked as dirty. Each hook is responsible for marking the <code>Scope</code> as dirty if the state has changed. Hooks can mark a scope as dirty by sending a message to the Virtual Dom's channel. You can see the <a href="https://github.com/DioxusLabs/dioxus/tree/master/packages/hooks">implementations</a> for the hooks dioxus includes by default on how this is done. Calling <code>needs_update()</code> on a hook will also cause it to mark its scope as dirty.</p>
 <p>There are generally two ways a scope is marked as dirty:</p>
 <ol>
-<li>The renderer triggers an event: This causes an event listener to be called if needed which may mark a component as dirty</li>
-<li>The renderer calls wait for work: This polls futures which may mark a component as dirty</li>
+<li>The renderer triggers an event: An event listener on this event may be called, which may mark a
+component as dirty, if processing the event resulted in any generated any mutations.</li>
+<li>The renderer calls
+<a href="https://docs.rs/dioxus/latest/dioxus/prelude/struct.VirtualDom.html#method.wait_for_work"><code>wait_for_work</code></a>:
+This polls dioxus internal future queue. One of these futures may mark a component as dirty.</li>
 </ol>
-<p>Once at least one scope is marked as dirty, the renderer can call <code>render_with_deadline</code> to diff the dirty scopes.</p>
+<p>Once at least one <code>Scope</code> is marked as dirty, the renderer can call <a href="https://docs.rs/dioxus/latest/dioxus/prelude/struct.VirtualDom.html#method.render_with_deadline"><code>render_with_deadline</code></a> to diff the dirty scopes.</p>
 <h3 id="diffing-scopes"><a class="header" href="#diffing-scopes">Diffing Scopes</a></h3>
-<p>If the user clicked the &quot;up high&quot; button, the root scope would be marked as dirty by the use_state hook. Once the desktop renderer calls <code>render_with_deadline</code>, the root scope would be diffed.</p>
-<p>To start the diffing process, the component is run. After the root component is run it will look like this:</p>
+<p>When a user clicks the &quot;up high&quot; button, the root <code>Scope</code> will be marked as dirty by the <code>use_state</code> hook. The desktop renderer will then call <code>render_with_deadline</code>, which will diff the root <code>Scope</code>.</p>
+<p>To start the diffing process, the component function is run. After the root component is run it, the root <code>Scope</code> will look like this:</p>
 <p><a href="https://mermaid.live/edit#pako:eNrFVlFP2zAQ_iuen0BrpCaIl0i8AEJ72KQJtpcRFBnbJVYTn-U4tBXw33dpG5M2CetoBfdkny_ffb67fPIT5SAkjekkhxnPmHXk-3WiCVpZ3T9YZjJyDeDIDQcjycRCQVwmCTOGXEBhQEvtVvG1CWUldwo0-XX-6vVIF5W1GB9cWVbI1_PNL5v8jW3uPFbpmFOc2HK-GfA2WG1ZeJSFx0EQmJxxmUEupE01liEd394mVAkyjolYaFYgfu1P6N1dF8Yzua-cA51WphtTWzsLc872Zan9CnEGUkktuk6fFm_i5NxFRwn9bUimHrIvCT3-N2EBM70j5XBNOTwI5TrxmvQJkr7ELcHx67Jeggz0v92g8q0RaE-iP1193On6NyxecKUeJeFQaSdtTMLu_Xah5ctT_u94Nty2ZwU0zxWfxqQA5PecPq84kq9nfRw7SK0WDiEFZ4O37d34S_-08lFBVfb92KVb5HIrAp0WpjKYKeGyODLz0dohWIkaZNkiJqfkdLvIH6oRaTSoEmm0n06k0a5K0ZdpL61Io0Yt0nfpxc7UQ0_9cJrhyZ8syX-6brS706Mc489Vjja7fbWj3cxDqIdfJJqOaCFtwZTAV8hT7U0ovjBQRmiMS8HsNKGJfsE4Vjm4WWhOY2crOaKVEczJS8WwgAWNJywv0SuFcmB_rJ41y9fNiBqm_wA0MS9_AUuAiy0"><img src="https://mermaid.ink/img/pako:eNrFVlFP2zAQ_iuen0BrpCaIl0i8AEJ72KQJtpcRFBnbJVYTn-U4tBXw33dpG5M2CetoBfdkny_ffb67fPIT5SAkjekkhxnPmHXk-3WiCVpZ3T9YZjJyDeDIDQcjycRCQVwmCTOGXEBhQEvtVvG1CWUldwo0-XX-6vVIF5W1GB9cWVbI1_PNL5v8jW3uPFbpmFOc2HK-GfA2WG1ZeJSFx0EQmJxxmUEupE01liEd394mVAkyjolYaFYgfu1P6N1dF8Yzua-cA51WphtTWzsLc872Zan9CnEGUkktuk6fFm_i5NxFRwn9bUimHrIvCT3-N2EBM70j5XBNOTwI5TrxmvQJkr7ELcHx67Jeggz0v92g8q0RaE-iP1193On6NyxecKUeJeFQaSdtTMLu_Xah5ctT_u94Nty2ZwU0zxWfxqQA5PecPq84kq9nfRw7SK0WDiEFZ4O37d34S_-08lFBVfb92KVb5HIrAp0WpjKYKeGyODLz0dohWIkaZNkiJqfkdLvIH6oRaTSoEmm0n06k0a5K0ZdpL61Io0Yt0nfpxc7UQ0_9cJrhyZ8syX-6brS706Mc489Vjja7fbWj3cxDqIdfJJqOaCFtwZTAV8hT7U0ovjBQRmiMS8HsNKGJfsE4Vjm4WWhOY2crOaKVEczJS8WwgAWNJywv0SuFcmB_rJ41y9fNiBqm_wA0MS9_AUuAiy0?type=png" alt="" /></a></p>
-<p>Next, the Virtual Dom will compare the new VNode with the previous VNode and only update the parts of the tree that have changed.</p>
-<p>When a component is re-rendered, the Virtual Dom will compare the new VNode with the previous VNode and only update the parts of the tree that have changed.</p>
+<p>Next, the Virtual DOM will compare the new VNode with the previous VNode and only update the parts of the tree that have changed. Because of this approach, when a component is re-rendered only the parts of the tree that have changed will be updated in the DOM by the renderer.</p>
 <p>The diffing algorithm goes through the list of dynamic attributes and nodes and compares them to the previous VNode. If the attribute or node has changed, a mutation that describes the change is added to the mutation list.</p>
-<p>Here is what the diffing algorithm looks like for the root scope (red lines indicate that a mutation was generated, and green lines indicate that no mutation was generated)</p>
+<p>Here is what the diffing algorithm looks like for the root <code>Scope</code> (red lines indicate that a mutation was generated, and green lines indicate that no mutation was generated)</p>
 <p><a href="https://mermaid.live/edit#pako:eNrFlFFPwjAQx7_KpT7Kko2Elya8qCE-aGLAJ5khpe1Yw9Zbug4k4He3OJjbGPig0T5t17tf_nf777aEo5CEkijBNY-ZsfAwDjW4kxfzhWFZDGNECxOOmYTIYAo2lsCyDG4xzVBLbcv8_RHKSG4V6orSIN0Wxrh8b2RYKr_uTyubd1W92GiWKg7aac6bOU3G803HbVk82xfP_Ok0JEqAT-FeLWJvpFYSOBbaSkMhCMnra5MgtfhWFrPWqHlhL2urT6atbU-oa0PNE8WXFFJ0-nazXakRroddGk9IwYEUnCd5w7Pddr5UTT8ZuVJY5F0fM7ebRLYyXNDgUnprJWxM-9lb7xAQLHe-M2xDYQCD9pD_2hez_kVn-P_rjLq6n3qjYv2iO5qz9DyvPdyv1ETp5eTTJ_7BGvQq8v1TVtl5jXUcRRcrqFh-dI4VtFlBN6t_ynLNkh5JpUmZEm5rbvfhkLiN6H4BQt2jYGYZklC_uzxWWJxsNCfUmkL2SJEJZuWdYs4cKaERS3IXlUJZNI_lGv7cxj2SMf2CeMx5_wBcbK19"><img src="https://mermaid.ink/img/pako:eNrFlFFPwjAQx7_KpT7Kko2Elya8qCE-aGLAJ5khpe1Yw9Zbug4k4He3OJjbGPig0T5t17tf_nf777aEo5CEkijBNY-ZsfAwDjW4kxfzhWFZDGNECxOOmYTIYAo2lsCyDG4xzVBLbcv8_RHKSG4V6orSIN0Wxrh8b2RYKr_uTyubd1W92GiWKg7aac6bOU3G803HbVk82xfP_Ok0JEqAT-FeLWJvpFYSOBbaSkMhCMnra5MgtfhWFrPWqHlhL2urT6atbU-oa0PNE8WXFFJ0-nazXakRroddGk9IwYEUnCd5w7Pddr5UTT8ZuVJY5F0fM7ebRLYyXNDgUnprJWxM-9lb7xAQLHe-M2xDYQCD9pD_2hez_kVn-P_rjLq6n3qjYv2iO5qz9DyvPdyv1ETp5eTTJ_7BGvQq8v1TVtl5jXUcRRcrqFh-dI4VtFlBN6t_ynLNkh5JpUmZEm5rbvfhkLiN6H4BQt2jYGYZklC_uzxWWJxsNCfUmkL2SJEJZuWdYs4cKaERS3IXlUJZNI_lGv7cxj2SMf2CeMx5_wBcbK19?type=png" alt="" /></a></p>
 <h2 id="conclusion-2"><a class="header" href="#conclusion-2">Conclusion</a></h2>
-<p>This is only a brief overview of how the Virtual Dom works. There are several aspects not yet covered in this guide including how the Virtual Dom handles async-components, keyed diffing, and how it uses <a href="https://github.com/fitzgen/bumpalo">bump allocation</a> to efficiently allocate VNodes. If need more information about the Virtual Dom, you can read the code of the <a href="https://github.com/DioxusLabs/dioxus/tree/master/packages/core">core</a> crate or reach out to us on <a href="https://discord.gg/XgGxMSkvUM">Discord</a>.</p>
+<p>This is only a brief overview of how the Virtual Dom works. There are several aspects not yet covered in this guide including:</p>
+<ul>
+<li>How the Virtual DOM handles async-components</li>
+<li>Keyed diffing</li>
+<li>Using <a href="https://github.com/fitzgen/bumpalo">bump allocation</a> to efficiently allocate VNodes.</li>
+</ul>
+<p>If you need more information about the Virtual Dom, you can read the code of the <a href="https://github.com/DioxusLabs/dioxus/tree/master/packages/core">core</a> crate or reach out to us on <a href="https://discord.gg/XgGxMSkvUM">Discord</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="overall-goals"><a class="header" href="#overall-goals">Overall Goals</a></h1>
 <p>This document outlines some of the overall goals for Dioxus. These goals are not set in stone, but they represent general guidelines for the project.</p>
 <p>The goal of Dioxus is to make it easy to build <strong>cross-platform applications that scale</strong>.</p>
