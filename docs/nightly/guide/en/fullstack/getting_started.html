@@ -271,7 +271,7 @@ fn app(cx: Scope) -&gt; Element {
     })
 }
 </code></pre></pre>
-<p>Now, build your client-side bundle with <code>dioxus build --features web</code> and run your server with <code>cargo run --features ssr</code>. You should see the same page as before, but now you can interact with the buttons!</p>
+<p>Now, build your client-side bundle with <code>dx build --features web</code> and run your server with <code>cargo run --features ssr</code>. You should see the same page as before, but now you can interact with the buttons!</p>
 <h2 id="sycronizing-props-between-the-server-and-client"><a class="header" href="#sycronizing-props-between-the-server-and-client">Sycronizing props between the server and client</a></h2>
 <p>Let's make the initial count of the counter dynamic based on the current page.</p>
 <h3 id="modifying-the-server"><a class="header" href="#modifying-the-server">Modifying the server</a></h3>
@@ -359,7 +359,7 @@ fn app(cx: Scope&lt;usize&gt;) -&gt; Element {
     })
 }
 </code></pre></pre>
-<p>Now, build your client-side bundle with <code>dioxus build --features web</code> and run your server with <code>cargo run --features ssr</code>. Navigate to <code>http://localhost:8080/1</code> and you should see the counter start at 1. Navigate to <code>http://localhost:8080/2</code> and you should see the counter start at 2.</p>
+<p>Now, build your client-side bundle with <code>dx build --features web</code> and run your server with <code>cargo run --features ssr</code>. Navigate to <code>http://localhost:8080/1</code> and you should see the counter start at 1. Navigate to <code>http://localhost:8080/2</code> and you should see the counter start at 2.</p>
 
                     </main>
 

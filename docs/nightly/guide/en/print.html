@@ -341,7 +341,7 @@ fn App(cx: Scope) -&gt; Element {
 }
 </code></pre></pre>
 <p>And to serve our app:</p>
-<pre><code class="language-bash">dioxus serve
+<pre><code class="language-bash">dx serve
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="server-side-rendering"><a class="header" href="#server-side-rendering">Server-Side Rendering</a></h1>
 <p>For lower-level control over the rendering process, you can use the <code>dioxus-ssr</code> crate directly. This can be useful when integrating with a web framework that <code>dioxus-server</code> does not support, or pre-rendering pages.</p>
@@ -682,7 +682,7 @@ Hot reloading is automatically enabled when using the web renderer on debug buil
 <ol>
 <li>Run:</li>
 </ol>
-<pre><code class="language-bash">dioxus serve --hot-reload
+<pre><code class="language-bash">dx serve --hot-reload
 </code></pre>
 <ol start="2">
 <li>Change some code within a rsx or render macro</li>
@@ -3192,7 +3192,7 @@ fn app(cx: Scope) -&gt; Element {
     })
 }
 </code></pre></pre>
-<p>Now, build your client-side bundle with <code>dioxus build --features web</code> and run your server with <code>cargo run --features ssr</code>. You should see the same page as before, but now you can interact with the buttons!</p>
+<p>Now, build your client-side bundle with <code>dx build --features web</code> and run your server with <code>cargo run --features ssr</code>. You should see the same page as before, but now you can interact with the buttons!</p>
 <h2 id="sycronizing-props-between-the-server-and-client"><a class="header" href="#sycronizing-props-between-the-server-and-client">Sycronizing props between the server and client</a></h2>
 <p>Let's make the initial count of the counter dynamic based on the current page.</p>
 <h3 id="modifying-the-server"><a class="header" href="#modifying-the-server">Modifying the server</a></h3>
@@ -3280,7 +3280,7 @@ fn app(cx: Scope&lt;usize&gt;) -&gt; Element {
     })
 }
 </code></pre></pre>
-<p>Now, build your client-side bundle with <code>dioxus build --features web</code> and run your server with <code>cargo run --features ssr</code>. Navigate to <code>http://localhost:8080/1</code> and you should see the counter start at 1. Navigate to <code>http://localhost:8080/2</code> and you should see the counter start at 2.</p>
+<p>Now, build your client-side bundle with <code>dx build --features web</code> and run your server with <code>cargo run --features ssr</code>. Navigate to <code>http://localhost:8080/1</code> and you should see the counter start at 1. Navigate to <code>http://localhost:8080/2</code> and you should see the counter start at 2.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="communicating-with-the-server"><a class="header" href="#communicating-with-the-server">Communicating with the server</a></h1>
 <p><code>dixous-server</code> provides server functions that allow you to call an automatically generated API on the server from the client as if it were a local function.</p>
 <p>To make a server function, simply add the <code>#[server(YourUniqueType)]</code> attribute to a function. The function must:</p>
@@ -3392,7 +3392,7 @@ async fn double_server(number: usize) -&gt; Result&lt;usize, ServerFnError&gt; {
     Ok(result)
 }
 </code></pre></pre>
-<p>Now, build your client-side bundle with <code>dioxus build --features web</code> and run your server with <code>cargo run --features ssr</code>. You should see a new button that multiplies the count by 2.</p>
+<p>Now, build your client-side bundle with <code>dx build --features web</code> and run your server with <code>cargo run --features ssr</code>. You should see a new button that multiplies the count by 2.</p>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>That's it! You've created a full-stack Dioxus app. You can find more examples of full-stack apps and information about how to integrate with other frameworks and desktop renderers in the <a href="https://github.com/DioxusLabs/dioxus/tree/master/packages/server/examples">dioxus-fullstack examples directory</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="custom-renderer"><a class="header" href="#custom-renderer">Custom Renderer</a></h1>
