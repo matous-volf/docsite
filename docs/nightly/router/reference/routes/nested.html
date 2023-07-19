@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Adding the Router to Your Application - Dioxus Router</title>
+        <title>Nested Routes - Dioxus Router</title>
 
 
         <!-- Custom HTML head -->
@@ -13,21 +13,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        <link rel="icon" href="../favicon.svg">
-        <link rel="shortcut icon" href="../favicon.png">
-        <link rel="stylesheet" href="../css/variables.css">
-        <link rel="stylesheet" href="../css/general.css">
-        <link rel="stylesheet" href="../css/chrome.css">
-        <link rel="stylesheet" href="../css/print.css" media="print">
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../fonts/fonts.css">
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -35,7 +35,7 @@
     <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
-            var path_to_root = "../";
+            var path_to_root = "../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Example Project</li><li class="chapter-item expanded "><a href="../example/index.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../example/first-route.html"><strong aria-hidden="true">2.</strong> Creating Our First Route</a></li><li class="chapter-item expanded "><a href="../example/building-a-nest.html"><strong aria-hidden="true">3.</strong> Building a Nest</a></li><li class="chapter-item expanded "><a href="../example/navigation-targets.html"><strong aria-hidden="true">4.</strong> Navigation Targets</a></li><li class="chapter-item expanded "><a href="../example/redirection-perfection.html"><strong aria-hidden="true">5.</strong> Redirection Perfection</a></li><li class="chapter-item expanded "><a href="../example/full-code.html"><strong aria-hidden="true">6.</strong> Full Code</a></li><li class="chapter-item expanded affix "><li class="part-title">Reference</li><li class="chapter-item expanded "><a href="../reference/index.html" class="active"><strong aria-hidden="true">7.</strong> Adding the Router to Your Application</a></li><li class="chapter-item expanded "><a href="../reference/routes/index.html"><strong aria-hidden="true">8.</strong> Defining Routes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/routes/nested.html"><strong aria-hidden="true">8.1.</strong> Nested Routes</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/layouts.html"><strong aria-hidden="true">9.</strong> Layouts</a></li><li class="chapter-item expanded "><a href="../reference/navigation/index.html"><strong aria-hidden="true">10.</strong> Navigation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/navigation/programmatic.html"><strong aria-hidden="true">10.1.</strong> Programmatic Navigation</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/history-providers.html"><strong aria-hidden="true">11.</strong> History Providers</a></li><li class="chapter-item expanded "><a href="../reference/history-buttons.html"><strong aria-hidden="true">12.</strong> History Buttons</a></li><li class="chapter-item expanded "><a href="../reference/static-generation.html"><strong aria-hidden="true">13.</strong> Static Generation</a></li><li class="chapter-item expanded "><a href="../reference/routing-update-callback.html"><strong aria-hidden="true">14.</strong> Routing Update Callback</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../index.html">Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Example Project</li><li class="chapter-item expanded "><a href="../../example/index.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../../example/first-route.html"><strong aria-hidden="true">2.</strong> Creating Our First Route</a></li><li class="chapter-item expanded "><a href="../../example/building-a-nest.html"><strong aria-hidden="true">3.</strong> Building a Nest</a></li><li class="chapter-item expanded "><a href="../../example/navigation-targets.html"><strong aria-hidden="true">4.</strong> Navigation Targets</a></li><li class="chapter-item expanded "><a href="../../example/redirection-perfection.html"><strong aria-hidden="true">5.</strong> Redirection Perfection</a></li><li class="chapter-item expanded "><a href="../../example/full-code.html"><strong aria-hidden="true">6.</strong> Full Code</a></li><li class="chapter-item expanded affix "><li class="part-title">Reference</li><li class="chapter-item expanded "><a href="../../reference/index.html"><strong aria-hidden="true">7.</strong> Adding the Router to Your Application</a></li><li class="chapter-item expanded "><a href="../../reference/routes/index.html"><strong aria-hidden="true">8.</strong> Defining Routes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/routes/nested.html" class="active"><strong aria-hidden="true">8.1.</strong> Nested Routes</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/layouts.html"><strong aria-hidden="true">9.</strong> Layouts</a></li><li class="chapter-item expanded "><a href="../../reference/navigation/index.html"><strong aria-hidden="true">10.</strong> Navigation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/navigation/programmatic.html"><strong aria-hidden="true">10.1.</strong> Programmatic Navigation</a></li></ol></li><li class="chapter-item expanded "><a href="../../reference/history-providers.html"><strong aria-hidden="true">11.</strong> History Providers</a></li><li class="chapter-item expanded "><a href="../../reference/history-buttons.html"><strong aria-hidden="true">12.</strong> History Buttons</a></li><li class="chapter-item expanded "><a href="../../reference/static-generation.html"><strong aria-hidden="true">13.</strong> Static Generation</a></li><li class="chapter-item expanded "><a href="../../reference/routing-update-callback.html"><strong aria-hidden="true">14.</strong> Routing Update Callback</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -113,7 +113,7 @@
                     <h1 class="menu-title">Dioxus Router</h1>
 
                     <div class="right-buttons">
-                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
 
@@ -142,45 +142,64 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="adding-the-router-to-your-application"><a class="header" href="#adding-the-router-to-your-application">Adding the Router to Your Application</a></h1>
-<p>In this chapter, we will learn how to add the router to our app. By itself, this
-is not very useful. However, it is a prerequisite for all the functionality
-described in the other chapters.</p>
-<blockquote>
-<p>Make sure you added the <code>dioxus-router</code> dependency as explained in the
-<a href="../index.html">introduction</a>.</p>
-</blockquote>
-<p>In most cases, we want to add the router to the root component of our app. This
-way, we can ensure that we have access to all its functionality everywhere.</p>
-<p>First, we define the router with the router macro:</p>
-<pre><pre class="playground"><code class="language-rust  no_run edition2021">
-<span class="boring">#![allow(unused)]
-</span>#![allow(non_snake_case)]
-<span class="boring">fn main() {
-</span>use dioxus::prelude::*;
-use dioxus_router::prelude::*;
-
-/// An enum of all of the possible routes in the app.
-#[derive(Routable, Clone)]
-enum Route {
-    // The home page is at the / route
-    #[route(&quot;/&quot;)]
-    // If the name of the component and variant are the same you can omit the component and props name
-    // If they are different you can specify them like this:
-    // #[route(&quot;/&quot;, ComponentName, PropsName)]
-    Home {},
-}
-<span class="boring">}
-</span></code></pre></pre>
-<p>Then we render the router with the [<code>Router</code>] component.</p>
+                        <h1 id="nested-routes"><a class="header" href="#nested-routes">Nested Routes</a></h1>
+<p>When developing bigger applications we often want to nest routes within each
+other. As an example, we might want to organize a settings menu using this
+pattern:</p>
+<pre><code class="language-plain">└ Settings
+  ├ General Settings (displayed when opening the settings)
+  ├ Change Password
+  └ Privacy Settings
+</code></pre>
+<p>We might want to map this structure to these paths and components:</p>
+<pre><code class="language-plain">/settings          -&gt; Settings { GeneralSettings }
+/settings/password -&gt; Settings { PWSettings }
+/settings/privacy  -&gt; Settings { PrivacySettings }
+</code></pre>
+<p>Nested routes allow us to do this without repeating /settings in every route.</p>
+<h2 id="nesting"><a class="header" href="#nesting">Nesting</a></h2>
+<p>To nest routes, we use the <code>#[nest(&quot;path&quot;)]</code> and <code>#[end_nest]</code> attributes.</p>
+<p>The path in nest must not:</p>
+<ol>
+<li>Contain a <a href="index.html#catch-all-segments">Catch All Segment</a></li>
+<li>Contain a <a href="index.html#query-segments">Query Segment</a></li>
+</ol>
+<p>If you define a dynamic segment in a nest, it will be available to all child routes and layouts.</p>
+<p>To finish a nest, we use the <code>#[end_nest]</code> attribute or the end of the enum.</p>
 <pre><pre class="playground"><code class="language-rust  no_run edition2021">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>#[inline_props]
-fn App(cx: Scope) -&gt; Element {
-    render! {
-        Router {}
-    }
+</span>#[derive(Routable, Clone)]
+// Skipping formatting allows you to indent nests
+#[rustfmt::skip]
+enum Route {
+    // Start the /blog nest
+    #[nest(&quot;/blog&quot;)]
+        // You can nest as many times as you want
+        #[nest(&quot;/:id&quot;)]
+            #[route(&quot;/post&quot;)]
+            PostId {
+                // You must include parent dynamic segments in child variants
+                id: usize,
+            },
+        // End nests manually with #[end_nest]
+        #[end_nest]
+        #[route(&quot;/:id&quot;)]
+        // The absolute route of BlogPost is /blog/:name
+        BlogPost {
+            id: usize,
+        },
+    // Or nests are ended automatically at the end of the enum
+}
+
+#[inline_props]
+fn BlogPost(cx: Scope, id: usize) -&gt; Element {
+    todo!()
+}
+
+#[inline_props]
+fn PostId(cx: Scope, id: usize) -&gt; Element {
+    todo!()
 }
 <span class="boring">}
 </span></code></pre></pre>
@@ -189,11 +208,11 @@ fn App(cx: Scope) -&gt; Element {
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../example/full-code.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../reference/routes/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="../reference/routes/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../../reference/layouts.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -203,11 +222,11 @@ fn App(cx: Scope) -&gt; Element {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../example/full-code.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../reference/routes/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="../reference/routes/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../../reference/layouts.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -222,13 +241,13 @@ fn App(cx: Scope) -&gt; Element {
         </script>
 
 
-        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
 
-        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
 
