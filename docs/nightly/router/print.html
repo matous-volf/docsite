@@ -347,7 +347,7 @@ fn NavBar(cx: Scope) -&gt; Element {
                     Link {
                         // The Link component will navigate to the route specified
                         // in the target prop which is checked to exist at compile time
-                        target: Route::Home {},
+                        to: Route::Home {},
                         &quot;Home&quot;
                     }
                 }
@@ -401,13 +401,13 @@ fn BlogList(cx: Scope) -&gt; Element {
         ul {
             li {
                 Link {
-                    target: Route::BlogPost { name: &quot;Blog post 1&quot;.into() },
+                    to: Route::BlogPost { name: &quot;Blog post 1&quot;.into() },
                     &quot;Read the first blog post&quot;
                 }
             }
             li {
                 Link {
-                    target: Route::BlogPost { name: &quot;Blog post 2&quot;.into() },
+                    to: Route::BlogPost { name: &quot;Blog post 2&quot;.into() },
                     &quot;Read the second blog post&quot;
                 }
             }
@@ -482,7 +482,7 @@ navigation as it will trigger a page reload by the browser.</li>
 </span>fn GoToDioxus(cx: Scope) -&gt; Element {
     render! {
         Link {
-            target: NavigationTarget::External(&quot;https://dioxuslabs.com&quot;.into()),
+            to: NavigationTarget::External(&quot;https://dioxuslabs.com&quot;.into()),
             &quot;ExternalTarget target&quot;
         }
     }
@@ -596,8 +596,8 @@ fn NavBar(cx: Scope) -&gt; Element {
     render! {
         nav {
             ul {
-                li { Link { target: Route::Home {}, &quot;Home&quot; } }
-                li { Link { target: Route::BlogList {}, &quot;Blog&quot; } }
+                li { Link { to: Route::Home {}, &quot;Home&quot; } }
+                li { Link { to: Route::BlogList {}, &quot;Blog&quot; } }
             }
         }
         Outlet {}
@@ -626,13 +626,13 @@ fn BlogList(cx: Scope) -&gt; Element {
         ul {
             li {
                 Link {
-                    target: Route::BlogPost { name: &quot;Blog post 1&quot;.into() },
+                    to: Route::BlogPost { name: &quot;Blog post 1&quot;.into() },
                     &quot;Read the first blog post&quot;
                 }
             }
             li {
                 Link {
-                    target: Route::BlogPost { name: &quot;Blog post 2&quot;.into() },
+                    to: Route::BlogPost { name: &quot;Blog post 2&quot;.into() },
                     &quot;Read the second blog post&quot;
                 }
             }
@@ -962,7 +962,7 @@ fn NavBar(cx: Scope) -&gt; Element {
                     Link {
                         // The Link component will navigate to the route specified
                         // in the target prop which is checked to exist at compile time
-                        target: Route::Home {},
+                        to: Route::Home {},
                         &quot;Home&quot;
                     }
                 }

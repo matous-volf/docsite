@@ -163,7 +163,7 @@ navigation as it will trigger a page reload by the browser.</li>
 </span>fn GoToDioxus(cx: Scope) -&gt; Element {
     render! {
         Link {
-            target: NavigationTarget::External(&quot;https://dioxuslabs.com&quot;.into()),
+            to: NavigationTarget::External(&quot;https://dioxuslabs.com&quot;.into()),
             &quot;ExternalTarget target&quot;
         }
     }
