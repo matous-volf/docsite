@@ -184,7 +184,7 @@ fn Index(cx: Scope) -&gt; Element {
 
 fn app(cx: Scope) -&gt; Element {
     render! {
-        Router {
+        Router::&lt;Route&gt; {
             config: || RouterConfig::default().on_update(|state|{
                 (state.current() == Route::Index {}).then_some(
                     NavigationTarget::Internal(Route::Home {})

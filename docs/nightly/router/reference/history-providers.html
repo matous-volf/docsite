@@ -160,7 +160,7 @@ The two default implementations are:</p>
 </span>#[inline_props]
 fn App(cx: Scope) -&gt; Element {
     render! {
-        Router {
+        Router::&lt;Route&gt; {
             config: || RouterConfig::default().history(WebHistory::default())
         }
     }

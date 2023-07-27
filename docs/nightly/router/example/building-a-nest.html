@@ -162,7 +162,7 @@ fn NavBar(cx: Scope) -&gt; Element {
             }
         }
         // The Outlet component will render child routes (In this case just the Home component) inside the Outlet component
-        Outlet {}
+        Outlet::&lt;Route&gt; {}
     }
 }
 <span class="boring">}
@@ -211,7 +211,7 @@ fn NavBar(cx: Scope) -&gt; Element {
                 }
             }
         }
-        Outlet {}
+        Outlet::&lt;Route&gt; {}
     }
 }
 <span class="boring">}
@@ -242,7 +242,7 @@ URL parameter.</p>
 fn Blog(cx: Scope) -&gt; Element {
     render! {
         h1 { &quot;Blog&quot; }
-        Outlet {}
+        Outlet::&lt;Route&gt; {}
     }
 }
 <span class="boring">}

@@ -177,7 +177,7 @@
 </span><span class="boring">fn main() {
 </span>rsx!{
     // All of our routes will be rendered inside this Router component
-    Router {
+    Router::&lt;Route&gt; {
         // if the current location is &quot;/home&quot;, render the Home component
         Route { to: &quot;/home&quot;, Home {} }
         // if the current location is &quot;/blog&quot;, render the Blog component
@@ -195,7 +195,7 @@
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>rsx!{
-    Router {
+    Router::&lt;Route&gt; {
         Route { to: &quot;/home&quot;, Home {} }
         Route { to: &quot;/blog&quot;, Blog {} }
         //  if the current location doesn't match any of the above routes, render the NotFound component
@@ -211,7 +211,7 @@
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>rsx!{
-    Router {
+    Router::&lt;Route&gt; {
         Route { to: &quot;/home&quot;, Home {} }
         Route { to: &quot;/blog&quot;, Blog {} }
         //  if the current location doesn't match any of the above routes, redirect to &quot;/home&quot;

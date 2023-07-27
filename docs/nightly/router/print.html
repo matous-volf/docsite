@@ -304,7 +304,7 @@ fn NavBar(cx: Scope) -&gt; Element {
             }
         }
         // The Outlet component will render child routes (In this case just the Home component) inside the Outlet component
-        Outlet {}
+        Outlet::&lt;Route&gt; {}
     }
 }
 <span class="boring">}
@@ -353,7 +353,7 @@ fn NavBar(cx: Scope) -&gt; Element {
                 }
             }
         }
-        Outlet {}
+        Outlet::&lt;Route&gt; {}
     }
 }
 <span class="boring">}
@@ -384,7 +384,7 @@ URL parameter.</p>
 fn Blog(cx: Scope) -&gt; Element {
     render! {
         h1 { &quot;Blog&quot; }
-        Outlet {}
+        Outlet::&lt;Route&gt; {}
     }
 }
 <span class="boring">}
@@ -482,7 +482,7 @@ navigation as it will trigger a page reload by the browser.</li>
 </span>fn GoToDioxus(cx: Scope) -&gt; Element {
     render! {
         Link {
-            to: NavigationTarget::External(&quot;https://dioxuslabs.com&quot;.into()),
+            to: &quot;https://dioxuslabs.com&quot;,
             &quot;ExternalTarget target&quot;
         }
     }
@@ -587,7 +587,7 @@ enum Route {
 
 fn App(cx: Scope) -&gt; Element {
     render! {
-        Router {}
+        Router::&lt;Route&gt; {}
     }
 }
 
@@ -600,7 +600,7 @@ fn NavBar(cx: Scope) -&gt; Element {
                 li { Link { to: Route::BlogList {}, &quot;Blog&quot; } }
             }
         }
-        Outlet {}
+        Outlet::&lt;Route&gt; {}
     }
 }
 
@@ -615,7 +615,7 @@ fn Home(cx: Scope) -&gt; Element {
 fn Blog(cx: Scope) -&gt; Element {
     render! {
         h1 { &quot;Blog&quot; }
-        Outlet {}
+        Outlet::&lt;Route&gt; {}
     }
 }
 
@@ -696,7 +696,7 @@ enum Route {
 </span>#[inline_props]
 fn App(cx: Scope) -&gt; Element {
     render! {
-        Router {}
+        Router::&lt;Route&gt; {}
     }
 }
 <span class="boring">}
@@ -913,7 +913,7 @@ fn Wrapper(cx: Scope) -&gt; Element {
     render! {
         header { &quot;header&quot; }
         // The index route will be rendered here
-        Outlet { }
+        Outlet::&lt;Route&gt; { }
         footer { &quot;footer&quot; }
     }
 }
@@ -968,7 +968,7 @@ fn NavBar(cx: Scope) -&gt; Element {
                 }
             }
         }
-        Outlet {}
+        Outlet::&lt;Route&gt; {}
     }
 }
 <span class="boring">}
@@ -1051,7 +1051,7 @@ The two default implementations are:</p>
 </span>#[inline_props]
 fn App(cx: Scope) -&gt; Element {
     render! {
-        Router {
+        Router::&lt;Route&gt; {
             config: || RouterConfig::default().history(WebHistory::default())
         }
     }
@@ -1114,24 +1114,10 @@ use dioxus_ssr::incremental::{DefaultRenderer, IncrementalRendererConfig};
 
 #[tokio::main]
 async fn main() {
-    let mut renderer = IncrementalRendererConfig::new(DefaultRenderer {
-        before_body: r#&quot;&lt;!DOCTYPE html&gt;
-        &lt;html lang=&quot;en&quot;&gt;
-        &lt;head&gt;
-            &lt;meta charset=&quot;UTF-8&quot;&gt;
-            &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,
-            initial-scale=1.0&quot;&gt;
-            &lt;title&gt;Dioxus Application&lt;/title&gt;
-        &lt;/head&gt;
-        &lt;body&gt;&quot;#
-            .to_string(),
-        after_body: r#&quot;&lt;/body&gt;
-        &lt;/html&gt;&quot;#
-            .to_string(),
-    })
-    .static_dir(&quot;./static&quot;)
-    .invalidate_after(Duration::from_secs(10))
-    .build();
+    let mut renderer = IncrementalRendererConfig::new()
+        .static_dir(&quot;./static&quot;)
+        .invalidate_after(Duration::from_secs(10))
+        .build();
 
     println!(
         &quot;SITE MAP:\n{}&quot;,
@@ -1149,9 +1135,26 @@ async fn main() {
             .join(&quot;\n&quot;)
     );
 
-    pre_cache_static_routes::&lt;Route, _&gt;(&amp;mut renderer)
-        .await
-        .unwrap();
+    pre_cache_static_routes::&lt;Route, _&gt;(
+        &amp;mut renderer,
+        &amp;DefaultRenderer {
+            before_body: r#&quot;&lt;!DOCTYPE html&gt;
+        &lt;html lang=&quot;en&quot;&gt;
+        &lt;head&gt;
+            &lt;meta charset=&quot;UTF-8&quot;&gt;
+            &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,
+            initial-scale=1.0&quot;&gt;
+            &lt;title&gt;Dioxus Application&lt;/title&gt;
+        &lt;/head&gt;
+        &lt;body&gt;&quot;#
+                .to_string(),
+            after_body: r#&quot;&lt;/body&gt;
+        &lt;/html&gt;&quot;#
+                .to_string(),
+        },
+    )
+    .await
+    .unwrap();
 }
 
 #[inline_props]
@@ -1249,7 +1252,7 @@ fn Index(cx: Scope) -&gt; Element {
 
 fn app(cx: Scope) -&gt; Element {
     render! {
-        Router {
+        Router::&lt;Route&gt; {
             config: || RouterConfig::default().on_update(|state|{
                 (state.current() == Route::Index {}).then_some(
                     NavigationTarget::Internal(Route::Home {})

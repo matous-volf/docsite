@@ -162,7 +162,7 @@ fn Wrapper(cx: Scope) -&gt; Element {
     render! {
         header { &quot;header&quot; }
         // The index route will be rendered here
-        Outlet { }
+        Outlet::&lt;Route&gt; { }
         footer { &quot;footer&quot; }
     }
 }

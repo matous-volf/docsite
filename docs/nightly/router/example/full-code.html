@@ -184,7 +184,7 @@ enum Route {
 
 fn App(cx: Scope) -&gt; Element {
     render! {
-        Router {}
+        Router::&lt;Route&gt; {}
     }
 }
 
@@ -197,7 +197,7 @@ fn NavBar(cx: Scope) -&gt; Element {
                 li { Link { to: Route::BlogList {}, &quot;Blog&quot; } }
             }
         }
-        Outlet {}
+        Outlet::&lt;Route&gt; {}
     }
 }
 
@@ -212,7 +212,7 @@ fn Home(cx: Scope) -&gt; Element {
 fn Blog(cx: Scope) -&gt; Element {
     render! {
         h1 { &quot;Blog&quot; }
-        Outlet {}
+        Outlet::&lt;Route&gt; {}
     }
 }
 
