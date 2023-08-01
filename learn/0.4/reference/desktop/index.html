@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/prism/prism.css" />
 
 
     <!-- Social meta stuff -->
@@ -152,9 +153,10 @@
 </span><span style="color:#a3be8c;">        let msg = await dioxus.recv();
 </span><span style="color:#a3be8c;">        console.log(msg);
 </span><span style="color:#a3be8c;">        </span><span style="color:#c0c5ce;">&quot;#,
-</span><span style="color:#c0c5ce;">    ).</span><span style="color:#96b5b4;">unwrap</span><span style="color:#c0c5ce;">();
+</span><span style="color:#c0c5ce;">    )
+</span><span style="color:#c0c5ce;">    .</span><span style="color:#96b5b4;">unwrap</span><span style="color:#c0c5ce;">();
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">   </span><span style="color:#65737e;">// You can send messages to JavaScript with the send method
+</span><span style="color:#c0c5ce;">    </span><span style="color:#65737e;">// You can send messages to JavaScript with the send method
 </span><span style="color:#c0c5ce;">    eval.</span><span style="color:#96b5b4;">send</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">Hi from Rust!</span><span style="color:#c0c5ce;">&quot;.</span><span style="color:#96b5b4;">into</span><span style="color:#c0c5ce;">()).</span><span style="color:#96b5b4;">unwrap</span><span style="color:#c0c5ce;">();
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> future = </span><span style="color:#96b5b4;">use_future</span><span style="color:#c0c5ce;">(cx, (), |_| {
@@ -202,6 +204,7 @@
         }
       });
     </script>
+    <script src="/static/prism/prism.js"></script>
     
   </body>
 </html>
