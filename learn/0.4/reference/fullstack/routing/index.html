@@ -139,14 +139,23 @@
 </span><span style="color:#b48ead;">use </span><span style="color:#c0c5ce;">dioxus::prelude::*;
 </span><span style="color:#b48ead;">use </span><span style="color:#c0c5ce;">dioxus_fullstack::prelude::*;
 </span><span style="color:#b48ead;">use </span><span style="color:#c0c5ce;">dioxus_router::prelude::*;
+</span><span style="color:#b48ead;">use </span><span style="color:#c0c5ce;">serde::{Deserialize, Serialize};
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">main</span><span style="color:#c0c5ce;">() {
-</span><span style="color:#c0c5ce;">    launch_router!(@([</span><span style="color:#d08770;">127</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">], </span><span style="color:#d08770;">8080</span><span style="color:#c0c5ce;">), Route, {
-</span><span style="color:#c0c5ce;">        incremental: IncrementalRendererConfig::default().</span><span style="color:#96b5b4;">invalidate_after</span><span style="color:#c0c5ce;">(std::time::Duration::from_secs(</span><span style="color:#d08770;">120</span><span style="color:#c0c5ce;">)),
-</span><span style="color:#c0c5ce;">    });
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> config = LaunchBuilder::&lt;FullstackRouterConfig&lt;Route&gt;&gt;::router();
+</span><span style="color:#c0c5ce;">    #[</span><span style="color:#bf616a;">cfg</span><span style="color:#c0c5ce;">(feature = &quot;</span><span style="color:#a3be8c;">ssr</span><span style="color:#c0c5ce;">&quot;)]
+</span><span style="color:#c0c5ce;">    config
+</span><span style="color:#c0c5ce;">        .</span><span style="color:#96b5b4;">incremental</span><span style="color:#c0c5ce;">(
+</span><span style="color:#c0c5ce;">            IncrementalRendererConfig::default()
+</span><span style="color:#c0c5ce;">                .</span><span style="color:#96b5b4;">invalidate_after</span><span style="color:#c0c5ce;">(std::time::Duration::from_secs(</span><span style="color:#d08770;">120</span><span style="color:#c0c5ce;">)),
+</span><span style="color:#c0c5ce;">        )
+</span><span style="color:#c0c5ce;">        .</span><span style="color:#96b5b4;">launch</span><span style="color:#c0c5ce;">();
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">    #[</span><span style="color:#bf616a;">cfg</span><span style="color:#c0c5ce;">(</span><span style="color:#8fa1b3;">not</span><span style="color:#c0c5ce;">(feature = &quot;</span><span style="color:#a3be8c;">ssr</span><span style="color:#c0c5ce;">&quot;))]
+</span><span style="color:#c0c5ce;">    config.</span><span style="color:#96b5b4;">launch</span><span style="color:#c0c5ce;">();
 </span><span style="color:#c0c5ce;">}
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">derive</span><span style="color:#c0c5ce;">(Clone, Routable, Debug, PartialEq)]
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">derive</span><span style="color:#c0c5ce;">(Clone, Routable, Debug, PartialEq, Serialize, Deserialize)]
 </span><span style="color:#b48ead;">enum </span><span style="color:#c0c5ce;">Route {
 </span><span style="color:#c0c5ce;">    #[</span><span style="color:#bf616a;">route</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">/</span><span style="color:#c0c5ce;">&quot;)]
 </span><span style="color:#c0c5ce;">    Home {},

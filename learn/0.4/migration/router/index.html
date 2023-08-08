@@ -151,8 +151,8 @@
 </span><span style="color:#b48ead;">enum </span><span style="color:#c0c5ce;">Route {
 </span><span style="color:#c0c5ce;">    #[</span><span style="color:#bf616a;">route</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">/home</span><span style="color:#c0c5ce;">&quot;)]
 </span><span style="color:#c0c5ce;">    </span><span style="color:#65737e;">// This route will render the Home component with the HomeProps props. (make sure you have the props imported)
-</span><span style="color:#c0c5ce;">    </span><span style="color:#65737e;">// You can modify the props by passing extra arguments to the macro:
-</span><span style="color:#c0c5ce;">    </span><span style="color:#65737e;">// #[route(&quot;/home&quot;, Comp, CompProps)]
+</span><span style="color:#c0c5ce;">    </span><span style="color:#65737e;">// You can modify the props by passing extra arguments to the macro. For example, if you want the Home variant to render a component called Homepage, you could use:
+</span><span style="color:#c0c5ce;">    </span><span style="color:#65737e;">// #[route(&quot;/home&quot;, Homepage)]
 </span><span style="color:#c0c5ce;">    Home {},
 </span><span style="color:#c0c5ce;">    #[</span><span style="color:#bf616a;">route</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">/blog</span><span style="color:#c0c5ce;">&quot;)]
 </span><span style="color:#c0c5ce;">    Blog {},
