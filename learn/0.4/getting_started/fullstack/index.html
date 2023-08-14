@@ -141,9 +141,11 @@
 <span style="color:#c0c5ce;">cargo add dioxus
 </span><span style="color:#c0c5ce;">cargo add dioxus-fullstack --features axum
 </span></pre>
-</div><button style="position: absolute; top: 0; right: 0; background: rgba(0, 0, 0, 0.75); color: white; border: 1px solid white; padding: 0.25em;" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)">Copy</button></div><p>Next, add all the Axum dependencies. This will be different if you&#x27;re using a different Web Framework</p><div style="position: relative;"><div><pre style="background-color:#2b303b;">
-<span style="color:#c0c5ce;">cargo add tokio --features full
-</span><span style="color:#c0c5ce;">cargo add axum
+</div><button style="position: absolute; top: 0; right: 0; background: rgba(0, 0, 0, 0.75); color: white; border: 1px solid white; padding: 0.25em;" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)">Copy</button></div><p>Next, set up features for the server (<code>ssr</code>) and the client (<code>web</code>):</p><div style="position: relative;"><div><pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">[features]
+</span><span style="color:#c0c5ce;">default = []
+</span><span style="color:#c0c5ce;">ssr = [&quot;</span><span style="color:#a3be8c;">dioxus-fullstack/axum</span><span style="color:#c0c5ce;">&quot;]
+</span><span style="color:#c0c5ce;">web = [&quot;</span><span style="color:#a3be8c;">dioxus-fullstack/web</span><span style="color:#c0c5ce;">&quot;]
 </span></pre>
 </div><button style="position: absolute; top: 0; right: 0; background: rgba(0, 0, 0, 0.75); color: white; border: 1px solid white; padding: 0.25em;" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)">Copy</button></div><p>Your dependencies should look roughly like this:</p><div style="position: relative;"><div><pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[dependencies]
