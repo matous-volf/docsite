@@ -244,6 +244,9 @@ pub fn FancyButton&lt;'a&gt;(cx: Scope&lt;'a, FancyButtonProps&lt;'a&gt;&gt;) -&
 <p>Nota: assim como qualquer outro atributo, você pode nomear os manipuladores como quiser! Embora eles devam começar com <code>on</code>, para que o prop seja automaticamente transformado em um <code>EventHandler</code> no local da chamada.</p>
 <p>Você também pode colocar dados personalizados no evento, em vez de, por exemplo, <code>MouseData</code></p>
 </blockquote>
+<blockquote>
+<p>Nota sobre formulários: se um manipulador de evento está anexado ao evento <code>onsubmit</code> em um formulário, o comportamento padrão é de <strong>não submetê-lo</strong>. Portanto, especificar <code>prevent_default: &quot;onsubmit&quot;</code> irá submetê-lo.</p>
+</blockquote>
 
                     </main>
 

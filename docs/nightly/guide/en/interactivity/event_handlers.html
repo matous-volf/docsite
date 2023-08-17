@@ -221,6 +221,9 @@ Clicked! Event: UiEvent { bubble_state: Cell { value: true }, data: MouseData { 
 <blockquote>
 <p>Normally, in React or JavaScript, you'd call &quot;preventDefault&quot; on the event in the callback. Dioxus does <em>not</em> currently support this behavior. Note: this means you cannot conditionally prevent default behavior based on the data in the event.</p>
 </blockquote>
+<blockquote>
+<p>Note about forms: if an event handler is attached to the <code>onsubmit</code> event of a form, default behavior is to <strong>not submit it</strong>, meaning having <code>prevent_default: &quot;onsubmit&quot;</code> will submit it in this case.</p>
+</blockquote>
 <h2 id="handler-props"><a class="header" href="#handler-props">Handler Props</a></h2>
 <p>Sometimes, you might want to make a component that accepts an event handler. A simple example would be a <code>FancyButton</code> component, which accepts an <code>on_click</code> handler:</p>
 <pre><pre class="playground"><code class="language-rust  no_run edition2018">

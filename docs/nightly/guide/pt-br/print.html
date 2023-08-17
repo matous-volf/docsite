@@ -1286,6 +1286,9 @@ pub fn FancyButton&lt;'a&gt;(cx: Scope&lt;'a, FancyButtonProps&lt;'a&gt;&gt;) -&
 <p>Nota: assim como qualquer outro atributo, você pode nomear os manipuladores como quiser! Embora eles devam começar com <code>on</code>, para que o prop seja automaticamente transformado em um <code>EventHandler</code> no local da chamada.</p>
 <p>Você também pode colocar dados personalizados no evento, em vez de, por exemplo, <code>MouseData</code></p>
 </blockquote>
+<blockquote>
+<p>Nota sobre formulários: se um manipulador de evento está anexado ao evento <code>onsubmit</code> em um formulário, o comportamento padrão é de <strong>não submetê-lo</strong>. Portanto, especificar <code>prevent_default: &quot;onsubmit&quot;</code> irá submetê-lo.</p>
+</blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hooks-e-estado-do-componente"><a class="header" href="#hooks-e-estado-do-componente">Hooks e Estado do Componente</a></h1>
 <p>Até agora nossos componentes, sendo funções Rust, não tinham estado – eles estavam sempre renderizando a mesma coisa. No entanto, em um componente de interface do usuário, geralmente é útil ter uma funcionalidade com estado para criar interações do usuário. Por exemplo, você pode querer rastrear se o usuário abriu uma lista suspensa e renderizar coisas diferentes de acordo.</p>
 <p>Para lógica com estado, você pode usar <em>hooks</em>. <em>Hooks</em> são funções Rust que fazem referência a <code>ScopeState</code> (em um componente, você pode passar <code>&amp;cx</code>), e fornecem funcionalidade e estado.</p>
