@@ -307,7 +307,7 @@ fn App(cx: Scope) -&gt; Element {
 </ul>
 <h2 id="tooling"><a class="header" href="#tooling">Tooling</a></h2>
 <p>To develop your Dioxus app for the web, you'll need a tool to build and serve your assets. We recommend using <a href="https://github.com/DioxusLabs/dioxus/tree/master/packages/cli">dioxus-cli</a> which includes a build system, Wasm optimization, a dev server, and support hot reloading:</p>
-<pre><code class="language-shell">cargo install dioxus-cli
+<pre><code class="language-shell">cargo install dioxus-cli --locked
 </code></pre>
 <p>Make sure the <code>wasm32-unknown-unknown</code> target for rust is installed:</p>
 <pre><code class="language-shell">rustup target add wasm32-unknown-unknown
