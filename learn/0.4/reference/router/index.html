@@ -162,7 +162,7 @@
 <span style="color:#b48ead;">enum </span><span style="color:#c0c5ce;">Route {
 </span><span style="color:#c0c5ce;">	#[</span><span style="color:#bf616a;">route</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">/home</span><span style="color:#c0c5ce;">&quot;)]
 </span><span style="color:#c0c5ce;">	</span><span style="color:#65737e;">//  if the current location doesn&#39;t match any of the above routes, redirect to &quot;/home&quot;
-</span><span style="color:#c0c5ce;">	#[</span><span style="color:#bf616a;">redirect</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">/:...segments</span><span style="color:#c0c5ce;">&quot;, |segments: Vec&lt;String&gt;| Route::Home {})]
+</span><span style="color:#c0c5ce;">	#[</span><span style="color:#bf616a;">redirect</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">/:..segments</span><span style="color:#c0c5ce;">&quot;, |segments: Vec&lt;String&gt;| Route::Home {})]
 </span><span style="color:#c0c5ce;">	Home {}
 </span><span style="color:#c0c5ce;">	#[</span><span style="color:#bf616a;">route</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">/blog</span><span style="color:#c0c5ce;">&quot;)]
 </span><span style="color:#c0c5ce;">	Blog {}
