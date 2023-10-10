@@ -175,7 +175,7 @@
 </span><span style="color:#c0c5ce;">}
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">server</span><span style="color:#c0c5ce;">]
-</span><span style="color:#c0c5ce;">async </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">double_server</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">number</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">usize</span><span style="color:#c0c5ce;">) -&gt; Result&lt;</span><span style="color:#b48ead;">usize</span><span style="color:#c0c5ce;">, ServerFnError&gt; {
+</span><span style="color:#c0c5ce;">async </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">double_server</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">number</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">i32</span><span style="color:#c0c5ce;">) -&gt; Result&lt;</span><span style="color:#b48ead;">i32</span><span style="color:#c0c5ce;">, ServerFnError&gt; {
 </span><span style="color:#c0c5ce;">    </span><span style="color:#65737e;">// Perform some expensive computation or access a database on the server
 </span><span style="color:#c0c5ce;">    tokio::time::sleep(std::time::Duration::from_secs(</span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">)).await;
 </span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> result = number * </span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">;
