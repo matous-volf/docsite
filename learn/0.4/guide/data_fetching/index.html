@@ -143,7 +143,7 @@
 </span><span style="color:#b48ead;">const </span><span style="color:#d08770;">COMMENT_DEPTH</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">i64 </span><span style="color:#c0c5ce;">= </span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">;
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#b48ead;">pub</span><span style="color:#c0c5ce;"> async </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">get_story_preview</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">id</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">i64</span><span style="color:#c0c5ce;">) -&gt; Result&lt;StoryItem, reqwest::Error&gt; {
-</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> url = format!(&quot;</span><span style="color:#d08770;">{}</span><span style="color:#a3be8c;">item/</span><span style="color:#d08770;">{}</span><span style="color:#a3be8c;">.json</span><span style="color:#c0c5ce;">&quot;, </span><span style="color:#d08770;">BASE_API_URL</span><span style="color:#c0c5ce;">, id);
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> url = format!(&quot;</span><span style="color:#d08770;">{}{}{}</span><span style="color:#a3be8c;">.json</span><span style="color:#c0c5ce;">&quot;, </span><span style="color:#d08770;">BASE_API_URL</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">ITEM_API</span><span style="color:#c0c5ce;">, id);
 </span><span style="color:#c0c5ce;">    reqwest::get(&amp;url).await?.</span><span style="color:#96b5b4;">json</span><span style="color:#c0c5ce;">().await
 </span><span style="color:#c0c5ce;">}
 </span><span style="color:#c0c5ce;">
@@ -261,6 +261,7 @@
 </span><span style="color:#c0c5ce;">        id,
 </span><span style="color:#c0c5ce;">        ..
 </span><span style="color:#c0c5ce;">    } = story;
+</span><span style="color:#c0c5ce;">    </span><span style="color:#65737e;">// New
 </span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> full_story = </span><span style="color:#96b5b4;">use_ref</span><span style="color:#c0c5ce;">(cx, || None);
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> url = url.</span><span style="color:#96b5b4;">as_deref</span><span style="color:#c0c5ce;">().</span><span style="color:#96b5b4;">unwrap_or_default</span><span style="color:#c0c5ce;">();
