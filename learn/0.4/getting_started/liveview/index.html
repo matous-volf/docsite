@@ -153,7 +153,10 @@
 </span><span style="color:#c0c5ce;">tokio = { version = &quot;</span><span style="color:#a3be8c;">1.15.0</span><span style="color:#c0c5ce;">&quot;, features = [&quot;</span><span style="color:#a3be8c;">full</span><span style="color:#c0c5ce;">&quot;] }
 </span></pre>
 </div><button style="position: absolute; top: 0; right: 0; background: rgba(0, 0, 0, 0.75); color: white; border: 1px solid white; padding: 0.25em;" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)">Copy</button></div><p>Now, set up your Axum app to respond on an endpoint.</p><div style="position: relative;"><div><pre style="background-color:#2b303b;">
-<span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">tokio</span><span style="color:#c0c5ce;">::</span><span style="color:#bf616a;">main</span><span style="color:#c0c5ce;">]
+<span style="color:#b48ead;">use </span><span style="color:#c0c5ce;">axum::{extract::ws::WebSocketUpgrade, response::Html, routing::get, Router};
+</span><span style="color:#b48ead;">use </span><span style="color:#c0c5ce;">dioxus::prelude::*;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">tokio</span><span style="color:#c0c5ce;">::</span><span style="color:#bf616a;">main</span><span style="color:#c0c5ce;">]
 </span><span style="color:#c0c5ce;">async </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">main</span><span style="color:#c0c5ce;">() {
 </span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> addr: std::net::SocketAddr = ([</span><span style="color:#d08770;">127</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">], </span><span style="color:#d08770;">3030</span><span style="color:#c0c5ce;">).</span><span style="color:#96b5b4;">into</span><span style="color:#c0c5ce;">();
 </span><span style="color:#c0c5ce;">
