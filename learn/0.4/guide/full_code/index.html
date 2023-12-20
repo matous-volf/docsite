@@ -190,7 +190,7 @@
 </span><span style="color:#c0c5ce;">    }
 </span><span style="color:#c0c5ce;">}
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">inline_props</span><span style="color:#c0c5ce;">]
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">component</span><span style="color:#c0c5ce;">]
 </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">StoryListing</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">cx</span><span style="color:#c0c5ce;">: Scope, </span><span style="color:#bf616a;">story</span><span style="color:#c0c5ce;">: StoryItem) -&gt; Element {
 </span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> preview_state = use_shared_state::&lt;PreviewState&gt;(cx).</span><span style="color:#96b5b4;">unwrap</span><span style="color:#c0c5ce;">();
 </span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> StoryItem {
@@ -312,7 +312,7 @@
 </span><span style="color:#c0c5ce;">    }
 </span><span style="color:#c0c5ce;">}
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">inline_props</span><span style="color:#c0c5ce;">]
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">component</span><span style="color:#c0c5ce;">]
 </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">Comment</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">cx</span><span style="color:#c0c5ce;">: Scope, </span><span style="color:#bf616a;">comment</span><span style="color:#c0c5ce;">: Comment) -&gt; Element&lt;</span><span style="color:#b48ead;">&#39;a</span><span style="color:#c0c5ce;">&gt; {
 </span><span style="color:#c0c5ce;">    render! {
 </span><span style="color:#c0c5ce;">        div {

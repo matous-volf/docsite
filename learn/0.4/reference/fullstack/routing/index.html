@@ -163,7 +163,7 @@
 </span><span style="color:#c0c5ce;">    Blog { id: </span><span style="color:#b48ead;">i32 </span><span style="color:#c0c5ce;">},
 </span><span style="color:#c0c5ce;">}
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">inline_props</span><span style="color:#c0c5ce;">]
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">component</span><span style="color:#c0c5ce;">]
 </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">Blog</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">cx</span><span style="color:#c0c5ce;">: Scope, </span><span style="color:#bf616a;">id</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">i32</span><span style="color:#c0c5ce;">) -&gt; Element {
 </span><span style="color:#c0c5ce;">    render! {
 </span><span style="color:#c0c5ce;">        Link { to: Route::Home {}, &quot;</span><span style="color:#a3be8c;">Go to counter</span><span style="color:#c0c5ce;">&quot; }
@@ -181,7 +181,7 @@
 </span><span style="color:#c0c5ce;">    }
 </span><span style="color:#c0c5ce;">}
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">inline_props</span><span style="color:#c0c5ce;">]
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">component</span><span style="color:#c0c5ce;">]
 </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">Home</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">cx</span><span style="color:#c0c5ce;">: Scope) -&gt; Element {
 </span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let mut</span><span style="color:#c0c5ce;"> count = </span><span style="color:#96b5b4;">use_state</span><span style="color:#c0c5ce;">(cx, || </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">);
 </span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> text = </span><span style="color:#96b5b4;">use_state</span><span style="color:#c0c5ce;">(cx, || &quot;</span><span style="color:#a3be8c;">...</span><span style="color:#c0c5ce;">&quot;.</span><span style="color:#96b5b4;">to_string</span><span style="color:#c0c5ce;">());

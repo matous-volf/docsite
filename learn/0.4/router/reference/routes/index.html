@@ -145,12 +145,12 @@
 </span><span style="color:#c0c5ce;">    HelloWorld {},
 </span><span style="color:#c0c5ce;">}
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">inline_props</span><span style="color:#c0c5ce;">]
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">component</span><span style="color:#c0c5ce;">]
 </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">Home</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">cx</span><span style="color:#c0c5ce;">: Scope) -&gt; Element {
 </span><span style="color:#c0c5ce;">    todo!()
 </span><span style="color:#c0c5ce;">}
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">inline_props</span><span style="color:#c0c5ce;">]
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">component</span><span style="color:#c0c5ce;">]
 </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">HelloWorld</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">cx</span><span style="color:#c0c5ce;">: Scope) -&gt; Element {
 </span><span style="color:#c0c5ce;">    todo!()
 </span><span style="color:#c0c5ce;">}
@@ -174,12 +174,12 @@
 </span><span style="color:#c0c5ce;">}
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#65737e;">// Components must contain the same dynamic segments as their corresponding variant
-</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">inline_props</span><span style="color:#c0c5ce;">]
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">component</span><span style="color:#c0c5ce;">]
 </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">BlogPost</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">cx</span><span style="color:#c0c5ce;">: Scope, </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: String) -&gt; Element {
 </span><span style="color:#c0c5ce;">    todo!()
 </span><span style="color:#c0c5ce;">}
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">inline_props</span><span style="color:#c0c5ce;">]
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">component</span><span style="color:#c0c5ce;">]
 </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">Document</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">cx</span><span style="color:#c0c5ce;">: Scope, </span><span style="color:#bf616a;">id</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">usize</span><span style="color:#c0c5ce;">) -&gt; Element {
 </span><span style="color:#c0c5ce;">    todo!()
 </span><span style="color:#c0c5ce;">}
@@ -197,7 +197,7 @@
 </span><span style="color:#c0c5ce;">}
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#65737e;">// Components must contain the same catch all segments as their corresponding variant
-</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">inline_props</span><span style="color:#c0c5ce;">]
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">component</span><span style="color:#c0c5ce;">]
 </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">BlogPost</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">cx</span><span style="color:#c0c5ce;">: Scope, </span><span style="color:#bf616a;">segments</span><span style="color:#c0c5ce;">: Vec&lt;String&gt;) -&gt; Element {
 </span><span style="color:#c0c5ce;">    todo!()
 </span><span style="color:#c0c5ce;">}
@@ -248,7 +248,7 @@
 </span><span style="color:#c0c5ce;">    }
 </span><span style="color:#c0c5ce;">}
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">inline_props</span><span style="color:#c0c5ce;">]
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">component</span><span style="color:#c0c5ce;">]
 </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">BlogPost</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">cx</span><span style="color:#c0c5ce;">: Scope, </span><span style="color:#bf616a;">query_params</span><span style="color:#c0c5ce;">: BlogQuerySegments) -&gt; Element {
 </span><span style="color:#c0c5ce;">    render! {
 </span><span style="color:#c0c5ce;">        div{&quot;</span><span style="color:#a3be8c;">This is your blogpost with a query segment:</span><span style="color:#c0c5ce;">&quot;}

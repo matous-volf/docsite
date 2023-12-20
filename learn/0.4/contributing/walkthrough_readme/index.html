@@ -238,7 +238,7 @@
 </span><span style="color:#c0c5ce;">                    key: None,
 </span><span style="color:#c0c5ce;">                    </span><span style="color:#65737e;">// The static template this node will use. The template is stored in a Cell so it can be replaced with a new template when hot rsx reloading is enabled
 </span><span style="color:#c0c5ce;">                    template: std::cell::Cell::new(</span><span style="color:#d08770;">TEMPLATE</span><span style="color:#c0c5ce;">),
-</span><span style="color:#c0c5ce;">                    root_ids: Default::default(),
+</span><span style="color:#c0c5ce;">                    root_ids: dioxus::core::exports::bumpalo::collections::Vec::with_capacity_in(</span><span style="color:#d08770;">3</span><span style="color:#c0c5ce;">, __cx.</span><span style="color:#96b5b4;">bump</span><span style="color:#c0c5ce;">()).</span><span style="color:#96b5b4;">into</span><span style="color:#c0c5ce;">(),
 </span><span style="color:#c0c5ce;">                    dynamic_nodes: __cx.</span><span style="color:#96b5b4;">bump</span><span style="color:#c0c5ce;">().</span><span style="color:#96b5b4;">alloc</span><span style="color:#c0c5ce;">([
 </span><span style="color:#c0c5ce;">                        </span><span style="color:#65737e;">// The dynamic count text node (dynamic node id 0)
 </span><span style="color:#c0c5ce;">                        __cx.</span><span style="color:#96b5b4;">text_node</span><span style="color:#c0c5ce;">(format_args!(&quot;</span><span style="color:#a3be8c;">High-Five counter: {0}</span><span style="color:#c0c5ce;">&quot;, count)),
