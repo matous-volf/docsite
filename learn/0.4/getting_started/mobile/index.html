@@ -165,15 +165,13 @@
 <span style="color:#b48ead;">use </span><span style="color:#c0c5ce;">dioxus::prelude::*;
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#b48ead;">pub fn </span><span style="color:#8fa1b3;">main</span><span style="color:#c0c5ce;">() -&gt; Result&lt;()&gt; {
-</span><span style="color:#c0c5ce;">    </span><span style="color:#96b5b4;">init_logging</span><span style="color:#c0c5ce;">();
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">    </span><span style="color:#65737e;">// Right now we&#39;re going through dioxus-desktop but we&#39;d like to go through dioxus-mobile
 </span><span style="color:#c0c5ce;">    </span><span style="color:#65737e;">// That will seed the index.html with some fixes that prevent the page from scrolling/zooming etc
 </span><span style="color:#c0c5ce;">    dioxus_desktop::launch_cfg(
 </span><span style="color:#c0c5ce;">        app,
 </span><span style="color:#c0c5ce;">        </span><span style="color:#65737e;">// Note that we have to disable the viewport goofiness of the browser.
 </span><span style="color:#c0c5ce;">        </span><span style="color:#65737e;">// Dioxus_mobile should do this for us
-</span><span style="color:#c0c5ce;">        Config::default().</span><span style="color:#96b5b4;">with_custom_index</span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">r</span><span style="color:#c0c5ce;">#</span><span style="color:#a3be8c;">&quot;&lt;!DOCTYPE html&gt;
+</span><span style="color:#c0c5ce;">        dioxus_desktop::Config::default().</span><span style="color:#96b5b4;">with_custom_index</span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">r</span><span style="color:#c0c5ce;">#</span><span style="color:#a3be8c;">&quot;&lt;!DOCTYPE html&gt;
 </span><span style="color:#a3be8c;">        &lt;html&gt;
 </span><span style="color:#a3be8c;">          &lt;head&gt;
 </span><span style="color:#a3be8c;">            &lt;title&gt;Dioxus app&lt;/title&gt;
