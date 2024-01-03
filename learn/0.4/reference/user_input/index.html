@@ -173,13 +173,13 @@
 </span><span style="color:#c0c5ce;">            </span><span style="color:#65737e;">// tell the input to pick a file
 </span><span style="color:#c0c5ce;">            r#</span><span style="color:#b48ead;">type</span><span style="color:#c0c5ce;">:&quot;</span><span style="color:#a3be8c;">file</span><span style="color:#c0c5ce;">&quot;,
 </span><span style="color:#c0c5ce;">            </span><span style="color:#65737e;">// list the accepted extensions
-</span><span style="color:#c0c5ce;">            accept: &quot;</span><span style="color:#a3be8c;">.txt, .rs</span><span style="color:#c0c5ce;">&quot;,
+</span><span style="color:#c0c5ce;">            accept: &quot;</span><span style="color:#a3be8c;">.txt,.rs</span><span style="color:#c0c5ce;">&quot;,
 </span><span style="color:#c0c5ce;">            </span><span style="color:#65737e;">// pick multiple files
 </span><span style="color:#c0c5ce;">            multiple: </span><span style="color:#d08770;">true</span><span style="color:#c0c5ce;">,
-</span><span style="color:#c0c5ce;">            onchange: |</span><span style="color:#bf616a;">evt</span><span style="color:#c0c5ce;">| {
+</span><span style="color:#c0c5ce;">            onchange: </span><span style="color:#b48ead;">move </span><span style="color:#c0c5ce;">|evt| {
 </span><span style="color:#c0c5ce;">                </span><span style="color:#b48ead;">if let </span><span style="color:#c0c5ce;">Some(file_engine) = &amp;evt.files {
 </span><span style="color:#c0c5ce;">                    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> files = file_engine.</span><span style="color:#96b5b4;">files</span><span style="color:#c0c5ce;">();
-</span><span style="color:#c0c5ce;">                    </span><span style="color:#b48ead;">for</span><span style="color:#c0c5ce;"> file_name in &amp;files {
+</span><span style="color:#c0c5ce;">                    </span><span style="color:#b48ead;">for</span><span style="color:#c0c5ce;"> file_name in files {
 </span><span style="color:#c0c5ce;">                        filenames.</span><span style="color:#96b5b4;">write</span><span style="color:#c0c5ce;">().</span><span style="color:#96b5b4;">push</span><span style="color:#c0c5ce;">(file_name);
 </span><span style="color:#c0c5ce;">                    }
 </span><span style="color:#c0c5ce;">                }
@@ -189,7 +189,7 @@
 </span><span style="color:#c0c5ce;">}
 </span></pre>
 </div><button style="position: absolute; top: 0; right: 0; background: rgba(0, 0, 0, 0.75); color: white; border: 1px solid white; padding: 0.25em;" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)">Copy</button></div><p>If you&#x27;re planning to read the file content, you need to do it asynchronously, to keep the rest of the UI interactive. This example event handler loads the content of the selected files in an async closure:</p><div style="position: relative;"><div><pre style="background-color:#2b303b;">
-<span style="color:#c0c5ce;">onchange: |</span><span style="color:#bf616a;">evt</span><span style="color:#c0c5ce;">| {
+<span style="color:#c0c5ce;">onchange: </span><span style="color:#b48ead;">move </span><span style="color:#c0c5ce;">|evt| {
 </span><span style="color:#c0c5ce;">    </span><span style="color:#65737e;">// A helper macro to use hooks in async environments
 </span><span style="color:#c0c5ce;">    to_owned![files_uploaded];
 </span><span style="color:#c0c5ce;">    async </span><span style="color:#b48ead;">move </span><span style="color:#c0c5ce;">{
@@ -214,7 +214,7 @@
 </span><span style="color:#c0c5ce;">    onchange: |</span><span style="color:#bf616a;">evt</span><span style="color:#c0c5ce;">| {
 </span><span style="color:#c0c5ce;">        </span><span style="color:#b48ead;">if let </span><span style="color:#c0c5ce;">Some(file_engine) = &amp;evt.files {
 </span><span style="color:#c0c5ce;">            </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> files = file_engine.</span><span style="color:#96b5b4;">files</span><span style="color:#c0c5ce;">();
-</span><span style="color:#c0c5ce;">            </span><span style="color:#b48ead;">for</span><span style="color:#c0c5ce;"> file_name in &amp;files {
+</span><span style="color:#c0c5ce;">            </span><span style="color:#b48ead;">for</span><span style="color:#c0c5ce;"> file_name in files {
 </span><span style="color:#c0c5ce;">                println!(&quot;</span><span style="color:#d08770;">{}</span><span style="color:#c0c5ce;">&quot;, file_name);
 </span><span style="color:#c0c5ce;">                </span><span style="color:#65737e;">// Do something with the folder path
 </span><span style="color:#c0c5ce;">            }
