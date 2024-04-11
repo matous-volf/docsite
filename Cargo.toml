@@ -36,11 +36,11 @@ autoexport = "0.1.0"
 dioxus-material-icons = "1.2.0"
 include_dir = "0.7.3"
 anyhow = "1.0.71"
-syntect-html = { git = "https://github.com/dioxuslabs/include_mdbook" }
-mdbook-shared = { git = "https://github.com/dioxuslabs/include_mdbook" }
-use-mdbook = { git = "https://github.com/dioxuslabs/include_mdbook" }
+syntect-html = { git = "https://github.com/dioxuslabs/include_mdbook", rev = "7b3f3e7" }
+mdbook-shared = { git = "https://github.com/dioxuslabs/include_mdbook", rev = "7b3f3e7" }
+use-mdbook = { git = "https://github.com/dioxuslabs/include_mdbook", rev = "7b3f3e7" }
 
-dioxus-search = { git = "https://github.com/dioxuslabs/dioxus-search" }
+dioxus-search = { git = "https://github.com/dioxuslabs/dioxus-search", rev = "983073c" }
 
 tokio = { version = "1.29.0", features = ["full"], optional = true }
 axum = { version = "0.6.12", features = ["headers"], optional = true }

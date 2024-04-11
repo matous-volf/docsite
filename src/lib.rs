@@ -2,8 +2,10 @@
 
 use dioxus::html::input_data::keyboard_types::{Key, Modifiers};
 use dioxus::prelude::*;
+use fermi::use_atom_state;
 use dioxus_router::prelude::*;
 pub use docs::BookRoute;
+pub use docs_cn::BookRoute as BookRouteCn;
 use serde::{Deserialize, Serialize};
 
 macro_rules! export_items {
@@ -112,6 +114,8 @@ pub enum Route {
                 },
                 #[child("/0.4")]
                 Docs { child: BookRoute },
+                #[child("/0.4/cn")]
+                DocsCn { child: BookRouteCn },
             #[end_nest]
         #[end_layout]
     #[end_nest]
@@ -137,9 +141,22 @@ mod docs {
     use crate::components::*;
     use crate::doc_examples::*;
     use dioxus::prelude::*;
-    use fermi::use_atom_state;
+    use super::{SandBoxFrame, DemoFrame, LayoutsExplanation};
 
-    #[component]
+    use_mdbook::mdbook_router! {"docs-src/0.4"}
+}
+
+mod docs_cn {
+    use crate::components::*;
+    use crate::doc_examples::*;
+    use dioxus::prelude::*;
+    use super::{SandBoxFrame, DemoFrame, LayoutsExplanation};
+    
+
+    use_mdbook::mdbook_router! {"docs-src/0.4-cn"}
+}
+
+#[component]
     fn SandBoxFrame<'a>(cx: Scope<'a>, url: &'a str) -> Element<'a> {
         render! {
             iframe {
@@ -238,6 +255,3 @@ pub enum Route {{\n\t"
             }
         }
     }
-
-    use_mdbook::mdbook_router! {"docs-src/0.4"}
-}

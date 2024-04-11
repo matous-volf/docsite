@@ -85,6 +85,10 @@ fn DocVersionNav(cx: Scope) -> Element {
                         dioxus_material_icons::MaterialIcon { name: "chevron_left", color: "gray" }
                         "0.3"
                     }
+                    a { href: "/learn/0.4",
+                        dioxus_material_icons::MaterialIcon { name: "chevron_left", color: "gray" }
+                        "0.4 CN"
+                    }
                 }
             }
         }

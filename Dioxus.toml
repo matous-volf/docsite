@@ -1,7 +1,7 @@
 [application]
 
 # dioxus project name
-name = "docsite"
+name = "docsite04"
 
 # default platform
 # you can also use `dioxus serve/build --platform XXX` to use other platform
