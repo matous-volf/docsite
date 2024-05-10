@@ -123,7 +123,281 @@
 </span><span style="color:#c0c5ce;">    }
 </span><span style="color:#c0c5ce;">}
 </span></pre>
-</div><button style="position: absolute; top: 0; right: 0; background: rgba(0, 0, 0, 0.75); color: white; border: 1px solid white; padding: 0.25em;" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)">Copy</button></div><h2 id="avoid-interior-mutability-in-props" data-node-hydration="287"><a class="header" href="#avoid-interior-mutability-in-props">Avoid Interior Mutability in Props</a></h2><p data-node-hydration="288">While it is technically acceptable to have a  <code>Mutex</code> or a  <code>RwLock</code> in the props, they will be difficult to use.</p><p data-node-hydration="289">Suppose you have a struct  <code>User</code> containing the field  <code>username: String</code>. If you pass a  <code>Mutex&lt;User&gt;</code> prop to a  <code>UserComponent</code> component, that component may wish to write to the  <code>username</code> field. However, when it does, the parent component will not be aware of the change, and the component will not re-render which causes the UI to be out of sync with the state. Instead, consider passing down a reactive value like a  <code>Signal</code> or immutable data.</p><h2 id="avoid-updating-state-during-render" data-node-hydration="290"><a class="header" href="#avoid-updating-state-during-render">Avoid Updating State During Render</a></h2><p data-node-hydration="291">Every time you update the state, Dioxus needs to re-render the component – this is inefficient! Consider refactoring your code to avoid this.</p><p data-node-hydration="292">Also, if you unconditionally update the state during render, it will be re-rendered in an infinite loop.</p><script data-node-hydration="293"></script></article></div></div></section><div class="overflow-y-auto hidden xl:block top-28 ml-12 h-full md:text-[14px] leading-5 text-navy dark:text-[#dee2e6] docs-right-sidebar w-48 sticky" data-node-hydration="294"><h2 class="pb-4 font-semibold">On this page</h2><ul><li class="pb-2 " data-node-hydration="295"><a class="hover:text-sky-500 dark:hover:text-sky-400" href="?phantom=unnecessarily-nested-fragments#unnecessarily-nested-fragments" data-node-hydration="296"><!--node-id297-->Unnecessarily Nested Fragments<!--#--></a></li><li class="pb-2 " data-node-hydration="298"><a class="hover:text-sky-500 dark:hover:text-sky-400" href="?phantom=incorrect-iterator-keys#incorrect-iterator-keys" data-node-hydration="299"><!--node-id300-->Incorrect Iterator Keys<!--#--></a></li><li class="pb-2 " data-node-hydration="301"><a class="hover:text-sky-500 dark:hover:text-sky-400" href="?phantom=avoid-interior-mutability-in-props#avoid-interior-mutability-in-props" data-node-hydration="302"><!--node-id303-->Avoid Interior Mutability in Props<!--#--></a></li><li class="pb-2 " data-node-hydration="304"><a class="hover:text-sky-500 dark:hover:text-sky-400" href="?phantom=avoid-updating-state-during-render#avoid-updating-state-during-render" data-node-hydration="305"><!--node-id306-->Avoid Updating State During Render<!--#--></a></li></ul><h2 class="py-4 font-semibold"><a href="https://github.com/DioxusLabs/docsite" data-node-hydration="307">Edit this page!</a></h2><h2 class="py-4 font-semibold">Go to version</h2><div class="pb-4" data-node-hydration="308"><ul class="pl-2"><li class="m-1 rounded-md pl-2"><span class="hover:text-sky-500 dark:hover:text-sky-400"><span class="material-icons material-icons-outlined material-icons-round material-icons-sharp material-icons-two-tone md-48" style="font-size: inherit; color: gray; user-select: none;" data-node-hydration="309"><!--node-id310-->chevron_left<!--#--></span>0.5</span></li><li class="m-1 rounded-md pl-2"><a href="/learn/0.4" class="hover:text-sky-500 dark:hover:text-sky-400"><span class="material-icons material-icons-outlined material-icons-round material-icons-sharp material-icons-two-tone md-48" style="font-size: inherit; color: gray; user-select: none;" data-node-hydration="311"><!--node-id312-->chevron_left<!--#--></span>0.4</a></li><li class="m-1 rounded-md pl-2"><a href="/learn/0.3" class="hover:text-sky-500 dark:hover:text-sky-400"><span class="material-icons material-icons-outlined material-icons-round material-icons-sharp material-icons-two-tone md-48" style="font-size: inherit; color: gray; user-select: none;" data-node-hydration="313"><!--node-id314-->chevron_left<!--#--></span>0.3</a></li></ul></div></div></div></div></div><footer class="sticky z-30 text-gray-400 bg-ghmetal body-font " data-node-hydration="315"><div class="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col"><div class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left"><a class="flex title-font font-medium items-center md:justify-start justify-center text-white" href="https://github.com/DioxusLabs/dioxus"><img src="https://avatars.githubusercontent.com/u/79236386?s=200&v=4" class="h-8 w-auto" alt="Dioxus Labs Icon"/><span class="ml-3 text-xl">Dioxus Labs</span></a><p class="mt-2 text-sm text-gray-500">An Open Source project dedicated to making Rust UI wonderful.</p></div><div class="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center"><div class="lg:w-1/4 md:w-1/2 w-full px-4" data-node-hydration="316"><h2 class="title-font font-medium text-white tracking-widest text-sm mb-3"><!--node-id317-->Community<!--#--></h2><nav class="list-none mb-10"><ul><li data-node-hydration="318"><a class="text-gray-400 hover:text-white" href="https://github.com/dioxuslabs" data-node-hydration="319"><!--node-id320-->Github<!--#--></a></li><li data-node-hydration="321"><a class="text-gray-400 hover:text-white" href="https://twitter.com/dioxuslabs" data-node-hydration="322"><!--node-id323-->Twitter<!--#--></a></li><li data-node-hydration="324"><a class="text-gray-400 hover:text-white" href="https://discord.gg/XgGxMSkvUM" data-node-hydration="325"><!--node-id326-->Discord<!--#--></a></li></ul></nav></div><div class="lg:w-1/4 md:w-1/2 w-full px-4" data-node-hydration="327"><h2 class="title-font font-medium text-white tracking-widest text-sm mb-3"><!--node-id328-->Learning<!--#--></h2><nav class="list-none mb-10"><ul><li data-node-hydration="329"><a class="text-gray-400 hover:text-white" href="https://docs.rs/dioxus" data-node-hydration="330"><!--node-id331-->docs.rs<!--#--></a></li><li data-node-hydration="332"><a class="text-gray-400 hover:text-white" href="/learn/0.5/guide" data-node-hydration="333"><!--node-id334-->Guide<!--#--></a></li><li data-node-hydration="335"><a class="text-gray-400 hover:text-white" href="/awesome" data-node-hydration="336"><!--node-id337-->Awesome<!--#--></a></li></ul></nav></div><div class="lg:w-1/4 md:w-1/2 w-full px-4" data-node-hydration="338"><h2 class="title-font font-medium text-white tracking-widest text-sm mb-3"><!--node-id339-->Projects<!--#--></h2><nav class="list-none mb-10"><ul><li data-node-hydration="340"><a class="text-gray-400 hover:text-white" href="https://github.com/DioxusLabs/dioxus" data-node-hydration="341"><!--node-id342-->Dioxus<!--#--></a></li><li data-node-hydration="343"><a class="text-gray-400 hover:text-white" href="https://github.com/DioxusLabs/dioxus/tree/main/packages/cli" data-node-hydration="344"><!--node-id345-->CLI<!--#--></a></li><li data-node-hydration="346"><a class="text-gray-400 hover:text-white" href="https://github.com/DioxusLabs/taffy" data-node-hydration="347"><!--node-id348-->Taffy<!--#--></a></li></ul></nav></div></div></div><div class="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row"><p class="text-gray-400 text-sm text-center sm:text-left">© 2024 Dioxus Labs —<a class="text-gray-500 ml-1" rel="noopener noreferrer" href="https://twitter.com/dioxuslabs" target="_blank">@dioxuslabs</a></p></div></footer></div>
+</div><button style="position: absolute; top: 0; right: 0; background: rgba(0, 0, 0, 0.75); color: white; border: 1px solid white; padding: 0.25em;" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)">Copy</button></div><h2 id="avoid-interior-mutability-in-props" data-node-hydration="287"><a class="header" href="#avoid-interior-mutability-in-props">Avoid Interior Mutability in Props</a></h2><p data-node-hydration="288">While it is technically acceptable to have a  <code>Mutex</code> or a  <code>RwLock</code> in the props, they will be difficult to use.</p><p data-node-hydration="289">Suppose you have a struct  <code>User</code> containing the field  <code>username: String</code>. If you pass a  <code>Mutex&lt;User&gt;</code> prop to a  <code>UserComponent</code> component, that component may wish to write to the  <code>username</code> field. However, when it does, the parent component will not be aware of the change, and the component will not re-render which causes the UI to be out of sync with the state. Instead, consider passing down a reactive value like a  <code>Signal</code> or immutable data.</p><div style="position: relative;" data-node-hydration="290"><div><pre style="background-color:#2b303b;">
+<span style="color:#65737e;">// ❌ Mutex/RwLock/RefCell in props
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">derive</span><span style="color:#c0c5ce;">(Props, Clone)]
+</span><span style="color:#b48ead;">struct </span><span style="color:#c0c5ce;">AntipatternInteriorMutability {
+</span><span style="color:#c0c5ce;">    </span><span style="color:#bf616a;">map</span><span style="color:#c0c5ce;">: Rc&lt;RefCell&lt;HashMap&lt;</span><span style="color:#b48ead;">u32</span><span style="color:#c0c5ce;">, String&gt;&gt;&gt;,
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#b48ead;">impl </span><span style="color:#c0c5ce;">PartialEq </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">AntipatternInteriorMutability {
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">eq</span><span style="color:#c0c5ce;">(&amp;</span><span style="color:#bf616a;">self</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">other</span><span style="color:#c0c5ce;">: &amp;</span><span style="color:#b48ead;">Self</span><span style="color:#c0c5ce;">) -&gt; </span><span style="color:#b48ead;">bool </span><span style="color:#c0c5ce;">{
+</span><span style="color:#c0c5ce;">        std::rc::Rc::ptr_eq(&amp;</span><span style="color:#bf616a;">self</span><span style="color:#c0c5ce;">.map, &amp;other.map)
+</span><span style="color:#c0c5ce;">    }
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">AntipatternInteriorMutability</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">map</span><span style="color:#c0c5ce;">: Rc&lt;RefCell&lt;HashMap&lt;</span><span style="color:#b48ead;">u32</span><span style="color:#c0c5ce;">, String&gt;&gt;&gt;) -&gt; Element {
+</span><span style="color:#c0c5ce;">    rsx! {
+</span><span style="color:#c0c5ce;">        button {
+</span><span style="color:#c0c5ce;">            onclick: {
+</span><span style="color:#c0c5ce;">                </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> map = map.</span><span style="color:#96b5b4;">clone</span><span style="color:#c0c5ce;">();
+</span><span style="color:#c0c5ce;">                </span><span style="color:#b48ead;">move </span><span style="color:#c0c5ce;">|_| {
+</span><span style="color:#c0c5ce;">                    </span><span style="color:#65737e;">// Writing to map will not rerun any components 
+</span><span style="color:#c0c5ce;">                    map.</span><span style="color:#96b5b4;">borrow_mut</span><span style="color:#c0c5ce;">().</span><span style="color:#96b5b4;">insert</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, &quot;</span><span style="color:#a3be8c;">Hello</span><span style="color:#c0c5ce;">&quot;.</span><span style="color:#96b5b4;">to_string</span><span style="color:#c0c5ce;">());
+</span><span style="color:#c0c5ce;">                }
+</span><span style="color:#c0c5ce;">            },
+</span><span style="color:#c0c5ce;">            &quot;</span><span style="color:#a3be8c;">Mutate map</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#c0c5ce;">        }
+</span><span style="color:#c0c5ce;">        </span><span style="color:#65737e;">// Since writing to map will not rerun any components, this will get out of date
+</span><span style="color:#c0c5ce;">        &quot;</span><span style="color:#a3be8c;">{map.borrow().get(&amp;0).unwrap()}</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#c0c5ce;">    }
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#65737e;">// ✅ Use a signal to pass mutable state
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">component</span><span style="color:#c0c5ce;">]
+</span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">AntipatternInteriorMutabilitySignal</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">map</span><span style="color:#c0c5ce;">: Signal&lt;HashMap&lt;</span><span style="color:#b48ead;">u32</span><span style="color:#c0c5ce;">, String&gt;&gt;) -&gt; Element {
+</span><span style="color:#c0c5ce;">    rsx! {
+</span><span style="color:#c0c5ce;">        button {
+</span><span style="color:#c0c5ce;">            onclick: </span><span style="color:#b48ead;">move </span><span style="color:#c0c5ce;">|_| {
+</span><span style="color:#c0c5ce;">                </span><span style="color:#65737e;">// Writing to map will rerun any components that read the map
+</span><span style="color:#c0c5ce;">                map.</span><span style="color:#96b5b4;">write</span><span style="color:#c0c5ce;">().</span><span style="color:#96b5b4;">insert</span><span style="color:#c0c5ce;">(</span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">, &quot;</span><span style="color:#a3be8c;">Hello</span><span style="color:#c0c5ce;">&quot;.</span><span style="color:#96b5b4;">to_string</span><span style="color:#c0c5ce;">());
+</span><span style="color:#c0c5ce;">            },
+</span><span style="color:#c0c5ce;">            &quot;</span><span style="color:#a3be8c;">Mutate map</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#c0c5ce;">        }
+</span><span style="color:#c0c5ce;">        </span><span style="color:#65737e;">// Since writing to map will rerun subscribers, this will get updated
+</span><span style="color:#c0c5ce;">        &quot;</span><span style="color:#a3be8c;">{map.read().get(&amp;0).unwrap()}</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#c0c5ce;">    }
+</span><span style="color:#c0c5ce;">}
+</span></pre>
+</div><button style="position: absolute; top: 0; right: 0; background: rgba(0, 0, 0, 0.75); color: white; border: 1px solid white; padding: 0.25em;" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)">Copy</button></div><h2 id="avoid-updating-state-during-render" data-node-hydration="291"><a class="header" href="#avoid-updating-state-during-render">Avoid Updating State During Render</a></h2><p data-node-hydration="292">Every time you update the state, Dioxus needs to re-render the component – this is inefficient! Consider refactoring your code to avoid this.</p><p data-node-hydration="293">Also, if you unconditionally update the state during render, it will be re-rendered in an infinite loop.</p><div style="position: relative;" data-node-hydration="294"><div><pre style="background-color:#2b303b;">
+<span style="color:#65737e;">// ❌ Updating state in render
+</span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> first_signal = </span><span style="color:#96b5b4;">use_signal</span><span style="color:#c0c5ce;">(|| </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">);
+</span><span style="color:#b48ead;">let mut</span><span style="color:#c0c5ce;"> second_signal = </span><span style="color:#96b5b4;">use_signal</span><span style="color:#c0c5ce;">(|| </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">);
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#65737e;">// Updating the state during a render can easily lead to infinite loops
+</span><span style="color:#b48ead;">if </span><span style="color:#96b5b4;">first_signal</span><span style="color:#c0c5ce;">() + </span><span style="color:#d08770;">1 </span><span style="color:#c0c5ce;">!= </span><span style="color:#96b5b4;">second_signal</span><span style="color:#c0c5ce;">() {
+</span><span style="color:#c0c5ce;">    second_signal.</span><span style="color:#96b5b4;">set</span><span style="color:#c0c5ce;">(</span><span style="color:#96b5b4;">first_signal</span><span style="color:#c0c5ce;">() + </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">);
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#65737e;">// ✅ Update state in an effect
+</span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> first_signal = </span><span style="color:#96b5b4;">use_signal</span><span style="color:#c0c5ce;">(|| </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">);
+</span><span style="color:#b48ead;">let mut</span><span style="color:#c0c5ce;"> second_signal = </span><span style="color:#96b5b4;">use_signal</span><span style="color:#c0c5ce;">(|| </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">);
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#65737e;">// The closure you pass to use_effect will be rerun whenever any of the dependencies change without re-rendering the component
+</span><span style="color:#96b5b4;">use_effect</span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">move </span><span style="color:#c0c5ce;">|| {
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">if </span><span style="color:#96b5b4;">first_signal</span><span style="color:#c0c5ce;">() + </span><span style="color:#d08770;">1 </span><span style="color:#c0c5ce;">!= </span><span style="color:#96b5b4;">second_signal</span><span style="color:#c0c5ce;">() {
+</span><span style="color:#c0c5ce;">        second_signal.</span><span style="color:#96b5b4;">set</span><span style="color:#c0c5ce;">(</span><span style="color:#96b5b4;">first_signal</span><span style="color:#c0c5ce;">() + </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">);
+</span><span style="color:#c0c5ce;">    }
+</span><span style="color:#c0c5ce;">});
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#65737e;">// ✅ Deriving state with use_memo
+</span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> first_signal = </span><span style="color:#96b5b4;">use_signal</span><span style="color:#c0c5ce;">(|| </span><span style="color:#d08770;">0</span><span style="color:#c0c5ce;">);
+</span><span style="color:#65737e;">// Memos are specifically designed for derived state. If your state fits this pattern, use it.
+</span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> second_signal = </span><span style="color:#96b5b4;">use_memo</span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">move </span><span style="color:#c0c5ce;">|| </span><span style="color:#96b5b4;">first_signal</span><span style="color:#c0c5ce;">() + </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">);
+</span></pre>
+</div><button style="position: absolute; top: 0; right: 0; background: rgba(0, 0, 0, 0.75); color: white; border: 1px solid white; padding: 0.25em;" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)">Copy</button></div><h2 id="avoid-large-groups-of-state" data-node-hydration="295"><a class="header" href="#avoid-large-groups-of-state">Avoid Large Groups of State</a></h2><p data-node-hydration="296">It can be tempting to have a single large state struct that contains all of your application&#x27;s state. However, this can lead to issues:</p><ul data-node-hydration="297"><li>It can be easy to accidentally mutate the state in a way that causes an infinite loop</li><li>It can be difficult to reason about when and how the state is updated</li><li>It can lead to performance issues because many components will need to re-render when the state changes</li></ul><p data-node-hydration="298">Instead, consider breaking your state into smaller, more manageable pieces. This will make it easier to reason about the state, avoid update loops, and improve performance.</p><div style="position: relative;" data-node-hydration="299"><div><pre style="background-color:#2b303b;">
+<span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">app</span><span style="color:#c0c5ce;">() -&gt; Element {
+</span><span style="color:#c0c5ce;">    </span><span style="color:#65737e;">// ❌ Large state struct
+</span><span style="color:#c0c5ce;">    #[</span><span style="color:#bf616a;">derive</span><span style="color:#c0c5ce;">(Props, Clone, PartialEq)]
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">struct </span><span style="color:#c0c5ce;">LargeState {
+</span><span style="color:#c0c5ce;">        </span><span style="color:#bf616a;">users</span><span style="color:#c0c5ce;">: Vec&lt;User&gt;,
+</span><span style="color:#c0c5ce;">        </span><span style="color:#bf616a;">logged_in</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">bool</span><span style="color:#c0c5ce;">,
+</span><span style="color:#c0c5ce;">        </span><span style="color:#bf616a;">warnings</span><span style="color:#c0c5ce;">: Vec&lt;String&gt;,
+</span><span style="color:#c0c5ce;">    }
+</span><span style="color:#c0c5ce;">    
+</span><span style="color:#c0c5ce;">    #[</span><span style="color:#bf616a;">derive</span><span style="color:#c0c5ce;">(Props, Clone, PartialEq)]
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">struct </span><span style="color:#c0c5ce;">User {
+</span><span style="color:#c0c5ce;">        </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: String,
+</span><span style="color:#c0c5ce;">        </span><span style="color:#bf616a;">email</span><span style="color:#c0c5ce;">: String,
+</span><span style="color:#c0c5ce;">    }
+</span><span style="color:#c0c5ce;">    
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let mut</span><span style="color:#c0c5ce;"> all_my_state = </span><span style="color:#96b5b4;">use_signal</span><span style="color:#c0c5ce;">(|| LargeState {
+</span><span style="color:#c0c5ce;">        users: vec![User {
+</span><span style="color:#c0c5ce;">            name: &quot;</span><span style="color:#a3be8c;">Alice</span><span style="color:#c0c5ce;">&quot;.</span><span style="color:#96b5b4;">to_string</span><span style="color:#c0c5ce;">(),
+</span><span style="color:#c0c5ce;">            email: &quot;</span><span style="color:#a3be8c;">alice@example.com</span><span style="color:#c0c5ce;">&quot;.</span><span style="color:#96b5b4;">to_string</span><span style="color:#c0c5ce;">(),
+</span><span style="color:#c0c5ce;">        }],
+</span><span style="color:#c0c5ce;">        logged_in: </span><span style="color:#d08770;">true</span><span style="color:#c0c5ce;">,
+</span><span style="color:#c0c5ce;">        warnings: vec![],
+</span><span style="color:#c0c5ce;">    });
+</span><span style="color:#c0c5ce;">    
+</span><span style="color:#c0c5ce;">    </span><span style="color:#96b5b4;">use_effect</span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">move </span><span style="color:#c0c5ce;">|| {
+</span><span style="color:#c0c5ce;">        </span><span style="color:#65737e;">// It is very easy to accidentally read and write to the state object if it contains all your state
+</span><span style="color:#c0c5ce;">        </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> read = all_my_state.</span><span style="color:#96b5b4;">read</span><span style="color:#c0c5ce;">();
+</span><span style="color:#c0c5ce;">        </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> logged_in = read.logged_in;
+</span><span style="color:#c0c5ce;">        </span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">!logged_in {
+</span><span style="color:#c0c5ce;">            all_my_state.</span><span style="color:#96b5b4;">write_unchecked</span><span style="color:#c0c5ce;">().warnings.</span><span style="color:#96b5b4;">push</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">You are not logged in</span><span style="color:#c0c5ce;">&quot;.</span><span style="color:#96b5b4;">to_string</span><span style="color:#c0c5ce;">());
+</span><span style="color:#c0c5ce;">        }
+</span><span style="color:#c0c5ce;">    });
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">    </span><span style="color:#65737e;">// ✅ Use multiple signals to manage state
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> users = </span><span style="color:#96b5b4;">use_signal</span><span style="color:#c0c5ce;">(|| vec![User {
+</span><span style="color:#c0c5ce;">        name: &quot;</span><span style="color:#a3be8c;">Alice</span><span style="color:#c0c5ce;">&quot;.</span><span style="color:#96b5b4;">to_string</span><span style="color:#c0c5ce;">(),
+</span><span style="color:#c0c5ce;">        email: &quot;</span><span style="color:#a3be8c;">alice@example.com</span><span style="color:#c0c5ce;">&quot;.</span><span style="color:#96b5b4;">to_string</span><span style="color:#c0c5ce;">(),
+</span><span style="color:#c0c5ce;">    }]);
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> logged_in = </span><span style="color:#96b5b4;">use_signal</span><span style="color:#c0c5ce;">(|| </span><span style="color:#d08770;">true</span><span style="color:#c0c5ce;">);
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let mut</span><span style="color:#c0c5ce;"> warnings = </span><span style="color:#96b5b4;">use_signal</span><span style="color:#c0c5ce;">(|| vec![]);
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">    </span><span style="color:#96b5b4;">use_effect</span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">move </span><span style="color:#c0c5ce;">|| {
+</span><span style="color:#c0c5ce;">        </span><span style="color:#65737e;">// Now you can read and write to separate signals which will not cause issues
+</span><span style="color:#c0c5ce;">        </span><span style="color:#b48ead;">if </span><span style="color:#c0c5ce;">!</span><span style="color:#96b5b4;">logged_in</span><span style="color:#c0c5ce;">() {
+</span><span style="color:#c0c5ce;">            warnings.</span><span style="color:#96b5b4;">write</span><span style="color:#c0c5ce;">().</span><span style="color:#96b5b4;">push</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">You are not logged in</span><span style="color:#c0c5ce;">&quot;.</span><span style="color:#96b5b4;">to_string</span><span style="color:#c0c5ce;">());
+</span><span style="color:#c0c5ce;">        }
+</span><span style="color:#c0c5ce;">    });
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">    </span><span style="color:#65737e;">// ✅ Use memos to create derived state when larger states are unavoidable
+</span><span style="color:#c0c5ce;">    </span><span style="color:#65737e;">// Notice we didn&#39;t split everything into separate signals. Users still make sense as a vec of data
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> users = </span><span style="color:#96b5b4;">use_signal</span><span style="color:#c0c5ce;">(|| vec![User {
+</span><span style="color:#c0c5ce;">        name: &quot;</span><span style="color:#a3be8c;">Alice</span><span style="color:#c0c5ce;">&quot;.</span><span style="color:#96b5b4;">to_string</span><span style="color:#c0c5ce;">(),
+</span><span style="color:#c0c5ce;">        email: &quot;</span><span style="color:#a3be8c;">alice@example.com</span><span style="color:#c0c5ce;">&quot;.</span><span style="color:#96b5b4;">to_string</span><span style="color:#c0c5ce;">(),
+</span><span style="color:#c0c5ce;">    }]);
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> logged_in = </span><span style="color:#96b5b4;">use_signal</span><span style="color:#c0c5ce;">(|| </span><span style="color:#d08770;">true</span><span style="color:#c0c5ce;">);
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> warnings: Signal&lt;Vec&lt;String&gt;&gt; = </span><span style="color:#96b5b4;">use_signal</span><span style="color:#c0c5ce;">(|| vec![]);
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">    </span><span style="color:#65737e;">// In child components, you can use the memo to create derived that will only update when a specific part of the state changes
+</span><span style="color:#c0c5ce;">    </span><span style="color:#65737e;">// This will help you avoid unnecessary re-renders and infinite loops
+</span><span style="color:#c0c5ce;">    #[</span><span style="color:#bf616a;">component</span><span style="color:#c0c5ce;">]
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">FirstUser</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">users</span><span style="color:#c0c5ce;">: Signal&lt;Vec&lt;User&gt;&gt;) -&gt; Element {
+</span><span style="color:#c0c5ce;">        </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> first_user = </span><span style="color:#96b5b4;">use_memo</span><span style="color:#c0c5ce;">(</span><span style="color:#b48ead;">move </span><span style="color:#c0c5ce;">|| users.</span><span style="color:#96b5b4;">read</span><span style="color:#c0c5ce;">().</span><span style="color:#96b5b4;">first</span><span style="color:#c0c5ce;">().</span><span style="color:#96b5b4;">unwrap</span><span style="color:#c0c5ce;">().</span><span style="color:#96b5b4;">clone</span><span style="color:#c0c5ce;">());
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">        rsx! {
+</span><span style="color:#c0c5ce;">            div {
+</span><span style="color:#c0c5ce;">                &quot;</span><span style="color:#a3be8c;">First user: {first_user().name}</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#c0c5ce;">            }
+</span><span style="color:#c0c5ce;">        }
+</span><span style="color:#c0c5ce;">    }
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">    rsx! {
+</span><span style="color:#c0c5ce;">        FirstUser {
+</span><span style="color:#c0c5ce;">            users
+</span><span style="color:#c0c5ce;">        }
+</span><span style="color:#c0c5ce;">    }
+</span><span style="color:#c0c5ce;">}
+</span></pre>
+</div><button style="position: absolute; top: 0; right: 0; background: rgba(0, 0, 0, 0.75); color: white; border: 1px solid white; padding: 0.25em;" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)">Copy</button></div><h2 id="running-non-deterministic-code-in-the-body-of-a-component" data-node-hydration="300"><a class="header" href="#running-non-deterministic-code-in-the-body-of-a-component">Running Non-Deterministic Code in the Body of a Component</a></h2><p data-node-hydration="301">If you have a component that contains non-deterministic code, that code should generally not be run in the body of the component. If it is put in the body of the component, it will be executed every time the component is re-rendered which can lead to performance issues.</p><p data-node-hydration="302">Instead, consider moving the non-deterministic code into a hook that only runs when the component is first created or an effect that reruns when dependencies change.</p><div style="position: relative;" data-node-hydration="303"><div><pre style="background-color:#2b303b;">
+<span style="color:#65737e;">// ❌ Non-deterministic code in the body of a component
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">component</span><span style="color:#c0c5ce;">]
+</span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">NonDeterministic</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: String) -&gt; Element {
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> my_random_id = rand::random::&lt;</span><span style="color:#b48ead;">u64</span><span style="color:#c0c5ce;">&gt;();
+</span><span style="color:#c0c5ce;">    
+</span><span style="color:#c0c5ce;">    rsx! {
+</span><span style="color:#c0c5ce;">        div {
+</span><span style="color:#c0c5ce;">            </span><span style="color:#65737e;">// Id will change every single time the component is re-rendered
+</span><span style="color:#c0c5ce;">            id: &quot;</span><span style="color:#a3be8c;">{my_random_id}</span><span style="color:#c0c5ce;">&quot;,
+</span><span style="color:#c0c5ce;">            &quot;</span><span style="color:#a3be8c;">Hello {name}</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#c0c5ce;">        }
+</span><span style="color:#c0c5ce;">    }
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#65737e;">// ✅ Use a hook to run non-deterministic code
+</span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">NonDeterministicHook</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: String) -&gt; Element {
+</span><span style="color:#c0c5ce;">    </span><span style="color:#65737e;">// If you store the result of the non-deterministic code in a hook, it will stay the same between renders
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> my_random_id = </span><span style="color:#96b5b4;">use_hook</span><span style="color:#c0c5ce;">(|| rand::random::&lt;</span><span style="color:#b48ead;">u64</span><span style="color:#c0c5ce;">&gt;());
+</span><span style="color:#c0c5ce;">    
+</span><span style="color:#c0c5ce;">    rsx! {
+</span><span style="color:#c0c5ce;">        div {
+</span><span style="color:#c0c5ce;">            id: &quot;</span><span style="color:#a3be8c;">{my_random_id}</span><span style="color:#c0c5ce;">&quot;,
+</span><span style="color:#c0c5ce;">            &quot;</span><span style="color:#a3be8c;">Hello {name}</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#c0c5ce;">        }
+</span><span style="color:#c0c5ce;">    }
+</span><span style="color:#c0c5ce;">}
+</span></pre>
+</div><button style="position: absolute; top: 0; right: 0; background: rgba(0, 0, 0, 0.75); color: white; border: 1px solid white; padding: 0.25em;" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)">Copy</button></div><h2 id="overly-permissive-partialeq-for-props" data-node-hydration="304"><a class="header" href="#overly-permissive-partialeq-for-props">Overly Permissive PartialEq for Props</a></h2><p data-node-hydration="305">You may have noticed that  <code>Props</code> requires a  <code>PartialEq</code> implementation. That  <code>PartialEq</code> is very important for Dioxus to work correctly. It is used to determine if a component should re-render or not when the parent component re-renders.</p><p data-node-hydration="306">If you cannot derive  <code>PartialEq</code> for your  <code>Props</code>, you will need to implement it yourself. If you do implement  <code>PartialEq</code>, make sure to return  <code>false</code> any time the props change in a way that would cause the UI in the child component to change.</p><p data-node-hydration="307">In general, returning  <code>false</code> from  <code>PartialEq</code> if you aren&#x27;t sure if the props have changed or not is better than returning  <code>true</code>. This will help you avoid out of date UI in your child components.</p><div style="position: relative;" data-node-hydration="308"><div><pre style="background-color:#2b303b;">
+<span style="color:#65737e;">// ❌ Permissive PartialEq for Props
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">derive</span><span style="color:#c0c5ce;">(Props, Clone)]
+</span><span style="color:#b48ead;">struct </span><span style="color:#c0c5ce;">PermissivePartialEqProps {
+</span><span style="color:#c0c5ce;">    </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: String,
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#65737e;">// This will cause the component to **never** re-render when the parent component re-renders
+</span><span style="color:#b48ead;">impl </span><span style="color:#c0c5ce;">PartialEq </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">PermissivePartialEqProps {
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">eq</span><span style="color:#c0c5ce;">(&amp;</span><span style="color:#bf616a;">self</span><span style="color:#c0c5ce;">, _: &amp;</span><span style="color:#b48ead;">Self</span><span style="color:#c0c5ce;">) -&gt; </span><span style="color:#b48ead;">bool </span><span style="color:#c0c5ce;">{
+</span><span style="color:#c0c5ce;">        </span><span style="color:#d08770;">true
+</span><span style="color:#c0c5ce;">    }
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">PermissivePartialEq</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: PermissivePartialEqProps) -&gt; Element {
+</span><span style="color:#c0c5ce;">    rsx! {
+</span><span style="color:#c0c5ce;">        div {
+</span><span style="color:#c0c5ce;">            &quot;</span><span style="color:#a3be8c;">Hello {name.name}</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#c0c5ce;">        }
+</span><span style="color:#c0c5ce;">    }
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">component</span><span style="color:#c0c5ce;">]
+</span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">PermissivePartialEqParent</span><span style="color:#c0c5ce;">() -&gt; Element {
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> name = </span><span style="color:#96b5b4;">use_signal</span><span style="color:#c0c5ce;">(|| &quot;</span><span style="color:#a3be8c;">Alice</span><span style="color:#c0c5ce;">&quot;.</span><span style="color:#96b5b4;">to_string</span><span style="color:#c0c5ce;">());
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">    rsx! {
+</span><span style="color:#c0c5ce;">        PermissivePartialEq {
+</span><span style="color:#c0c5ce;">            </span><span style="color:#65737e;">// The PermissivePartialEq component will not get the updated value of name because the PartialEq implementation says that the props are the same
+</span><span style="color:#c0c5ce;">            name: </span><span style="color:#96b5b4;">name</span><span style="color:#c0c5ce;">()
+</span><span style="color:#c0c5ce;">        }
+</span><span style="color:#c0c5ce;">    }
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#65737e;">// ✅ Derive PartialEq for Props
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">derive</span><span style="color:#c0c5ce;">(Props, Clone, PartialEq)]
+</span><span style="color:#b48ead;">struct </span><span style="color:#c0c5ce;">DerivePartialEqProps {
+</span><span style="color:#c0c5ce;">    </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: String,
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">DerivePartialEq</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: DerivePartialEqProps) -&gt; Element {
+</span><span style="color:#c0c5ce;">    rsx! {
+</span><span style="color:#c0c5ce;">        div {
+</span><span style="color:#c0c5ce;">            &quot;</span><span style="color:#a3be8c;">Hello {name.name}</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#c0c5ce;">        }
+</span><span style="color:#c0c5ce;">    }
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">component</span><span style="color:#c0c5ce;">]
+</span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">DerivePartialEqParent</span><span style="color:#c0c5ce;">() -&gt; Element {
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> name = </span><span style="color:#96b5b4;">use_signal</span><span style="color:#c0c5ce;">(|| &quot;</span><span style="color:#a3be8c;">Alice</span><span style="color:#c0c5ce;">&quot;.</span><span style="color:#96b5b4;">to_string</span><span style="color:#c0c5ce;">());
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">    rsx! {
+</span><span style="color:#c0c5ce;">        DerivePartialEq {
+</span><span style="color:#c0c5ce;">            name: </span><span style="color:#96b5b4;">name</span><span style="color:#c0c5ce;">()
+</span><span style="color:#c0c5ce;">        }
+</span><span style="color:#c0c5ce;">    }
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#65737e;">// ✅ Return false from PartialEq if you are unsure if the props have changed
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">derive</span><span style="color:#c0c5ce;">(Debug)]
+</span><span style="color:#b48ead;">struct </span><span style="color:#c0c5ce;">NonPartialEq;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">derive</span><span style="color:#c0c5ce;">(Props, Clone)]
+</span><span style="color:#b48ead;">struct </span><span style="color:#c0c5ce;">RcPartialEqProps {
+</span><span style="color:#c0c5ce;">    </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: Rc&lt;NonPartialEq&gt;,
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#b48ead;">impl </span><span style="color:#c0c5ce;">PartialEq </span><span style="color:#b48ead;">for </span><span style="color:#c0c5ce;">RcPartialEqProps {
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">eq</span><span style="color:#c0c5ce;">(&amp;</span><span style="color:#bf616a;">self</span><span style="color:#c0c5ce;">, </span><span style="color:#bf616a;">other</span><span style="color:#c0c5ce;">: &amp;</span><span style="color:#b48ead;">Self</span><span style="color:#c0c5ce;">) -&gt; </span><span style="color:#b48ead;">bool </span><span style="color:#c0c5ce;">{
+</span><span style="color:#c0c5ce;">        </span><span style="color:#65737e;">// This will almost always return false because the Rc will likely point to a different value
+</span><span style="color:#c0c5ce;">        </span><span style="color:#65737e;">// Implementing PartialEq for NonPartialEq would be better, but if it is controlled by another library, it may not be possible
+</span><span style="color:#c0c5ce;">        </span><span style="color:#65737e;">// **Always** return false if you are unsure if the props have changed
+</span><span style="color:#c0c5ce;">        std::rc::Rc::ptr_eq(&amp;</span><span style="color:#bf616a;">self</span><span style="color:#c0c5ce;">.name, &amp;other.name)
+</span><span style="color:#c0c5ce;">    }
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">RcPartialEq</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: RcPartialEqProps) -&gt; Element {
+</span><span style="color:#c0c5ce;">    rsx! {
+</span><span style="color:#c0c5ce;">        div {
+</span><span style="color:#c0c5ce;">            &quot;</span><span style="color:#a3be8c;">Hello {name.name:?}</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#c0c5ce;">        }
+</span><span style="color:#c0c5ce;">    }
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">RcPartialEqParent</span><span style="color:#c0c5ce;">() -&gt; Element {
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> name = </span><span style="color:#96b5b4;">use_signal</span><span style="color:#c0c5ce;">(|| Rc::new(NonPartialEq));
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">    rsx! {
+</span><span style="color:#c0c5ce;">        RcPartialEq {
+</span><span style="color:#c0c5ce;">            </span><span style="color:#65737e;">// Generally, RcPartialEq will rerun even if the value of name hasn&#39;t actually changed because the Rc will point to a different value
+</span><span style="color:#c0c5ce;">            name: </span><span style="color:#96b5b4;">name</span><span style="color:#c0c5ce;">()
+</span><span style="color:#c0c5ce;">        }
+</span><span style="color:#c0c5ce;">    }
+</span><span style="color:#c0c5ce;">}
+</span></pre>
+</div><button style="position: absolute; top: 0; right: 0; background: rgba(0, 0, 0, 0.75); color: white; border: 1px solid white; padding: 0.25em;" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)">Copy</button></div><script data-node-hydration="309"></script></article></div></div></section><div class="overflow-y-auto hidden xl:block top-28 ml-12 h-full md:text-[14px] leading-5 text-navy dark:text-[#dee2e6] docs-right-sidebar w-48 sticky" data-node-hydration="310"><h2 class="pb-4 font-semibold">On this page</h2><ul><li class="pb-2 " data-node-hydration="311"><a class="hover:text-sky-500 dark:hover:text-sky-400" href="?phantom=unnecessarily-nested-fragments#unnecessarily-nested-fragments" data-node-hydration="312"><!--node-id313-->Unnecessarily Nested Fragments<!--#--></a></li><li class="pb-2 " data-node-hydration="314"><a class="hover:text-sky-500 dark:hover:text-sky-400" href="?phantom=incorrect-iterator-keys#incorrect-iterator-keys" data-node-hydration="315"><!--node-id316-->Incorrect Iterator Keys<!--#--></a></li><li class="pb-2 " data-node-hydration="317"><a class="hover:text-sky-500 dark:hover:text-sky-400" href="?phantom=avoid-interior-mutability-in-props#avoid-interior-mutability-in-props" data-node-hydration="318"><!--node-id319-->Avoid Interior Mutability in Props<!--#--></a></li><li class="pb-2 " data-node-hydration="320"><a class="hover:text-sky-500 dark:hover:text-sky-400" href="?phantom=avoid-updating-state-during-render#avoid-updating-state-during-render" data-node-hydration="321"><!--node-id322-->Avoid Updating State During Render<!--#--></a></li><li class="pb-2 " data-node-hydration="323"><a class="hover:text-sky-500 dark:hover:text-sky-400" href="?phantom=avoid-large-groups-of-state#avoid-large-groups-of-state" data-node-hydration="324"><!--node-id325-->Avoid Large Groups of State<!--#--></a></li><li class="pb-2 " data-node-hydration="326"><a class="hover:text-sky-500 dark:hover:text-sky-400" href="?phantom=running-non-deterministic-code-in-the-body-of-a-component#running-non-deterministic-code-in-the-body-of-a-component" data-node-hydration="327"><!--node-id328-->Running Non-Deterministic Code in the Body of a Component<!--#--></a></li><li class="pb-2 " data-node-hydration="329"><a class="hover:text-sky-500 dark:hover:text-sky-400" href="?phantom=overly-permissive-partialeq-for-props#overly-permissive-partialeq-for-props" data-node-hydration="330"><!--node-id331-->Overly Permissive PartialEq for Props<!--#--></a></li></ul><h2 class="py-4 font-semibold"><a href="https://github.com/DioxusLabs/docsite" data-node-hydration="332">Edit this page!</a></h2><h2 class="py-4 font-semibold">Go to version</h2><div class="pb-4" data-node-hydration="333"><ul class="pl-2"><li class="m-1 rounded-md pl-2"><span class="hover:text-sky-500 dark:hover:text-sky-400"><span class="material-icons material-icons-outlined material-icons-round material-icons-sharp material-icons-two-tone md-48" style="font-size: inherit; color: gray; user-select: none;" data-node-hydration="334"><!--node-id335-->chevron_left<!--#--></span>0.5</span></li><li class="m-1 rounded-md pl-2"><a href="/learn/0.4" class="hover:text-sky-500 dark:hover:text-sky-400"><span class="material-icons material-icons-outlined material-icons-round material-icons-sharp material-icons-two-tone md-48" style="font-size: inherit; color: gray; user-select: none;" data-node-hydration="336"><!--node-id337-->chevron_left<!--#--></span>0.4</a></li><li class="m-1 rounded-md pl-2"><a href="/learn/0.3" class="hover:text-sky-500 dark:hover:text-sky-400"><span class="material-icons material-icons-outlined material-icons-round material-icons-sharp material-icons-two-tone md-48" style="font-size: inherit; color: gray; user-select: none;" data-node-hydration="338"><!--node-id339-->chevron_left<!--#--></span>0.3</a></li></ul></div></div></div></div></div><footer class="sticky z-30 text-gray-400 bg-ghmetal body-font " data-node-hydration="340"><div class="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col"><div class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left"><a class="flex title-font font-medium items-center md:justify-start justify-center text-white" href="https://github.com/DioxusLabs/dioxus"><img src="https://avatars.githubusercontent.com/u/79236386?s=200&v=4" class="h-8 w-auto" alt="Dioxus Labs Icon"/><span class="ml-3 text-xl">Dioxus Labs</span></a><p class="mt-2 text-sm text-gray-500">An Open Source project dedicated to making Rust UI wonderful.</p></div><div class="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center"><div class="lg:w-1/4 md:w-1/2 w-full px-4" data-node-hydration="341"><h2 class="title-font font-medium text-white tracking-widest text-sm mb-3"><!--node-id342-->Community<!--#--></h2><nav class="list-none mb-10"><ul><li data-node-hydration="343"><a class="text-gray-400 hover:text-white" href="https://github.com/dioxuslabs" data-node-hydration="344"><!--node-id345-->Github<!--#--></a></li><li data-node-hydration="346"><a class="text-gray-400 hover:text-white" href="https://twitter.com/dioxuslabs" data-node-hydration="347"><!--node-id348-->Twitter<!--#--></a></li><li data-node-hydration="349"><a class="text-gray-400 hover:text-white" href="https://discord.gg/XgGxMSkvUM" data-node-hydration="350"><!--node-id351-->Discord<!--#--></a></li></ul></nav></div><div class="lg:w-1/4 md:w-1/2 w-full px-4" data-node-hydration="352"><h2 class="title-font font-medium text-white tracking-widest text-sm mb-3"><!--node-id353-->Learning<!--#--></h2><nav class="list-none mb-10"><ul><li data-node-hydration="354"><a class="text-gray-400 hover:text-white" href="https://docs.rs/dioxus" data-node-hydration="355"><!--node-id356-->docs.rs<!--#--></a></li><li data-node-hydration="357"><a class="text-gray-400 hover:text-white" href="/learn/0.5/guide" data-node-hydration="358"><!--node-id359-->Guide<!--#--></a></li><li data-node-hydration="360"><a class="text-gray-400 hover:text-white" href="/awesome" data-node-hydration="361"><!--node-id362-->Awesome<!--#--></a></li></ul></nav></div><div class="lg:w-1/4 md:w-1/2 w-full px-4" data-node-hydration="363"><h2 class="title-font font-medium text-white tracking-widest text-sm mb-3"><!--node-id364-->Projects<!--#--></h2><nav class="list-none mb-10"><ul><li data-node-hydration="365"><a class="text-gray-400 hover:text-white" href="https://github.com/DioxusLabs/dioxus" data-node-hydration="366"><!--node-id367-->Dioxus<!--#--></a></li><li data-node-hydration="368"><a class="text-gray-400 hover:text-white" href="https://github.com/DioxusLabs/dioxus/tree/main/packages/cli" data-node-hydration="369"><!--node-id370-->CLI<!--#--></a></li><li data-node-hydration="371"><a class="text-gray-400 hover:text-white" href="https://github.com/DioxusLabs/taffy" data-node-hydration="372"><!--node-id373-->Taffy<!--#--></a></li></ul></nav></div></div></div><div class="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row"><p class="text-gray-400 text-sm text-center sm:text-left">© 2024 Dioxus Labs —<a class="text-gray-500 ml-1" rel="noopener noreferrer" href="https://twitter.com/dioxuslabs" target="_blank">@dioxuslabs</a></p></div></footer></div>
     <!-- Note the usage of `type=module` here as this is an ES6 module -->
     <script type="module">
       import init from "/./assets/dioxus/docsite.js";
