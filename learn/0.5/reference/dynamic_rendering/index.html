@@ -96,7 +96,7 @@
 </span><span style="color:#c0c5ce;">    }
 </span><span style="color:#c0c5ce;">    button {
 </span><span style="color:#c0c5ce;">        </span><span style="color:#65737e;">// depending on the value of `is_logged_in`, we will call a different event handler
-</span><span style="color:#c0c5ce;">        onclick: </span><span style="color:#b48ead;">move </span><span style="color:#c0c5ce;">|_| </span><span style="color:#b48ead;">if</span><span style="color:#c0c5ce;"> is_logged_in { log_in.</span><span style="color:#96b5b4;">call</span><span style="color:#c0c5ce;">(()) } </span><span style="color:#b48ead;">else </span><span style="color:#c0c5ce;">{ log_out.</span><span style="color:#96b5b4;">call</span><span style="color:#c0c5ce;">(()) },
+</span><span style="color:#c0c5ce;">        onclick: </span><span style="color:#b48ead;">move </span><span style="color:#c0c5ce;">|_| </span><span style="color:#b48ead;">if</span><span style="color:#c0c5ce;"> is_logged_in { log_out.</span><span style="color:#96b5b4;">call</span><span style="color:#c0c5ce;">(()) } </span><span style="color:#b48ead;">else </span><span style="color:#c0c5ce;">{ log_in.</span><span style="color:#96b5b4;">call</span><span style="color:#c0c5ce;">(()) },
 </span><span style="color:#c0c5ce;">        </span><span style="color:#b48ead;">if</span><span style="color:#c0c5ce;"> is_logged_in {
 </span><span style="color:#c0c5ce;">            </span><span style="color:#65737e;">// if we are logged in, the button should say &quot;Log Out&quot;
 </span><span style="color:#c0c5ce;">            &quot;</span><span style="color:#a3be8c;">Log Out</span><span style="color:#c0c5ce;">&quot;
