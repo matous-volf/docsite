@@ -130,7 +130,7 @@
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">#[</span><span style="color:#bf616a;">component</span><span style="color:#c0c5ce;">]
 </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">StoryListing</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">story</span><span style="color:#c0c5ce;">: ReadOnlySignal&lt;StoryItem&gt;) -&gt; Element {
-</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let mut</span><span style="color:#c0c5ce;"> preview_state = consume_context::&lt;Signal&lt;PreviewState&gt;&gt;();
+</span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> preview_state = consume_context::&lt;Signal&lt;PreviewState&gt;&gt;();
 </span><span style="color:#c0c5ce;">    </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> StoryItem {
 </span><span style="color:#c0c5ce;">        title,
 </span><span style="color:#c0c5ce;">        url,
